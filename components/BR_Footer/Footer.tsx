@@ -49,17 +49,17 @@ const Footer = () => {
                         <>
                            <Image
                               src={footerData.logoURL}
-                              alt="SBP Short Logo"
-                              width={10}
-                              height={4}
+                              alt="Harvestt Short Logo"
+                              width={100}
+                              height={40}
                            />
                         </>
                      )}
                      {footerData && <PortableText value={footerData.about} />}
                      {/* CTA */}
-                     <div className={styles.footerCTA}>
+                     {/* <div className={styles.footerCTA}>
                         <a href="mailto:info@sustainablebtc.org">info@sustainablebtc.org</a>
-                     </div>
+                     </div> */}
                       {/* Social */}
                       <div className={styles.footerSocialMedia}>
                         {footerData &&
@@ -92,7 +92,7 @@ const Footer = () => {
                   </div>
 
                   {/* Navigation Links */}
-                  <ul>
+                  {/* <ul>
                      {navbarData &&
                         navbarData.primaryNavigation.map(
                            (item: any, i: number) => {
@@ -123,10 +123,10 @@ const Footer = () => {
                               );
                            }
                         )}
-                  </ul>
+                  </ul> */}
 
                   {/* Dropdown Links */}
-                  <ul>
+                  {/* <ul>
                      {navbarData &&
                         navbarData.primaryNavigation.map(
                            (item: any, i: number) => {
@@ -214,12 +214,12 @@ const Footer = () => {
                               );
                            }
                         )}
-                  </ul>
+                  </ul> */}
 
                   {/* Footer Links */}
                   <ul>
                      {footerData &&
-                        footerData.footerLinks.map((item: any, i: number) => {
+                        footerData.footerLinks.slice(1).map((item: any, i: number) => {
                            return (
                               <>
                                  <li key={i}>
