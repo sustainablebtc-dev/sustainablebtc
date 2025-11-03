@@ -81,7 +81,7 @@ const HomeAbout = ({ aboutData }: { aboutData: any }) => {
                   </div>
                   <div></div>
                   <div className={styles.aboutCTA}>
-                     {aboutData.aboutCTA.map((cta: any, i: number) => (
+                     {aboutData.aboutCTA && aboutData.aboutCTA.map((cta: any, i: number) => (
                         <Link
                            key={i}
                            href={cta.btnOptions.btnSlug}

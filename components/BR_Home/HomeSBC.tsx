@@ -156,7 +156,7 @@ export default function HomeSBC({ sbcData }: { sbcData: any }) {
                <div className={styles.sbcIcon}>
                   <Image src={imgSbcIcon} alt="SBC Icon" />
                </div>
-               <h1 className="heading heading-2">The SBC</h1>
+               <h1 className="heading heading-2">The BitREC</h1>
             </div>
 
             {/* Line */}

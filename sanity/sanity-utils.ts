@@ -310,4 +310,22 @@ export async function getLearningCentrePageData() {
 }
 
 
+// BitREC
+export async function getBrHomePageData() {
+   return client.fetch(
+      groq`*[_type=="brHomePage"][0]{
+         _id,
+         hero,
+         sbc,
+         about,
+         testimonials,
+         trust,
+         faq,
+      }`,
+      {
+         next: { revalidate: 10 },
+      }
+   );
+}
+
 // #endregion

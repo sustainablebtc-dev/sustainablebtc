@@ -14,12 +14,14 @@ import {
    getHomePageData,
    getMinerPageData,
    getFaqPageData,
+   getBrHomePageData
 } from "@/sanity/sanity-utils";
 
 export default async function HomePage() {
    // Get Data
    const [homePageData, minerPageData, faqPageData] = await Promise.all([
-      getHomePageData(),
+      // getHomePageData(),
+      getBrHomePageData(),
       getMinerPageData(),
       getFaqPageData(),
    ]);

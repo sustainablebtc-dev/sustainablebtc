@@ -18,7 +18,8 @@ const singletonTypes = new Set([
    "contactPage",
    "faqPage",
    "investPage",
-   "learningCentrePage"
+   "learningCentrePage",
+   "brHomePage"
 ]);
 
 const config = defineConfig({
@@ -34,6 +35,16 @@ const config = defineConfig({
             S.list()
                .title("Website Content")
                .items([
+                  // BitREC
+                  S.listItem()
+                     .title("BitREC / Home")
+                     .id("brHomePage")
+                     .child(
+                        S.document()
+                           .schemaType("brHomePage")
+                           .documentId("brHomePage")
+                     ),
+
                   // Our singleton type has a list item with a custom child
                   S.listItem()
                      .title("Page / Home")

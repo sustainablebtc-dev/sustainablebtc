@@ -21,7 +21,7 @@ const HomeFaq = ({ faqData, faqsData }: { faqData: any; faqsData: any }) => {
                      </div>
                   </div>
                   <div className={styles.faqCTA}>
-                     {faqData.faqCTA.map((cta: any, i: number) => (
+                     {faqData.faqCTA && faqData.faqCTA.map((cta: any, i: number) => (
                         <>
                            {cta.btnOptions.btnVisible && (
                               <Link

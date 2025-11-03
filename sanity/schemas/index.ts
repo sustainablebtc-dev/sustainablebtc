@@ -17,6 +17,9 @@ import blogCategories from "../components/blogCategories-schema";
 import investPage from "./investPage-schema";
 import learningCentrePage from "./learningCentrePage-schema";
 
+// bitrect
+import brHomePage from "./br-homePage-schema";
+
 const schemas = [
    navbar,
    footer,
@@ -34,7 +37,8 @@ const schemas = [
    faqPage,
    blogCategories,
    investPage,
-   learningCentrePage
+   learningCentrePage,
+   brHomePage
 ];
 
 export default schemas;

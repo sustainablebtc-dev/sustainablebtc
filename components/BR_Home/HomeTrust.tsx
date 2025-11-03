@@ -70,7 +70,7 @@ const HomeTrust = ({ trustData }: { trustData: any }) => {
                      <PortableText value={trustData.trustDescription} />
                   </div>
                   <div className={styles.trustCTA}>
-                     {trustData.trustCTA.map((cta: any, i: number) => (
+                     {trustData.trustCTA && trustData.trustCTA.map((cta: any, i: number) => (
                         <>
                            {cta.btnOptions.btnVisible && (
                               <Link
