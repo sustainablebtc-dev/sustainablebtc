@@ -186,6 +186,47 @@
    }
 }
 
+.brandChange  {
+   @apply p-1 text-sm -mb-1;
+   background: $gradient-primary-transparent;
+   backdrop-filter: blur(10px);
+   @apply transition-all duration-300 ease-in;
+   
+   div{
+      @apply flex gap-1 items-center;
+   }
+   span{
+      @apply inline-block tracking-wide;
+      
+      &.bitrec{
+         @apply font-black text-base;
+      }
+   }
+   
+   &:not(.fixToTop) {
+      span.bitrec{
+         @include gradient-text;
+      }
+   }
+   
+   &.fixToTop {
+      background: $gradient-primary;
+      @apply fixed top-0 z-[100];
+   }
+
+   &.marquee {
+      @apply overflow-hidden whitespace-nowrap w-full;
+
+      & .marqueeContent{
+         animation: marquee 20s linear infinite;
+      }
+   }
+   @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+   }
+}
+
 .header {
    @apply absolute z-50 w-full;
    @apply bg-transparent text-base;
@@ -200,7 +241,7 @@
    }
 
    &.fixToTop {
-      @apply fixed top-0;
+      @apply fixed top-9;
 
       .primaryNav {
          @apply gap-8;

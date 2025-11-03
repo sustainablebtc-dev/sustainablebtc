@@ -1,19 +1,19 @@
 import { Metadata } from "next";
 
 // Import
-import HomePage from "@/components/HomeNew/HomePage";
+import HomePage from "@/components/BR_Home/HomePage";
 
 export const metadata: Metadata = {
-   title: "Sustainable Bitcoin Protocol | Accelerating the Clean Energy Transition: Powered by Bitcoin",
+   title: "BitREC | Accelerating the Clean Energy Transition: Powered by Bitcoin",
    description:
-      "Discover how Sustainable Bitcoin Protocol (SBP) aligns Bitcoin mining with renewable energy to drive financial returns and climate impact. Learn about Sustainable Bitcoin Certificates (SBCs), a climate-positive asset and the groundbreaking solution for clean energy Bitcoin investments, methane mitigation, and environmental transparency. Explore how institutional investors can accelerate renewable energy adoption, decarbonize digital assets, and create a new class of appreciating environmental commodities.",
+      "Discover how BitREC aligns Bitcoin mining with renewable energy to drive financial returns and climate impact. Learn about BitRECs, a climate-positive asset and the groundbreaking solution for clean energy Bitcoin investments, methane mitigation, and environmental transparency. Explore how institutional investors can accelerate renewable energy adoption, decarbonize digital assets, and create a new class of appreciating environmental commodities.",
    keywords: [
-      "Sustainable Bitcoin Protocol",
+      "BitREC",
       "Bitcoin mining",
       "renewable energy",
       "financial returns",
       "climate impact",
-      "Sustainable Bitcoin Certificates",
+      "BitRECs",
       "clean energy Bitcoin investments",
       "methane mitigation",
       "environmental transparency",

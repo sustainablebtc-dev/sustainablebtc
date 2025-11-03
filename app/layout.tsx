@@ -7,8 +7,8 @@ import Script from "next/script";
 import type { Metadata } from "next";
 
 // Custom Components
-import Header from "@/components/HeaderFooter/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/BR_Header/Header";
+import Footer from "@/components/BR_Footer/Footer";
 import Breadcrum from "@/components/Breadcrum";
 import ProgressBar from "@/components/ProgressBar";
 
@@ -17,7 +17,6 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/free-mode";
-import Head from "next/head";
 
 // Defining Fonts
 const helveticaNowDisplay = localFont({

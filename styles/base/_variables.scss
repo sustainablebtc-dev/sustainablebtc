@@ -1,6 +1,8 @@
 // Colors
 // =========================
 $gradient-primary: linear-gradient(40deg, #339dff 0%, #0ec1d3 100%);
+$gradient-primary-transparent: linear-gradient(40deg, rgba(51, 157, 255, 0.3) 0%, rgba(14, 193, 211, 0.3) 100%);
+
 $color-white: (
    default: #ffffff,
 );
