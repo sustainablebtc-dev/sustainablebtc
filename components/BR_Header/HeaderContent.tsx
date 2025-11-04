@@ -367,15 +367,6 @@ const HeaderContent = ({
             </div>
          </aside>
 
-         {/* Brand change notification */}
-         <div className={`${styles.marquee} ${styles.brandChange} ${clientWindowHeight > 98 / 2 ? styles.fixToTop : ""}`}>
-            <div className={styles.marqueeContent}>
-               <span className={`${styles.sbp}`}>Sustainable Bitcoin Protocol</span>
-               <span>is now</span>
-               <span className={`${styles.bitrec}`}>BitREC</span>
-            </div>
-         </div>
-
          {/* Main Navigation */}
          <header
             className={`${styles.header} ${clientWindowHeight > 98 / 2 ? styles.fixToTop : ""
@@ -387,7 +378,43 @@ const HeaderContent = ({
                   <Link href="/">
                      <Image src={logo} alt="Logo" />
                   </Link>
+                  {/* Brand change notification */}
+                  <div className={`${styles.brandChange}`}>
+                     <div className={`${styles.marquee}`}>
+                        <div className={styles.marqueeContent}>
+                           <span className={`${styles.sbp}`}>Sustainable Bitcoin Protocol</span>
+                           <span>is now</span>
+                           <span className={`${styles.bitrec}`}>BitREC</span>
+                        </div>
+                        <div className={styles.marqueeContent}>
+                           <span className={`${styles.sbp}`}>Sustainable Bitcoin Protocol</span>
+                           <span>is now</span>
+                           <span className={`${styles.bitrec}`}>BitREC</span>
+                        </div>
+                        <div className={styles.marqueeContent}>
+                           <span className={`${styles.sbp}`}>Sustainable Bitcoin Protocol</span>
+                           <span>is now</span>
+                           <span className={`${styles.bitrec}`}>BitREC</span>
+                        </div>
+                        <div className={styles.marqueeContent}>
+                           <span className={`${styles.sbp}`}>Sustainable Bitcoin Protocol</span>
+                           <span>is now</span>
+                           <span className={`${styles.bitrec}`}>BitREC</span>
+                        </div>
+                        <div className={styles.marqueeContent}>
+                           <span className={`${styles.sbp}`}>Sustainable Bitcoin Protocol</span>
+                           <span>is now</span>
+                           <span className={`${styles.bitrec}`}>BitREC</span>
+                        </div>
+                        <div className={styles.marqueeContent}>
+                           <span className={`${styles.sbp}`}>Sustainable Bitcoin Protocol</span>
+                           <span>is now</span>
+                           <span className={`${styles.bitrec}`}>BitREC</span>
+                        </div>
+                     </div>
+                  </div>
                </div>
+
             </div>
          </header>
       </>

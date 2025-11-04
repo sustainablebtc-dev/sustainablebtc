@@ -187,44 +187,41 @@
 }
 
 .brandChange  {
-   @apply p-1 text-sm -mb-[2px];
-   background: $gradient-primary-transparent;
-   backdrop-filter: blur(10px);
-   @apply transition-all duration-300 ease-in;
-   
-   div{
-      @apply flex gap-1 items-center;
-   }
-   span{
-      @apply inline-block tracking-wide;
+  @apply text-sm flex items-center flex-1 max-w-[70%] md:max-w-[80%] ml-auto;
+  overflow: hidden;
+  position: relative;
+   mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+   -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+
+
+  .marquee {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 10s linear infinite;
+    padding: 0 1rem;
+    
+    &Content {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-right: 2rem;
+      white-space: nowrap;
       
-      &.bitrec{
-         @apply font-black text-base;
+      span {
+        display: inline-block;
+        
+        &.bitrec {
+          @apply font-black;
+          @include gradient-text;
+        }
       }
-   }
-   
-   &:not(.fixToTop) {
-      span.bitrec{
-         @include gradient-text;
-      }
-   }
-   
-   &.fixToTop {
-      background: $gradient-primary;
-      @apply fixed top-0 z-[100];
-   }
+    }
+  }
 
-   &.marquee {
-      @apply overflow-hidden whitespace-nowrap w-full;
-
-      & .marqueeContent{
-         animation: marquee 20s linear infinite;
-      }
-   }
-   @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-   }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 }
 
 .header {
@@ -241,7 +238,7 @@
    }
 
    &.fixToTop {
-      @apply fixed top-9;
+      @apply fixed top-0;
 
       .primaryNav {
          @apply gap-8;
@@ -256,7 +253,7 @@
    }
 
    .logoWraooer {
-      @apply flex flex-1 items-center justify-between gap-8;
+      @apply flex items-center justify-between gap-8 w-full;
 
       img {
          @apply h-10 w-auto;
