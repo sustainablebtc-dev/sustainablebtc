@@ -21,6 +21,32 @@ const nextConfig = {
          },
       ];
    },
+
+   // Webpack configuration to handle Qdrant and undici packages
+   webpack: (config, { isServer }) => {
+      if (!isServer) {
+         // Exclude Node.js modules from client bundle
+         config.resolve.fallback = {
+            ...config.resolve.fallback,
+            fs: false,
+            net: false,
+            tls: false,
+         };
+      }
+
+      // Exclude undici from webpack processing (it uses private class fields)
+      config.externals = config.externals || [];
+      config.externals.push({
+         'undici': 'commonjs undici',
+      });
+
+      return config;
+   },
+
+   // Server Components configuration
+   experimental: {
+      serverComponentsExternalPackages: ['@qdrant/js-client-rest', 'undici'],
+   },
 }
 
 module.exports = nextConfig
