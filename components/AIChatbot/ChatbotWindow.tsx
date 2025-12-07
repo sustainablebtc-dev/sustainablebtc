@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
+import ModalWhitepaperEmail from '@/components/Modals/ModalWhitepaperEmail';
 
 interface Message {
    id: string;
@@ -25,6 +27,7 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
       const allSuggestions = chatbotData?.chatbotFloatingSuggestions?.map((item: any) => item.question).filter((question: string) => question.split(' ').length <= 8) || [];
       return allSuggestions.sort(() => Math.random() - 0.5).slice(0, 3);
    });
+   const [isWhitepaperModalOpen, setIsWhitepaperModalOpen] = useState(false);
 
    // Initialize messages if null (first time)
    useEffect(() => {
@@ -427,36 +430,56 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
          {/* Helpful Resources - shown after conversation starts */}
          {messages && messages.length > 3 && (
             <div className="px-5 pb-3 border-t border-[#e9ebef] pt-3">
-               <button
-                  onClick={() => setShowResources(!showResources)}
-                  className="text-[#717182] text-[13px] flex items-center gap-1.5 font-medium w-full transition-colors"
-               >
-                  <span className="">
-                     <i className="bi bi-file-earmark-text"></i>
-                  </span>
-                  <span className="flex-1 text-left">Helpful resources:</span>
-                  <i className={`bi bi-chevron-down hover:text-[#2ca5f6] transition-transform duration-300 ${showResources ? '' : '-rotate-180'}`}></i>
-               </button>
+                  <button
+                     onClick={() => setShowResources(!showResources)}
+                     className="text-[#717182] text-[13px] flex items-center gap-1.5 font-medium w-full transition-colors"
+                  >
+                     <span className="">
+                        <i className="bi bi-file-earmark-text"></i>
+                     </span>
+                     <span className="flex-1 text-left">Helpful Resources</span>
+                     <span className={`transition-transform duration-300 hover:text-[#2ca5f6] ${showResources ? 'rotate-180' : ''}`}>
+                        <i className="bi bi-chevron-up"></i>
+                     </span>
+                  </button>
                <div 
                   className={`space-y-1.5 overflow-hidden transition-all duration-300 ${
                      showResources ? 'max-h-[100px] opacity-100 mt-2' : 'max-h-0 opacity-0'
                   }`}
                >
-                  <a
-                     href="#"
-                     className="text-[13px] text-[#2ca5f6] hover:text-[#0EC1D3] transition-colors block font-medium"
+                  <button
+                     onClick={() => setIsWhitepaperModalOpen(true)}
+                     className="text-[13px] text-[#2ca5f6] hover:text-[#0EC1D3] transition-colors block font-medium cursor-pointer text-left"
                   >
                      → Download SBC Whitepaper
-                  </a>
+                  </button>
                   <a
-                     href="#"
+                     href="https://calendly.com/bradford_vanvoorhees"
+                     target="_blank"
                      className="text-[13px] text-[#2ca5f6] hover:text-[#0EC1D3] transition-colors block font-medium"
                   >
-                     → View Investment Guide
+                     → Schedule a Call
                   </a>
+                    <Link
+                      href="/contact-us"
+                      onClick={(e) => {
+                        setTimeout(() => {
+                          onClose?.();
+                        }, 100);
+                      }}
+                      className="text-[13px] text-[#2ca5f6] hover:text-[#0EC1D3] transition-colors block font-medium"
+                    >
+                      → Contact Team
+                    </Link>
                </div>
             </div>
          )}
+
+         {/* Whitepaper Modal */}
+         <ModalWhitepaperEmail
+            modalIsOpen={isWhitepaperModalOpen}
+            setModalIsOpen={setIsWhitepaperModalOpen}
+         />
 
          {/* Input */}
          <div className="border-t-2 border-[#e9ebef] px-5 py-4 bg-[#fafafa]">
