@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import ModalWhitepaperEmail from '@/components/Modals/ModalWhitepaperEmail';
 
 interface Message {
@@ -23,11 +24,13 @@ interface ChatbotProps {
 }
 
 export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, setMessages, scrollPosition, setScrollPosition, isChatOpen }: ChatbotProps) {
+   const pathname = usePathname();
    const [quickActions] = useState(() => {
-      const allSuggestions = chatbotData?.chatbotFloatingSuggestions?.map((item: any) => item.question).filter((question: string) => question.split(' ').length <= 8) || [];
+      const allSuggestions = chatbotData?.chatbotFloatingSuggestions?.map((item: any) => item.question).filter((question: string) => question.split(' ').length <= 6) || [];
       return allSuggestions.sort(() => Math.random() - 0.5).slice(0, 3);
    });
    const [isWhitepaperModalOpen, setIsWhitepaperModalOpen] = useState(false);
+   const [loadingLink, setLoadingLink] = useState<string | null>(null);
 
    // Initialize messages if null (first time)
    useEffect(() => {
@@ -61,6 +64,11 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
          setInputValue(initialMessage);
       }
    }, [initialMessage]);
+
+   // Reset loading link when pathname changes (navigation complete)
+   useEffect(() => {
+      setLoadingLink(null);
+   }, [pathname]);
 
    // Restore scroll position only on initial mount
    const hasRestoredScroll = useRef(false);
@@ -129,6 +137,7 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
                text: data.reply,
                sender: 'bot',
                timestamp: new Date(),
+               links: data.links || undefined, // Include links from API response
             };
             setMessages((prev) => [...(prev || []), botResponse]);
          } else {
@@ -331,18 +340,57 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
                      {/* Links */}
                      {message.links && message.links.length > 0 && (
                         <div className="mt-2.5 space-y-1.5">
-                           {message.links.map((link, idx) => (
-                              <a
-                                 key={idx}
-                                 href={link.url}
-                                 className="flex items-center gap-1.5 text-[14px] text-[#2ca5f6] hover:text-[#0EC1D3] transition-colors font-medium"
-                              >
-                                 <span className="">
-                                    <i className="bi bi-box-arrow-up-right"></i>
-                                 </span>
-                                 {link.text}
-                              </a>
-                           ))}
+                           {message.links.map((link, idx) => {
+                              // Check if link is external (starts with http:// or https://)
+                              const isExternal = /^https?:\/\//i.test(link.url);
+                              
+                              if (isExternal) {
+                                 // Use <a> tag for external links
+                                 return (
+                                    <a
+                                       key={idx}
+                                       href={link.url}
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       className="flex items-center gap-1.5 text-[14px] text-[#2ca5f6] hover:text-[#0EC1D3] transition-colors font-medium"
+                                    >
+                                       <span className="">
+                                          <i className="bi bi-box-arrow-up-right"></i>
+                                       </span>
+                                       {link.text}
+                                    </a>
+                                 );
+                              } else {
+                                 // Use <Link> for internal navigation - show spinner while loading
+                                 const isLoading = loadingLink === link.url;
+                                 
+                                 return (
+                                    <Link
+                                       key={idx}
+                                       href={link.url}
+                                       onClick={() => {
+                                          // Don't show loading if clicking same page
+                                          if (link.url === pathname) {
+                                             return;
+                                          }
+                                          setLoadingLink(link.url);
+                                          // Fallback: reset after 2 seconds if navigation doesn't complete
+                                          setTimeout(() => setLoadingLink(null), 2000);
+                                       }}
+                                       className="flex items-center gap-1.5 text-[14px] text-[#2ca5f6] hover:text-[#0EC1D3] transition-colors font-medium"
+                                    >
+                                       <span className="inline-block">
+                                          {isLoading ? (
+                                             <i className="bi bi-arrow-repeat animate-spin inline-block"></i>
+                                          ) : (
+                                             <i className="bi bi-arrow-right"></i>
+                                          )}
+                                       </span>
+                                       {link.text}
+                                    </Link>
+                                 );
+                              }
+                           })}
                         </div>
                      )}
 
