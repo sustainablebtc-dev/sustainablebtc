@@ -100,7 +100,7 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
          timestamp: new Date(),
       };
 
-      setMessages((prev) => [...prev, newMessage]);
+      setMessages((prev) => [...(prev || []), newMessage]);
       setInputValue('');
       setIsTyping(true);
 
@@ -123,7 +123,7 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
                sender: 'bot',
                timestamp: new Date(),
             };
-            setMessages((prev) => [...prev, botResponse]);
+            setMessages((prev) => [...(prev || []), botResponse]);
          } else {
             throw new Error('Failed to get response');
          }
@@ -135,7 +135,7 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
             sender: 'bot',
             timestamp: new Date(),
          };
-         setMessages((prev) => [...prev, errorResponse]);
+         setMessages((prev) => [...(prev || []), errorResponse]);
       } finally {
          setIsTyping(false);
       }
