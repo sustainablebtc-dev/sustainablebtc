@@ -19,6 +19,10 @@ import { qdrant } from "../../../ai/chatbot/lib/qdrant";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
+// Force this route to use Node.js runtime and disable static optimization
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 // #region API Handler
 export async function POST(req: Request) {
    // Parse and validate request
