@@ -396,7 +396,7 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
 
                      {/* Buttons */}
                      {message.buttons && message.buttons.length > 0 && (
-                        <div className="mt-2.5 space-y-1.5">
+                        <div className="mt-2.5 flex flex-wrap gap-1.5">
                            {message.buttons.map((button, idx) => (
                               <button
                                  key={idx}
