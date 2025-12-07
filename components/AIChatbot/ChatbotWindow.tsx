@@ -52,6 +52,7 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
    const [showResources, setShowResources] = useState(true);
    const messagesEndRef = useRef<HTMLDivElement>(null);
    const messagesContainerRef = useRef<HTMLDivElement>(null);
+   const lastMessageRef = useRef<HTMLDivElement>(null);
    const previousMessagesLength = useRef(messages?.length || 0);
 
    // Set initial message if provided
@@ -61,10 +62,12 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
       }
    }, [initialMessage]);
 
-   // Restore scroll position when component mounts
+   // Restore scroll position only on initial mount
+   const hasRestoredScroll = useRef(false);
    useEffect(() => {
-      if (messagesContainerRef.current && scrollPosition > 0) {
+      if (messagesContainerRef.current && scrollPosition > 0 && !hasRestoredScroll.current) {
          messagesContainerRef.current.scrollTop = scrollPosition;
+         hasRestoredScroll.current = true;
       }
    }, [scrollPosition]);
 
@@ -84,10 +87,11 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
    };
 
-   // Only scroll to bottom when new messages are added, not on mount
+   // Scroll to the start of new message when added
    useEffect(() => {
       if (messages && messages.length > previousMessagesLength.current) {
-         scrollToBottom();
+         // Scroll to the start of the last message, keeping it at the top of viewport
+         lastMessageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
          previousMessagesLength.current = messages.length;
       }
    }, [messages]);
@@ -281,9 +285,10 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
             onScroll={handleScroll}
             className="flex-1 overflow-y-auto px-5 py-4 space-y-3.5 relative"
          >
-            {messages?.map((message) => (
+            {messages?.map((message, index) => (
                <div
                   key={message.id}
+                  ref={index === messages.length - 1 ? lastMessageRef : null}
                   className={`flex gap-2.5 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                >
                   {/* Avatar - only for bot messages */}
