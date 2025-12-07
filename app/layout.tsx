@@ -11,6 +11,7 @@ import Header from "@/components/HeaderFooter/Header";
 import Footer from "@/components/Footer";
 import Breadcrum from "@/components/Breadcrum";
 import ProgressBar from "@/components/ProgressBar";
+import Chatbot from "../components/AIChatbot/Chatbot";
 
 // Importing icons
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -102,6 +103,8 @@ export default function RootLayout({
                <main>{children}</main>
                {/* Footer */}
                <Footer />
+               {/* Chatbot Functionality */}
+               <Chatbot />
 
                {/* Google Analytics */}
                <Script
