@@ -72,9 +72,9 @@ export async function POST(req: Request) {
          const preview = h.payload?.preview || "";
          const source = h.payload?.source || "unknown";
          const url = h.payload?.url || source;
-         const title = h.payload?.title || "";
-         const section = h.payload?.section || "";
-         const heading = h.payload?.heading || "";
+         const title = String(h.payload?.title || "");
+         const section = String(h.payload?.section || "");
+         const heading = String(h.payload?.heading || "");
          const relevance = (h.score * 100).toFixed(1);
 
          // Structured format: includes source metadata + content

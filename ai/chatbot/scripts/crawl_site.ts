@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
-import puppeteer from "puppeteer";
+import puppeteer, { Browser } from "puppeteer";
 import fs from "fs";
 
 const START = "https://www.sustainablebtc.org";
@@ -65,7 +65,7 @@ function isValidUrl(url: string): boolean {
    }
 }
 
-async function crawlPage(browser: puppeteer.Browser, url: string) {
+async function crawlPage(browser: Browser, url: string) {
    if (visited.has(url)) return;
    visited.add(url);
    results.push(url);

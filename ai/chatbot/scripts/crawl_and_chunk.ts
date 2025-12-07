@@ -22,9 +22,11 @@ import puppeteer from "puppeteer";
 import { smartChunkText, chunkText } from "../lib/chunker.js";
 
 // Document processing libraries
-import * as pdfParse from "pdf-parse";
 import mammoth from "mammoth";
 import JSZip from "jszip";
+
+// Dynamic import for pdf-parse to handle CommonJS module
+const pdfParse = require("pdf-parse");
 
 const pages: string[] = JSON.parse(
    fs.readFileSync("./ai/chatbot/data/all_pages.json", "utf-8")
