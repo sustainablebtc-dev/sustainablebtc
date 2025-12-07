@@ -311,3 +311,21 @@ export async function getLearningCentrePageData() {
 
 
 // #endregion
+
+// ! ===============================================================
+// ! FETCH AI CHATBOT DATA
+// ! ===============================================================
+// #region AI chatbot data fetch
+export async function getChatbotData() {
+   return client.fetch(
+      groq`*[_type=="chatBot"][0]{
+         _id,
+         _createdAt,
+         chatbotFloatingSuggestions
+      }`,
+      {
+         next: { revalidate: 10 },
+      }
+   );
+}
+// #endregion

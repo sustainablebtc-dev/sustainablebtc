@@ -18,7 +18,8 @@ const singletonTypes = new Set([
    "contactPage",
    "faqPage",
    "investPage",
-   "learningCentrePage"
+   "learningCentrePage",
+   "chatBot",
 ]);
 
 const config = defineConfig({
@@ -138,6 +139,16 @@ const config = defineConfig({
                   S.documentTypeListItem("miscellaneousPage").title(
                      "Miscellaneous Pages"
                   ),
+
+                  // Chat Bot
+                  S.listItem()
+                     .title("AI / Chat Bot")
+                     .id("chatBot")
+                     .child(
+                        S.document()
+                           .schemaType("chatBot")
+                           .documentId("chatBot")
+                     ),
 
                   // Header & Footer
                   S.listItem()

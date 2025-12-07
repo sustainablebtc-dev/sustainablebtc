@@ -16,6 +16,7 @@ import faqPage from "./faqPage-schema";
 import blogCategories from "../components/blogCategories-schema";
 import investPage from "./investPage-schema";
 import learningCentrePage from "./learningCentrePage-schema";
+import chatBot from "./chatbot-schema";
 
 const schemas = [
    navbar,
@@ -34,7 +35,8 @@ const schemas = [
    faqPage,
    blogCategories,
    investPage,
-   learningCentrePage
+   learningCentrePage,
+   chatBot
 ];
 
 export default schemas;
