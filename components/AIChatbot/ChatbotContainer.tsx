@@ -80,7 +80,7 @@ const ChatbotContainer = ({ chatbotData }: { chatbotData: any }) => {
                {/* Subtle shadow animation */}
                <div className="absolute -inset-2 bg-gradient-to-br from-[#2ca5f6]/20 to-[#0EC1D3]/20 rounded-[24px] animate-pulse" style={{ animationDuration: '3s' }} />
                {/* Main chatbot */}
-               <div className="relative animate-in fade-in slide-in-from-bottom-4 lg:slide-in-from-bottom-8 zoom-in-95 duration-500 h-full">
+               <div className="relative animate-in fade-in slide-in-from-bottom-4 md:slide-in-from-bottom-8 zoom-in-95 duration-500 h-full">
                   <ChatbotWindow 
                      onClose={handleChatClose} 
                      initialMessage={initialQuestion} 
@@ -97,7 +97,7 @@ const ChatbotContainer = ({ chatbotData }: { chatbotData: any }) => {
 
          {/* Floating Chat Button - shown when chat is closed */}
          {!isChatOpen && (
-            <div className="fixed bottom-8 right-8 z-50 animate-in fade-in slide-in-from-bottom-4 zoom-in-95 duration-300">
+            <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 animate-in fade-in slide-in-from-bottom-4 zoom-in-95 duration-300">
                <ChatToggleButton
                   onClick={handleChatOpen}
                   onSuggestionClick={handleSuggestionClick}
