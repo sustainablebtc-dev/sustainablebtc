@@ -11,13 +11,8 @@
  */
 
 import { NextResponse } from "next/server";
-import dotenv from "dotenv";
-dotenv.config({ path: ".env.local" });
-
 import { OpenAI } from "openai";
-import { qdrant } from "../../../ai/chatbot/lib/qdrant";
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
+import { QdrantClient } from "@qdrant/js-client-rest";
 
 // Force this route to use Node.js runtime and disable static optimization
 export const runtime = 'nodejs';
@@ -30,6 +25,13 @@ export async function POST(req: Request) {
    const message = body?.message as string;
    if (!message)
       return NextResponse.json({ error: "no message" }, { status: 400 });
+
+   // Initialize clients inside the request handler (lazy loading)
+   const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
+   const qdrant = new QdrantClient({ 
+      url: process.env.QDRANT_URL!, 
+      apiKey: process.env.QDRANT_API_KEY! 
+   });
 
    //   console.log("Original query:", message);
 
