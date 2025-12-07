@@ -243,7 +243,7 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, 
    };
 
    return (
-      <div className="flex flex-col h-[90vh] max-h-[650px] bg-white rounded-[24px] overflow-hidden shadow-[0_20px_60px_-10px_rgba(0,0,0,0.4)] border border-[#2ca5f6]/20">
+      <div className="flex flex-col h-[100vh] md:h-[90vh] md:max-h-[650px] bg-white rounded-[24px] overflow-hidden shadow-[0_20px_60px_-10px_rgba(0,0,0,0.4)] border border-[#2ca5f6]/20">
          {/* Header */}
          <div className="bg-[#1e203f] px-5 py-4 flex items-center justify-between border-b-2 border-[#2ca5f6]/30">
             <div className="flex items-center gap-2.5">

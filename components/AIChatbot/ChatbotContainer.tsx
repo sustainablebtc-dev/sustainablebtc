@@ -72,7 +72,7 @@ const ChatbotContainer = ({ chatbotData }: { chatbotData: any }) => {
 
          {/* Chatbot - positioned at bottom-right with 2rem spacing */}
          {isChatOpen && (
-            <div className="fixed bottom-8 right-8 w-[420px] max-h-[calc(100vh-4rem)] z-50">
+            <div className="fixed bottom-0 right-0 md:bottom-8 md:right-8 md:w-[420px] h-full max-h-[100vh] md:max-h-[calc(100vh-4rem)] z-50">
                {/* Attention-grabbing glow effect */}
                {showPulse && (
                   <div className="absolute -inset-4 bg-gradient-to-br from-[#2ca5f6] via-[#0EC1D3] to-[#16d563] rounded-[28px] opacity-30 animate-pulse blur-xl" />
@@ -80,7 +80,7 @@ const ChatbotContainer = ({ chatbotData }: { chatbotData: any }) => {
                {/* Subtle shadow animation */}
                <div className="absolute -inset-2 bg-gradient-to-br from-[#2ca5f6]/20 to-[#0EC1D3]/20 rounded-[24px] animate-pulse" style={{ animationDuration: '3s' }} />
                {/* Main chatbot */}
-               <div className="relative animate-in fade-in slide-in-from-bottom-8 zoom-in-95 duration-500 h-full">
+               <div className="relative animate-in fade-in slide-in-from-bottom-4 lg:slide-in-from-bottom-8 zoom-in-95 duration-500 h-full">
                   <ChatbotWindow 
                      onClose={handleChatClose} 
                      initialMessage={initialQuestion} 
