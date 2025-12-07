@@ -7,10 +7,11 @@ interface ChatToggleButtonProps {
    onClick: () => void;
    onSuggestionClick?: (question: string) => void;
    hasUnread?: boolean;
+   unreadCount?: number;
    chatbotData: Awaited<ReturnType<typeof getChatbotData>>;
 }
 
-export function ChatToggleButton({ onClick, onSuggestionClick, hasUnread = true, chatbotData }: ChatToggleButtonProps) {
+export function ChatToggleButton({ onClick, onSuggestionClick, hasUnread = false, unreadCount = 0, chatbotData }: ChatToggleButtonProps) {
 
    // Randomize suggestions on mount
    const [suggestions] = useState(() => {
@@ -94,8 +95,14 @@ export function ChatToggleButton({ onClick, onSuggestionClick, hasUnread = true,
                <i className="bi bi-chat text-3xl text-white group-hover:scale-110 transition-transform relative z-10"></i>
             </span>
 
-            {/* Online indicator */}
-            {hasUnread && (
+            {/* Unread indicator - shown when there are unread messages */}
+            {hasUnread && unreadCount > 0 ? (
+               <div className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded-full border-3 border-white shadow-lg animate-pulse z-20 flex items-center justify-center">
+                  <span className="text-white text-xs font-bold relative z-10">{unreadCount}</span>
+                  <div className="absolute inset-0 rounded-full bg-red-500 animate-ping" />
+               </div>
+            ) : (
+               /* Online indicator - shown when no unread messages */
                <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#16d563] rounded-full border-3 border-white shadow-lg animate-pulse z-20">
                   <div className="absolute inset-0 rounded-full bg-[#16d563] animate-ping" />
                </div>

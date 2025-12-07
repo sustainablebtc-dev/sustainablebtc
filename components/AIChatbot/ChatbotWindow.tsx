@@ -12,32 +12,44 @@ interface Message {
 interface ChatbotProps {
    onClose?: () => void;
    initialMessage?: string;
-   chatbotData: any
+   chatbotData: any;
+   messages: Message[] | null;
+   setMessages: React.Dispatch<React.SetStateAction<Message[] | null>>;
+   scrollPosition: number;
+   setScrollPosition: React.Dispatch<React.SetStateAction<number>>;
+   isChatOpen: boolean;
 }
 
-export function ChatbotWindow({ onClose, initialMessage, chatbotData }: ChatbotProps) {
+export function ChatbotWindow({ onClose, initialMessage, chatbotData, messages, setMessages, scrollPosition, setScrollPosition, isChatOpen }: ChatbotProps) {
    const [quickActions] = useState(() => {
       const allSuggestions = chatbotData?.chatbotFloatingSuggestions?.map((item: any) => item.question).filter((question: string) => question.split(' ').length <= 8) || [];
       return allSuggestions.sort(() => Math.random() - 0.5).slice(0, 3);
    });
 
-   const [messages, setMessages] = useState<Message[]>([
-      {
-         id: '1',
-         text: 'Hi! **Hal** here 👋\nI\'m your guide to making Bitcoin cleaner and clearer. Ask me anything!\n\nOr start with:',
-         sender: 'bot',
-         timestamp: new Date(),
-         buttons: quickActions.map((action: string) => ({
-            text: action,
-            onClick: () => handleQuickAction(action)
-         })),
-      },
-   ]);
+   // Initialize messages if null (first time)
+   useEffect(() => {
+      if (messages === null) {
+         setMessages([
+            {
+               id: '1',
+               text: 'Hi! **Hal** here 👋\nI\'m your guide to making Bitcoin cleaner and clearer. Ask me anything!\n\nOr start with:',
+               sender: 'bot',
+               timestamp: new Date(),
+               buttons: quickActions.map((action: string) => ({
+                  text: action,
+                  onClick: () => handleQuickAction(action)
+               })),
+            },
+         ]);
+      }
+   }, [messages, setMessages, quickActions]);
    const [inputValue, setInputValue] = useState('');
    const [isTyping, setIsTyping] = useState(false);
    const [showScrollButton, setShowScrollButton] = useState(false);
+   const [showResources, setShowResources] = useState(true);
    const messagesEndRef = useRef<HTMLDivElement>(null);
    const messagesContainerRef = useRef<HTMLDivElement>(null);
+   const previousMessagesLength = useRef(messages?.length || 0);
 
    // Set initial message if provided
    useEffect(() => {
@@ -46,28 +58,44 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData }: ChatbotP
       }
    }, [initialMessage]);
 
-   const scrollToBottom = () => {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-   };
+   // Restore scroll position when component mounts
+   useEffect(() => {
+      if (messagesContainerRef.current && scrollPosition > 0) {
+         messagesContainerRef.current.scrollTop = scrollPosition;
+      }
+   }, [scrollPosition]);
 
+   // Save scroll position on scroll
    const handleScroll = () => {
       if (messagesContainerRef.current) {
          const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
          const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
          setShowScrollButton(!isNearBottom);
+         
+         // Save scroll position
+         setScrollPosition(scrollTop);
       }
    };
 
+   const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+   };
+
+   // Only scroll to bottom when new messages are added, not on mount
    useEffect(() => {
-      scrollToBottom();
+      if (messages && messages.length > previousMessagesLength.current) {
+         scrollToBottom();
+         previousMessagesLength.current = messages.length;
+      }
    }, [messages]);
 
    const handleSend = async () => {
       if (!inputValue.trim()) return;
 
+      const userQuestion = inputValue;
       const newMessage: Message = {
          id: Date.now().toString(),
-         text: inputValue,
+         text: userQuestion,
          sender: 'user',
          timestamp: new Date(),
       };
@@ -76,12 +104,41 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData }: ChatbotP
       setInputValue('');
       setIsTyping(true);
 
-      // Simulate bot response
-      setTimeout(() => {
-         const botResponse = getBotResponse(inputValue);
-         setMessages((prev) => [...prev, botResponse]);
+      try {
+         // Call the chatbot API
+         const response = await fetch('/api/chatbot', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: userQuestion }),
+         });
+
+         const data = await response.json();
+
+         if (response.ok && data.reply) {
+            const botResponse: Message = {
+               id: (Date.now() + 1).toString(),
+               text: data.reply,
+               sender: 'bot',
+               timestamp: new Date(),
+            };
+            setMessages((prev) => [...prev, botResponse]);
+         } else {
+            throw new Error('Failed to get response');
+         }
+      } catch (error) {
+         console.error('Chatbot API error:', error);
+         const errorResponse: Message = {
+            id: (Date.now() + 1).toString(),
+            text: 'Sorry, I encountered an error. Please try again.',
+            sender: 'bot',
+            timestamp: new Date(),
+         };
+         setMessages((prev) => [...prev, errorResponse]);
+      } finally {
          setIsTyping(false);
-      }, 1000);
+      }
    };
 
    const getBotResponse = (userInput: string): Message => {
@@ -221,7 +278,7 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData }: ChatbotP
             onScroll={handleScroll}
             className="flex-1 overflow-y-auto px-5 py-4 space-y-3.5 relative"
          >
-            {messages.map((message) => (
+            {messages?.map((message) => (
                <div
                   key={message.id}
                   className={`flex gap-2.5 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -368,15 +425,23 @@ export function ChatbotWindow({ onClose, initialMessage, chatbotData }: ChatbotP
          )} */}
 
          {/* Helpful Resources - shown after conversation starts */}
-         {messages.length > 3 && (
+         {messages && messages.length > 3 && (
             <div className="px-5 pb-3 border-t border-[#e9ebef] pt-3">
-               <p className="text-[#717182] text-[13px] mb-2 flex items-center gap-1.5 font-medium">
+               <button
+                  onClick={() => setShowResources(!showResources)}
+                  className="text-[#717182] text-[13px] flex items-center gap-1.5 font-medium w-full transition-colors"
+               >
                   <span className="">
                      <i className="bi bi-file-earmark-text"></i>
                   </span>
-                  Helpful resources:
-               </p>
-               <div className="space-y-1.5">
+                  <span className="flex-1 text-left">Helpful resources:</span>
+                  <i className={`bi bi-chevron-down hover:text-[#2ca5f6] transition-transform duration-300 ${showResources ? '' : '-rotate-180'}`}></i>
+               </button>
+               <div 
+                  className={`space-y-1.5 overflow-hidden transition-all duration-300 ${
+                     showResources ? 'max-h-[100px] opacity-100 mt-2' : 'max-h-0 opacity-0'
+                  }`}
+               >
                   <a
                      href="#"
                      className="text-[13px] text-[#2ca5f6] hover:text-[#0EC1D3] transition-colors block font-medium"

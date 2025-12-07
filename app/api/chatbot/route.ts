@@ -99,6 +99,7 @@ export async function POST(req: Request) {
 
    // #region Step 5: Generate Answer
    // System prompt defines assistant role and behavior
+   // System prompt defines assistant role and behavior
    const SYSTEM = `You are the Sustainable Bitcoin Protocol (SBP) Assistant. Answer questions about sustainable Bitcoin mining, clean energy, and Sustainable Bitcoin Certificates (SBCs) based on the CONTEXT documents provided.
 
 INSTRUCTIONS:
@@ -118,11 +119,13 @@ INSTRUCTIONS:
             role: "user",
             content: `USER QUESTION:\n${message}\n\n${"-".repeat(
                80
-            )}\n\nCONTEXT DOCUMENTS:\n\n${context}`,
+            )}\n\nCONTEXT DOCUMENTS:\n\n${context}\n\n${"-".repeat(
+               80
+            )}\n\nIMPORTANT: Provide a concise answer in 200 tokens or less. Be direct and avoid unnecessary details.`,
          },
       ],
-      temperature: 0.3,
-      max_tokens: 150,
+      temperature: 0.1,
+      max_tokens: 300,
    });
 
    const reply = completion.choices?.[0]?.message?.content ?? "No reply";
