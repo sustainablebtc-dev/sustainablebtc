@@ -17,6 +17,7 @@ import { FooterType } from "@/types/footer-type";
 // Custom Components
 import FooterCareerForm from "./FooterCareerForm";
 import ModalWhitepaperEmail from "./Modals/ModalWhitepaperEmail";
+import ModalSBPWrapped from "./Modals/ModalSBPWrapped";
 
 const Footer = () => {
    // Data
@@ -27,6 +28,10 @@ const Footer = () => {
    const [modalIsOpen, setModalIsOpen] = useState(false);
    function openModal() {
       setModalIsOpen(true);
+   }
+   const [sbpWrappedModalIsOpen, setSbpWrappedModalIsOpen] = useState(false);
+   function openSBPWrappedModal() {
+      setSbpWrappedModalIsOpen(true);
    }
 
    useEffect(() => {
@@ -173,6 +178,29 @@ const Footer = () => {
                                                                            </span>
                                                                         </div>
                                                                      </>
+                                                                  ) : dropdownItem.slug ===
+                                                                  "https://www.sustainablebtc.org/2025-btc-sustainability-wrapped.pdf" ? (
+                                                                     <>
+                                                                        <div
+                                                                           className={`${styles.footerLink}`}
+                                                                           onClick={() => {
+                                                                              if (
+                                                                                 window.innerWidth <
+                                                                                 1440
+                                                                              ) {
+                                                                                 openSBPWrappedModal();
+                                                                              } else {
+                                                                                 openSBPWrappedModal();
+                                                                              }
+                                                                           }}
+                                                                        >
+                                                                           <span>
+                                                                              {
+                                                                                 dropdownItem.name
+                                                                              }
+                                                                           </span>
+                                                                        </div>
+                                                                     </>
                                                                   ) : (
                                                                      <>
                                                                         <a
@@ -251,6 +279,11 @@ const Footer = () => {
          <ModalWhitepaperEmail
             modalIsOpen={modalIsOpen}
             setModalIsOpen={setModalIsOpen}
+         />
+
+         <ModalSBPWrapped
+            modalIsOpen={sbpWrappedModalIsOpen}
+            setModalIsOpen={setSbpWrappedModalIsOpen}
          />
       </>
    );

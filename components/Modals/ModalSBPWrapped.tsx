@@ -30,9 +30,9 @@ const customStyles = {
 };
 
 // Bind modal to the appElement
-// Modal.setAppElement("#modalWhitepaperEmail");
+// Modal.setAppElement("#ModalSBPWrapped");
 
-const ModalWhitepaperEmail = ({
+const ModalSBPWrapped = ({
    modalIsOpen,
    setModalIsOpen,
 }: {
@@ -85,7 +85,7 @@ const ModalWhitepaperEmail = ({
             hubspot_response.status === 201
          ) {
             // Download Whitepaper
-            fetch("whitepaper.pdf").then((response) => {
+            fetch("2025-btc-sustainability-wrapped.pdf").then((response) => {
                response.blob().then((blob) => {
                   // Creating new object of PDF file
                   const fileURL = window.URL.createObjectURL(blob);
@@ -155,7 +155,7 @@ const ModalWhitepaperEmail = ({
                {/* Actual Content */}
                <div className={`${styles.content}`}>
                   <h3 className={`${styles.heading} heading heading-4`}>
-                     Download SBP Whitepaper
+                     2025 BTC Sustainability Wrapped
                   </h3>
                   <p className={`${styles.para} para`}>
                      Thank you for your interest in SBP. <br />
@@ -227,4 +227,4 @@ const ModalWhitepaperEmail = ({
    );
 };
 
-export default ModalWhitepaperEmail;
+export default ModalSBPWrapped;
