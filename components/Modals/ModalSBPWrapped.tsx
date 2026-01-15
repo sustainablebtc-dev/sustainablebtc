@@ -85,7 +85,7 @@ const ModalSBPWrapped = ({
             hubspot_response.status === 201
          ) {
             // Download Whitepaper
-            fetch("2025-btc-sustainability-wrapped.pdf").then((response) => {
+            fetch("2025-btc-sustainability-report.pdf").then((response) => {
                response.blob().then((blob) => {
                   // Creating new object of PDF file
                   const fileURL = window.URL.createObjectURL(blob);
@@ -155,11 +155,11 @@ const ModalSBPWrapped = ({
                {/* Actual Content */}
                <div className={`${styles.content}`}>
                   <h3 className={`${styles.heading} heading heading-4`}>
-                     2025 BTC Sustainability Wrapped
+                     2025 BTC Sustainability Report
                   </h3>
                   <p className={`${styles.para} para`}>
                      Thank you for your interest in SBP. <br />
-                     Our whitepaper is available for free download.
+                     Our 2025 report is available for free download.
                   </p>
 
                   <form
@@ -188,8 +188,8 @@ const ModalSBPWrapped = ({
                         className={`${styles.formBtn} btn btn-dark`}
                         disabled={isDisabled}
                      >
-                        <i className="bi bi-eye"></i>
-                        <span>View Now</span>
+                        <i className="bi bi-download"></i>
+                        <span>Download Now</span>
                      </button>
                   </form>
                </div>

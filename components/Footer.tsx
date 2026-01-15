@@ -179,7 +179,7 @@ const Footer = () => {
                                                                         </div>
                                                                      </>
                                                                   ) : dropdownItem.slug ===
-                                                                  "https://www.sustainablebtc.org/2025-btc-sustainability-wrapped.pdf" ? (
+                                                                  "https://www.sustainablebtc.org/2025-btc-sustainability-report.pdf" ? (
                                                                      <>
                                                                         <div
                                                                            className={`${styles.footerLink}`}
