@@ -1,0 +1,127 @@
+.form-group {
+   display: grid;
+   gap: 4px;
+   margin-block: 0.8rem;
+   height: fit-content;
+
+   label {
+      font-weight: 500;
+      text-transform: capitalize;
+      line-height: 100%;
+      margin-left: 3px;
+      font-size: 0.9rem;
+   }
+
+   span.error {
+      line-height: 100%;
+      font-size: 0.8rem;
+      color: color($color-red);
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+   }
+
+   input.form-control,
+   textarea.form-control,
+   select.form-control {
+      @apply rounded-[3px];
+      @apply bg-transparent;
+      @apply py-2 px-3;
+
+      // gradient border
+      border: 1px solid rgba(color($color-dark, 200), 0.5);
+
+      width: auto;
+      box-shadow: none;
+      overflow: hidden;
+
+      &:focus-visible {
+         outline: none;
+         border: 1px solid transparent;
+         background-image: linear-gradient(
+               40deg,
+               color($color-dark, 300) 0%,
+               color($color-dark, 300) 50%
+            ),
+            linear-gradient(40deg, #339cffa0 0%, #0ec2d3a0 100%);
+         background-origin: border-box;
+         background-clip: padding-box, border-box;
+      }
+
+      // &:valid {
+      //    outline: none;
+      //    border: 1px solid transparent;
+      //    background-image: linear-gradient(
+      //          40deg,
+      //          hsl(236, 35%, 16%) 0%,
+      //          hsl(236, 35%, 16%) 50%
+      //       ),
+      //       linear-gradient(40deg, #339cffa0 0%, #0ec2d3a0 100%);
+      //    background-origin: border-box;
+      //    background-clip: padding-box, border-box;
+      // }
+
+      &.error {
+         outline: 1px solid color($color-red) !important;
+      }
+
+      &::placeholder {
+         // @apply font-light;
+      }
+   }
+
+   select.form-control {
+      appearance: none;
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%238C98F2'><polygon points='0,0 100,0 50,50'/></svg>")
+         no-repeat;
+      background-size: 12px;
+      background-position: calc(100% - 0.75rem) 60%;
+      background-repeat: no-repeat;
+
+      &:focus-visible {
+         border: 1px solid rgba(color($color-dark, 200), 0.5);
+         background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%238C98F2'><polygon points='0,0 100,0 50,50'/></svg>"),
+            linear-gradient(
+               40deg,
+               color($color-dark, 300) 0%,
+               color($color-dark, 300) 50%
+            ),
+            linear-gradient(40deg, #339cffa0 0%, #0ec2d3a0 100%);
+      }
+   }
+
+   textarea.form-control {
+      height: 100px;
+   }
+
+   @include responsive(md) {
+      margin-block: 1rem;
+      label {
+         font-size: 1rem;
+      }
+      input.form-control,
+      textarea.form-control,
+      select.form-control {
+         @apply py-3 px-4;
+      }
+      textarea.form-control {
+         height: 120px;
+      }
+      span.error {
+         font-size: 0.9rem;
+      }
+   }
+}
+
+.grid-2 {
+   @apply grid gap-4 m-0;
+   margin-block: 0.8rem;
+
+   .form-group {
+      margin-block: 0;
+   }
+
+   @include responsive(md) {
+      @apply grid-cols-2;
+   }
+}

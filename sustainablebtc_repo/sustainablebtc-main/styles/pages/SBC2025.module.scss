@@ -1,0 +1,650 @@
+.heroBg{
+   @apply absolute top-0 right-0 w-full z-0;
+   @apply pointer-events-none select-none;
+   @apply opacity-60;
+
+   @include responsive(lg) {
+      @apply w-[90%];
+   }
+}
+
+.hero{
+   @apply relative; //position
+   @apply pt-16 overflow-hidden; //box
+
+   .container {
+      @apply relative; //position
+      @apply flex items-start justify-center rounded-md; //layout
+      @apply mt-8 px-8 min-h-[calc(75vh-5rem)] pt-20; //box
+      @apply max-w-[1260px];
+      background: rgba($color: color($color-light), $alpha: 0.05);
+      backdrop-filter: blur(2px);
+   }
+
+   .heroWrapper{
+      @include flex-column;
+      @apply gap-6;
+   }
+
+   .heroImg{
+      @apply hidden;
+   }
+
+   // heading
+   .heroHeading {
+      @apply max-w-[1000px]; //box
+
+      h1 {
+         @apply font-black text-3xl leading-[110%]; //font
+      }
+
+      b,
+      strong {
+         @apply font-black block;
+         @include text-gradient(primaryReverse);
+      }
+   }
+
+   .heroPara{
+      @apply max-w-[500px];
+      
+      h6{
+         @apply font-normal;
+         span{
+            display: inline-block;
+            line-height: 150%;
+            text-decoration-color: #339dff !important;
+            text-underline-offset: 6px;
+            text-decoration-thickness: 2px !important;
+         }
+      }
+   }
+
+   // image animation
+   .sbcImage {
+      @apply absolute bottom-8 right-4 grid place-content-center;
+      @apply w-fit mx-auto max-w-[200px];
+
+      img {
+         @apply relative z-20;
+      }
+
+      &::before {
+         content: "";
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         translate: -50% -50%;
+         scale: 0.4;
+         background: url("../../public/home/trust-shade.svg");
+         background-repeat: no-repeat;
+         background-position: center;
+         width: 200%;
+         height: 200%;
+         z-index: 0;
+         animation: rotation 15s infinite linear;
+      }
+
+      @keyframes rotation {
+         from {
+            transform: translate(0%, 0%) rotate(0deg);
+         }
+
+         50% {
+            transform: translate(0%, -5%) rotate(180deg);
+         }
+
+         to {
+            transform: translate(0%, 0%) rotate(359deg);
+         }
+      }
+
+      // Bitcoin
+      .bitcoin {
+         @apply absolute;
+         @apply transition-all divide-gray-300 ease-out;
+         animation: blinkAnimation 5s infinite;
+
+         &1 {
+            @apply top-1/2 -left-[10px];
+            animation-delay: 0.2s;
+         }
+
+         &2 {
+            @apply top-0 left-1/2 -translate-x-1/2 -translate-y-1/2;
+         }
+
+         &3 {
+            @apply top-[30%] right-[17%];
+            animation-delay: 0.4s;
+         }
+
+         &4 {
+            @apply bottom-[20%] right-[26%];
+            animation-delay: 0.5s;
+         }
+
+         &5 {
+            @apply bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2;
+            animation-delay: 1s;
+         }
+
+         @keyframes blinkAnimation {
+            from {
+               opacity: 1;
+            }
+
+            50% {
+               opacity: 0;
+            }
+
+            to {
+               opacity: 1;
+            }
+         }
+      }
+   }
+
+   // Responsive for Tablet
+   @include responsive(md) {
+      .container {
+         @apply pt-0 items-center;
+      }
+
+      .heroHeading {
+         h1 {
+            @apply text-4xl leading-[120%]; //font
+         }
+
+         b,
+         strong {
+            display: initial !important;
+         }
+      }
+   }
+
+   // Responsive for Desktop
+   @include responsive(lg) {
+      @apply pt-0; //box
+
+      .container {
+         @apply mt-24 mx-auto;
+      }
+
+      .heroHeading {
+         h1 {
+            @apply text-5xl leading-[120%]; //font
+         }
+
+         b,
+         strong {
+            display: initial !important;
+         }
+      }
+      
+      .heroWrapper{
+         @apply ml-10
+      }
+   }
+
+   @include responsive(xl) {
+
+      .heroImg{
+         @apply relative block z-10 max-w-[75vh];
+      }
+
+      .sbcImage {
+         @apply max-w-[250px];
+         @apply absolute bottom-6 right-56 z-20;
+
+         &::before {
+            scale: 0.5;
+         }
+
+         .bitcoin {
+            &1 {
+               @apply top-1/2 -left-[10px];
+               animation-delay: 0.2s;
+            }
+
+            &2 {
+               @apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-[135px];
+            }
+
+            &3 {
+               @apply top-[30%] right-[15%];
+               animation-delay: 0.4s;
+            }
+
+            &4 {
+               @apply bottom-[25%] right-[18%];
+               animation-delay: 0.5s;
+            }
+
+            &5 {
+               @apply bottom-1/2 left-1/2 -translate-x-1/2 translate-y-[135px];
+               animation-delay: 1s;
+            }
+         }
+      }
+   }
+}
+
+.scheduleCall {
+   background: $gradient-primary;
+   padding-block: 4rem;
+   min-height: initial;
+   margin-top: 0 !important;
+   margin-bottom: 0 !important;
+   position: relative;
+   overflow: hidden;
+
+   .container {
+      @apply flex flex-col justify-between items-center gap-8;
+      @apply text-center;
+      @apply max-w-[900px];
+   }
+   
+   .scheduleCallHeading{
+      @apply max-w-[500px];
+
+      p{
+         @apply text-xl
+      }
+   }
+
+   .scheduleCallCTA {
+      white-space: nowrap;
+
+      button,
+      a {
+         background: color($color-dark);
+         border-color: color($color-light);
+
+         &:hover {
+            background: color($color-dark, 600);
+         }
+      }
+   }
+
+   .scheduleCallBg {
+      @apply absolute top-1/2 left-1/2 -translate-y-1/2;
+      @apply h-[400px] aspect-square opacity-50;
+   }
+
+   @include responsive(lg) {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+
+      .container {
+         @apply flex-row  gap-12;
+         @apply text-left mx-auto;
+      }
+   }
+}
+
+.sbcBenefits{
+   margin-block: 0 !important;
+   padding-block: 50px;
+   background: linear-gradient(39deg, rgba(51, 157, 255, 0.1) 0%, rgba(14, 193, 211, 0.1) 100%);
+
+   .container{
+      @apply max-w-[900px];
+   }
+
+   .heading{
+      @apply w-full mx-auto;
+      @apply mb-12;
+   }
+
+   .benefitsItems{
+      @apply grid gap-4 gap-y-6;
+
+      .benefitsItem{
+         @apply flex gap-4;
+
+         i{
+            @include gradient-text;
+         }
+      }
+   }
+
+   @include responsive(md) {
+      padding-block: 70px;
+      .container{
+         @apply mx-auto;
+      }
+
+      .heading{
+         @apply mb-16;
+         @apply text-center;
+      }
+
+      .benefitsItems{
+         @apply grid-cols-2 gap-8;
+
+         .benefitsItem{
+            p{
+               @apply text-xl;
+            }
+            i{
+               @apply text-xl;
+            }
+         }
+      }
+   }
+   @include responsive(lg) {
+      padding-block: 100px;
+   }
+}
+
+.problemAndSolution{
+   background: url("../../public/sbc/problemAndSolutionBg.jpg");
+   background-size: cover;
+   background-position: left;
+   padding-block: 50px;
+   position: relative;
+   margin-top: 0 !important;
+
+   .wrapper{
+      @apply flex flex-col gap-[50px];
+
+      .heading{
+         @apply mb-4;
+
+         h3{
+            @apply text-2xl;
+         }
+      }
+
+      .description{
+         p{
+            @apply text-base;
+         }
+      }
+   }
+
+   .sbcImage{
+      @apply hidden;
+   }
+
+   @include responsive(md){
+      background-position: center;
+      
+      .wrapper{
+         @apply flex-row;
+
+         .heading{
+            h3{
+               @apply text-3xl;
+            }
+         }
+   
+         .description{
+            p{
+               @apply text-lg;
+            }
+         }
+      }
+   }
+
+   @include responsive(lg){
+      padding-block: 70px;
+      margin-top: 0 !important;
+
+      .sbcImage{
+         @apply block;
+      }
+
+      .sbcImage {
+         @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2; 
+         @apply grid place-content-center;
+         @apply w-fit mx-auto max-w-[300px];
+   
+         img {
+            @apply relative z-20;
+         }
+   
+         &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            scale: 0.6;
+            background: url("../../public/home/trust-shade.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 200%;
+            height: 200%;
+            z-index: 0;
+            animation: rotation 15s infinite linear;
+         }
+   
+         @keyframes rotation {
+            from {
+               transform: translate(0%, 0%) rotate(0deg);
+            }
+   
+            50% {
+               transform: translate(0%, -5%) rotate(180deg);
+            }
+   
+            to {
+               transform: translate(0%, 0%) rotate(359deg);
+            }
+         }
+   
+         // Bitcoin
+         .bitcoin {
+            @apply absolute;
+            @apply transition-all divide-gray-300 ease-out;
+            animation: blinkAnimation 5s infinite;
+   
+            &1 {
+               @apply top-1/2 -left-[10px];
+               animation-delay: 0.2s;
+            }
+   
+            &2 {
+               @apply top-0 left-1/2 -translate-x-1/2 -translate-y-1/2;
+            }
+   
+            &3 {
+               @apply top-[30%] right-[17%];
+               animation-delay: 0.4s;
+            }
+   
+            &4 {
+               @apply bottom-[20%] right-[26%];
+               animation-delay: 0.5s;
+            }
+   
+            &5 {
+               @apply bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2;
+               animation-delay: 1s;
+            }
+   
+            @keyframes blinkAnimation {
+               from {
+                  opacity: 1;
+               }
+   
+               50% {
+                  opacity: 0;
+               }
+   
+               to {
+                  opacity: 1;
+               }
+            }
+         }
+      }
+
+      .wrapper{
+         @apply gap-[400px];
+
+         .heading{
+            @apply mb-8;
+         }
+      }
+   }
+}
+
+.whatSBC{
+   @apply overflow-hidden; //box
+   min-height: initial !important;
+   margin-block: 20px 5rem !important;
+
+   .container {
+      @apply mx-auto px-4;
+   }
+
+   .wrapper {
+      @apply grid justify-center;
+   }
+
+   .image {
+      @apply w-full mx-auto rounded-3xl;
+
+      img{
+         @apply w-full
+      }
+   }
+
+   .aboutCTA{
+      a{
+         line-height: 140%;
+         width: min-content;
+         min-width: 250px
+      }
+   }
+
+   .content {
+      @apply flex flex-col justify-center items-center gap-4; //layout
+      @apply text-center; //font
+
+      p {
+         font-size: 1rem;
+      }
+   }
+
+   .heading {
+      h4 {
+         @apply text-xl font-normal leading-[140%]; //font
+
+         strong {
+            @apply block; //box
+            @apply text-3xl font-black; //font
+         }
+      }
+   }
+
+   // #region Responsive
+   // Responsive for Tablet
+   @include responsive(md) {
+      .aboutCTA{
+         a{
+            line-height: 100%;
+            width: fit-content;
+            min-width: initial
+         }
+      }
+   }
+
+   // Responsive for Desktop
+   @include responsive(lg) {
+      @apply overflow-hidden; //box
+      margin-block: 50px !important;
+
+      .wrapper {
+         @apply grid grid-cols-2 gap-16 items-center;
+      }
+
+      .image{
+         @apply block;
+      }
+
+      .content {
+         @apply flex flex-col justify-start items-start gap-4; //layout
+         @apply text-left; //font
+
+         p{
+            font-size: 1.1rem
+         }
+      }
+
+      .heading {
+         h4 {
+            strong {
+               @apply text-4xl; //font
+            }
+         }
+         @apply mb-6;
+      }
+   }
+}
+
+.saperator{
+   @apply w-full h-2;
+   background: linear-gradient(39deg, rgba(51, 157, 255, 0.1) 0%, rgba(14, 193, 211, 0.1) 100%);
+}
+
+.keyFeatures{
+   @apply relative;
+   margin-block: 0 !important;
+
+   background: linear-gradient(39deg, rgba(51, 157, 255, 0.1) 0%, rgba(14, 193, 211, 0.1) 100%),
+               url("../../public/sbc/keyFeaturesSBCBackground.jpg");
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+
+   .container{
+      padding-block: 20px;
+   }
+
+   .keyFeaturesHeading{
+      @apply text-center my-4;
+   }
+
+   .keyFeaturesContent{
+      @apply rounded-2xl border-[1px] border-[#0ec1d3] mx-auto;
+      padding: 20px;
+      background-color: color($color-dark);
+   }
+
+   .keyFeaturesItems{
+      @apply grid grid-cols-1 gap-[20px];
+      @apply mt-8
+   }
+
+   .keyFeaturesItem{
+      @include flex-center;
+      @include flex-column;
+      @apply justify-start;
+      @apply gap-4 text-center rounded-lg p-4 py-6;
+      background: linear-gradient(39deg, rgba(51, 157, 255, 0.1) 0%, rgba(14, 193, 211, 0.1) 100%);
+      border-bottom: 4px solid #339dff;
+   }
+
+   @include responsive(md){
+      .container{
+         padding-block: 70px;
+      }
+      .keyFeaturesContent{
+         padding: 60px 50px;
+      }
+      .keyFeaturesItems{
+         @apply grid-cols-2
+      }
+   }
+   @include responsive(lg){
+      .container{
+         padding-block: 100px;
+      }
+      .keyFeaturesItems{
+         @apply grid-cols-4 gap-4
+      }
+   }
+}

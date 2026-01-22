@@ -1,0 +1,50 @@
+.breadcrum {
+   @apply absolute top-[8rem] left-0 w-full z-20 pointer-events-none;
+
+   &.hide {
+      display: none !important;
+   }
+
+   .container {
+      @apply flex items-end;
+   }
+
+   ul {
+      @apply flex items-center gap-2;
+      @apply my-4;
+      @apply text-white;
+
+      li {
+         @include typo(para);
+         @apply text-[.9rem] capitalize;
+         @apply pointer-events-auto;
+
+         a {
+            @include text-gradient(primary);
+         }
+
+         i {
+            @include text-gradient(initial);
+            color: #339dff;
+         }
+
+         &:last-child {
+            @apply hidden;
+         }
+
+         &:nth-last-child(2) {
+            a {
+               @include text-gradient(light);
+               pointer-events: none;
+            }
+         }
+      }
+   }
+
+   @include responsive(md) {
+      @apply top-[7.5rem];
+   }
+   @include responsive(lg) {
+      @apply top-[8.5rem];
+   }
+}

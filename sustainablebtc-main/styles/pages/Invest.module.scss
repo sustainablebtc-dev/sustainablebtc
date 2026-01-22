@@ -1,0 +1,339 @@
+.hero {
+   @include hero-spacing;
+
+   .container {
+      @apply max-w-[1000px];
+      @apply flex flex-col justify-center items-center gap-16;
+      @apply text-center;
+   }
+
+   .image {
+      @apply w-full  aspect-video rounded-xl;      
+   }
+
+   .videoIframe{
+      pointer-events:  none !important;
+      &:hover{
+         pointer-events:  none !important;
+      }
+   }
+
+   @include responsive(md) {
+      .container {
+         @apply mx-auto;
+      }
+      .image {
+         @apply rounded-3xl;
+      }
+   }
+
+   @include responsive(lg) {
+   }
+}
+
+.sbc {
+   @apply relative; //position
+   @apply text-center; //font
+
+   // background styling
+   .sbcBg {
+      @apply absolute top-0 left-0; //position
+      @apply w-full h-full; //block
+      z-index: -1;
+
+      canvas {
+         position: absolute !important;
+         @apply top-0 left-0 right-0 bottom-0; //position
+      }
+   }
+
+   .container {
+      @apply relative z-10; //position
+      @apply flex flex-col gap-8; //layout
+      @apply py-10 max-w-[1000px] rounded-3xl overflow-hidden; //box
+      border: 1px solid rgba(#339dff, 0.5);
+   }
+
+   .sbcImageWrapper {
+      @apply flex items-center gap-8;
+      @apply w-fit mx-auto;
+
+      h1 {
+         @apply hidden;
+      }
+   }
+   .sbcIcon {
+      scale: 0.8;
+      translate: 0 10%;
+      @apply block m-auto relative z-20;
+
+      img {
+         @apply relative z-20;
+      }
+
+      &::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         translate: -35% -35%;
+         background: url("../../public/home/sbc-icon-bg.svg");
+         width: 338px;
+         height: 342px;
+         z-index: 0;
+         animation: rotation 8s infinite linear;
+      }
+
+      @keyframes rotation {
+         from {
+            transform: translate(0%, 1%) rotate(0deg);
+         }
+
+         50% {
+            transform: translate(0%, -2%) rotate(180deg);
+         }
+
+         to {
+            transform: translate(0%, 1%) rotate(359deg);
+         }
+      }
+   }
+
+   .sbcFeatures {
+      @apply flex flex-col gap-4 px-4; //layout
+
+      .sbcFeatureCard {
+         @apply flex flex-col justify-start items-center gap-4 flex-1;
+         @apply p-6 py-8 rounded-xl border-b-[#339dff] border-b-2;
+         @apply text-center;
+
+         background: linear-gradient(
+            39deg,
+            rgba(51, 157, 255, 0.2) 0%,
+            rgba(14, 193, 211, 0.2) 100%
+         );
+
+         p {
+            @apply w-full;
+         }
+      }
+   }
+
+   @include responsive(md) {
+      .container {
+         @apply mx-auto;
+      }
+      .sbcIcon {
+         scale: 0.9;
+         translate: 0 5%;
+      }
+      .featureImage {
+         width: 120px !important;
+         height: auto !important;
+      }
+      .sbcFeatures {
+         @apply flex-row flex-wrap px-10;
+      }
+      .sbcFeatureCard {
+         @apply max-w-[400px];
+      }
+      .sbcImageWrapper {
+         h1 {
+            @apply block;
+            border-bottom: 2px solid #339dff;
+            padding-bottom: 0.25rem;
+         }
+      }
+   }
+
+   @include responsive(lg) {
+      .sbcIcon {
+         scale: 1;
+      }
+
+      .sbcFeatures {
+         .sbcFeatureCard {
+         }
+      }
+   }
+}
+
+.useCases {
+   min-height: initial !important;
+
+   .container {
+      @apply max-w-[1000px];
+      @apply grid gap-8;
+   }
+
+   .useCaseScenerioList {
+      @apply text-lg;
+      @apply flex flex-col gap-6 ps-4;
+      @apply list-disc;
+   }
+
+   .useCaseHeading{
+      *{
+         font-weight: 900
+      }
+   }
+
+   @include responsive(md) {
+      .container {
+         @apply grid grid-cols-2 gap-2;
+      }
+      .useCaseScenerioList {
+         @apply text-lg gap-8;
+      }
+   }
+
+   @include responsive(lg) {
+      .container {
+         @apply mx-auto;
+      }
+   }
+}
+
+.scheduleCall {
+   background: $gradient-primary;
+   padding-block: 4rem;
+   min-height: initial;
+   margin-bottom: 0 !important;
+   position: relative;
+   overflow: hidden;
+
+   .container {
+      @apply flex flex-col justify-between items-center gap-8;
+      @apply text-center;
+      @apply max-w-[1100px];
+   }
+
+   .scheduleCallCTA {
+      white-space: nowrap;
+
+      button,
+      a {
+         background: color($color-dark);
+         border-color: color($color-light);
+
+         &:hover {
+            background: color($color-dark, 600);
+         }
+      }
+   }
+
+   .scheduleCallBg {
+      @apply absolute top-1/2 left-1/2 -translate-y-1/2;
+      @apply h-[400px] aspect-square opacity-50;
+   }
+
+   @include responsive(lg) {
+      .container {
+         @apply flex-row  gap-12;
+         @apply text-left mx-auto;
+      }
+   }
+}
+
+.paywall {
+   @apply fixed top-0 left-0 w-full h-[100vh] z-20;
+   @apply flex justify-center items-center;
+   @apply backdrop-blur-lg;
+   @apply text-center;
+   background: linear-gradient(40deg, rgba(#339dff, 0.2) 0%, rgba(#0ec1d3,0.2) 100%);
+
+   margin-block: 0 !important;
+   transition: 2s ease-in-out;
+
+   .container{
+
+   }
+
+   &.hide {
+      @apply -top-[100%] left-0;
+      background: linear-gradient(40deg, rgba(#339dff, 0.1) 0%, rgba(#0ec1d3,0.1) 100%);
+      transition: 1s ease-in-out;
+   }
+
+   .heading{
+      @apply mb-8 mt-20 flex; 
+
+      strong{
+         @apply font-black;
+      }
+   }
+
+   form {
+      @apply flex flex-col gap-3 items-center justify-center w-full max-w-[700px] mt-4;
+
+      .formGroupWrapper,
+      .formCheckboxGroupWrapper {
+         @apply w-full;
+      }
+
+      .formGroupWrapper {
+         @apply grid gap-2 flex-1 max-w-none;
+
+         input {
+            @apply rounded-full #{!important};
+         }
+
+         textarea {
+            @apply rounded-3xl max-h-[80px];
+         }
+      }
+
+      .formGroup {
+         @apply flex-1 m-0 w-full;
+
+         input {
+            @apply bg-transparent;
+            @apply py-3 px-6;
+            @apply rounded-full #{!important};
+            @apply text-center;
+
+            // gradient border
+            border: 1px solid transparent;
+            background: color($color-light);
+            color: color($color-dark);
+            border: 1px solid color($color-dark);
+
+            width: auto;
+            box-shadow: none;
+            overflow: hidden;
+
+            &:focus-visible,
+            &:valid {
+               outline: none;
+               background: color($color-light);
+               color: color($color-dark);
+               border: 1px solid color($color-dark);
+            }
+
+            &.error {
+               outline: 1px solid color($color-red) !important;
+            }
+
+            &::placeholder {
+               @apply tracking-wide;
+            }
+         }
+      }
+   }
+
+   @include responsive(sm) {
+   }
+
+   @include responsive(md) {
+   }
+
+   @include responsive(lg) {
+
+      form {
+         @apply mt-0 max-w-[initial];
+      }
+   }
+
+   @include responsive(xl) {
+   }
+}

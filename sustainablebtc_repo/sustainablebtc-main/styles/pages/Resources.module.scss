@@ -1,0 +1,73 @@
+.downloadWhitepaper {
+   transform: translateY(100px);
+   @apply mt-40;
+
+   .container {
+      max-width: 1000px;
+   }
+
+   .modalWhitepaperEmail {
+      @apply relative;
+      @apply p-8 px-10 lg:p-12 lg:px-12 overflow-hidden;
+      @apply rounded-md;
+      background: $gradient-primary;
+
+      .designElem {
+         &__closeBtn {
+            @apply absolute top-8 right-8 text-2xl z-30;
+         }
+
+         .imgModalBackdrop {
+            @apply absolute top-0 right-0 w-fit h-full select-none;
+         }
+
+         .imgModalForeground {
+            @apply hidden md:block;
+            @apply absolute -bottom-8 -right-8 md:max-w-[250px] lg:max-w-[300px] h-auto select-none;
+         }
+      }
+
+      .content {
+         @apply flex flex-col gap-4;
+         @apply w-[90%] md:max-w-[350px];
+         @apply relative z-10;
+
+         .form {
+            @apply flex flex-col;
+            @apply mt-4;
+         }
+
+         .formGroup {
+            @apply my-0;
+
+            label span {
+               @apply text-red-600;
+            }
+            input {
+               background: rgba($color: color($color-dark), $alpha: 0.05);
+               color: color($color-white);
+               border: 1px solid rgba($color: color($color-dark), $alpha: 0.5);
+
+               &:focus {
+                  @apply border border-[#1e203f];
+                  background: rgba($color: color($color-dark), $alpha: 0.1);
+               }
+
+               &::placeholder {
+                  color: color($color-dark, 50);
+                  opacity: 0.8;
+                  font-size: 0.9rem;
+               }
+            }
+
+            .error {
+               @apply block mb-4 font-medium;
+            }
+         }
+
+         .formBtn {
+            @apply w-fit;
+         }
+      }
+   }
+}

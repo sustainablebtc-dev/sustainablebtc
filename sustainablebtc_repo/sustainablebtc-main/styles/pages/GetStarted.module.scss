@@ -1,0 +1,99 @@
+.hero {
+   @include hero-spacing;
+   @apply pb-20;
+
+   .heroHeading {
+      @apply leading-[110%] text-center max-w-[900px] mx-auto block;
+
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .heroSubHeading {
+      @apply block;
+      @apply text-center mt-5 font-medium;
+   }
+
+   .heroLoginTypeWrapper {
+      @apply grid gap-20 mt-32;
+
+      .heroLoginType {
+         @apply p-8 pt-16;
+         @apply rounded-lg;
+         @apply flex flex-col gap-4;
+         @apply relative;
+         background: linear-gradient(
+            40deg,
+            rgba(#339dff, 0.05) 0%,
+            rgba(#0ec1d3, 0.05) 100%
+         );
+         border: 1px solid rgba($color: #339dff, $alpha: 0.3);
+      }
+
+      .heroLoginTypeImage {
+         --size: 2.5rem !important;
+
+         @apply absolute block;
+         @apply top-0 -translate-y-1/2;
+         background: color($color-dark);
+         @apply rounded-md p-6;
+         border: 1px solid #339dff;
+         width: var(--size);
+         height: var(--size);
+         aspect-ratio: 1 / 1 !important;
+         @apply grid place-content-center;
+      }
+
+      .heroLoginTypeHeading {
+         @include text-gradient(primary);
+         @apply text-2xl w-fit;
+      }
+
+      .heroLoginTypeCTA {
+         @apply w-auto justify-center;
+      }
+
+      .heroLoginTypeDescription {
+         @apply flex-1;
+         p {
+            @apply leading-[140%] mb-2;
+         }
+      }
+   }
+
+   @include responsive(md) {
+      .container {
+         @apply w-5/6;
+      }
+      .heroLoginTypeWrapper {
+         @apply grid grid-cols-2 gap-4;
+      }
+   }
+
+   @include responsive(lg) {
+      @apply pb-24;
+
+      .container {
+         @apply w-full;
+      }
+      .heroLoginTypeWrapper {
+         @apply gap-8;
+
+         .heroLoginType {
+            @apply p-12 pt-20;
+            @apply gap-6;
+         }
+
+         .heroLoginTypeHeading {
+            @apply text-3xl;
+         }
+
+         .heroLoginTypeImage {
+            --size: 4rem !important;
+            @apply p-4;
+            aspect-ratio: 1 / 1 !important;
+         }
+      }
+   }
+}

@@ -1,0 +1,11 @@
+.ReactModal__Overlay--after-open {
+   z-index: 1000;
+   background-color: rgba(color($color-dark), 0.75) !important;
+}
+.ReactModal__Content--after-open {
+   background: $gradient-primary !important;
+   border: none !important;
+   border-radius: 0.5rem !important;
+   padding: 0 !important;
+   overflow: hidden !important;
+}

@@ -1,0 +1,12 @@
+.miscPage {
+   @include hero-spacing;
+   @apply pb-20 md:pb-24;
+
+   .miscTitle {
+      @apply mb-6;
+   }
+
+   .miscBody {
+      @apply text-justify;
+   }
+}

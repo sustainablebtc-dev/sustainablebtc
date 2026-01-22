@@ -1,0 +1,28 @@
+.comingSoon {
+   .container {
+      @apply h-[100vh] pt-8;
+      @apply flex flex-col justify-center;
+   }
+
+   .heading {
+      @apply w-fit leading-[100%];
+      @include text-gradient(primary);
+   }
+
+   .para {
+      @apply text-sm;
+   }
+
+   .doYouKnow {
+      @apply max-w-[600px];
+      @apply leading-[140%] opacity-90 mt-4;
+
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .btnWrapper {
+      @apply flex flex-wrap gap-4 mt-12;
+   }
+}

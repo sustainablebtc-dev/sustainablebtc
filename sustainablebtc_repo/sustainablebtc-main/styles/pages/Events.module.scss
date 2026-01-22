@@ -1,0 +1,263 @@
+.hero {
+   @include hero-spacing;
+   @apply pb-20 relative min-h-[100vh];
+
+   // Styling hero image
+   .heroBg {
+      @apply absolute bottom-0 right-0 w-auto h-[80%] object-cover object-right-bottom opacity-50 pointer-events-none;
+      transform: scaleY(-1);
+   }
+
+   .heroIcon {
+      @apply block m-auto relative z-20 select-none pointer-events-none;
+
+      &.heroIconTopRight{
+         position: absolute;
+         scale: 0.5;
+         transform-origin: 4rem top;
+
+         top: 7rem;
+         right: 0;
+      }
+
+      &.heroIconBottomRight{
+         position: absolute;
+         scale: 0.7;
+         transform-origin: left;
+
+         bottom: 5rem;
+         right: 2rem;
+      }
+
+      &.heroIconBottomLeft{
+         position: absolute;
+         scale: 0.5;
+         transform-origin: bottom left;
+
+         bottom: 4rem;
+         right: 8rem;
+      }
+
+      img {
+         @apply relative z-20;
+      }
+
+      &::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         translate: -35% -35%;
+         background: url("../../public/home/sbc-icon-bg.svg");
+         width: 338px;
+         height: 342px;
+         z-index: 0;
+         animation: rotation 8s infinite linear;
+      }
+
+      @keyframes rotation {
+         from {
+            transform: translate(0%, 1%) rotate(0deg);
+         }
+         50% {
+            transform: translate(0%, -2%) rotate(180deg);
+         }
+         to {
+            transform: translate(0%, 1%) rotate(359deg);
+         }
+      }
+   }
+
+   .container {
+      @apply relative;
+   }
+
+   .heroHeading {
+      @apply font-black leading-[110%] text-4xl relative z-10;
+      b,
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .form {
+      @apply mt-10;
+      @apply grid gap-2;
+
+      .formGroup {
+         @apply flex-1 m-0 w-full;
+
+         input,
+         textarea {
+            @apply rounded-full;
+            @apply bg-transparent;
+            @apply py-3 px-6;
+
+            // gradient border
+            border: 1px solid transparent;
+            background-image: linear-gradient(
+                  40deg,
+                  color($color-dark, 500) 0%,
+                  color($color-dark, 500) 100%
+               ),
+               linear-gradient(40deg, #339dff 0%, #0ec1d3 100%);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+
+            width: auto;
+            box-shadow: none;
+            overflow: hidden;
+
+            &:focus-visible,
+            &:valid {
+               outline: none;
+               border: 1px solid transparent;
+               background-image: linear-gradient(
+                     40deg,
+                     color($color-dark, 300) 0%,
+                     color($color-dark, 400) 50%
+                  ),
+                  linear-gradient(40deg, #339dff 0%, #0ec1d3 100%);
+               background-origin: border-box;
+               background-clip: padding-box, border-box;
+            }
+
+            &.error {
+               outline: 1px solid color($color-red) !important;
+            }
+         }
+
+         textarea {
+            @apply rounded-3xl;
+         }
+      }
+
+      .formBtn {
+         @apply w-fit;
+      }
+
+      .formCheckboxGroupWrapper {
+         @apply grid grid-cols-2 gap-4;
+         @apply mb-8;
+
+         .formCheckboxGroup {
+            @apply flex items-center gap-2;
+            @apply cursor-pointer font-normal text-sm normal-case;
+
+            input[type="checkbox"] {
+               display: none;
+            }
+
+            .checkmark {
+               @apply w-4 h-4;
+               @apply inline-block relative bg-white;
+               @apply border-none outline-none rounded-sm;
+               transition: background 0.3s ease;
+            }
+
+            input[type="checkbox"]:checked + .checkmark {
+               background: $gradient-primary;
+            }
+
+            input[type="checkbox"]:checked + .checkmark::after {
+               content: "";
+               @apply absolute;
+               top: 50%;
+               left: 50%;
+               transform: rotate(45deg) translate(-100%, -20%);
+               @apply w-[4px] h-[8px];
+               border: solid white;
+               border-width: 0 2px 2px 0;
+            }
+         }
+      }
+   }
+
+   @include responsive(md) {
+      .container {
+         @apply max-w-[650px] mx-auto;
+      }
+
+      .heroIcon {
+         scale: 1;
+         translate: 0 5%;
+
+         &.heroIconBottomRight{
+            position: absolute;
+            scale: 0.9;
+            transform-origin: left;
+   
+            bottom: 10rem;
+            right: 4rem;
+         }
+   
+         &.heroIconBottomLeft{
+            position: absolute;
+            scale: 0.7;
+            transform-origin: bottom left;
+   
+            bottom: 5rem;
+            right: 10rem;
+         }
+      }
+
+      .heroHeading {
+         h1 {
+            @apply leading-[120%]; //font
+         }
+         b,
+         strong {
+            display: initial !important;
+         }
+      }
+
+      .form{
+         .formCheckboxGroupWrapper{
+            @apply w-[80%]
+         }
+      }
+   }
+
+   @include responsive(lg) {
+      @apply pb-24;
+
+      .heroBg{
+         @apply opacity-100;
+      }
+
+      .heroIcon {
+         scale: 1.2;
+
+         &.heroIconTopRight{
+            position: absolute;
+            scale: 0.9;
+            transform-origin: left center;
+   
+            top: 11.5rem;
+            left: 4rem;
+         }
+      }
+      
+      .heroHeading {
+         @apply text-5xl; //font
+      }
+
+      .form{
+         @apply mt-12
+      }
+   }
+
+   @include responsive(xl) {
+      .heroIcon {
+         &.heroIconTopRight{
+            position: absolute;
+            scale: 0.7;
+            transform-origin: left center;
+   
+            top: 11.5rem;
+            left: initial;
+            right: calc(50% + 400px);
+         }
+      }
+   }
+}

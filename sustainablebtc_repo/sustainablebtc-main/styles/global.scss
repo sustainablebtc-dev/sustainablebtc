@@ -1,0 +1,187 @@
+// Imporing tailwind css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./base/resets";
+@import "./utils/helpers";
+
+body,
+html {
+   background: color($color-dark);
+   color: color($color-light);
+   font-size: 16px;
+}
+
+main {
+   min-height: 100vh; // this will make sure main section is always alteast 1 screen height
+}
+
+section {
+   @apply min-h-[50vh];
+
+   &:not(.hero) {
+      @apply my-[50px]; // chagne this to 50px
+
+      @include responsive(md) {
+         @apply my-[70px]; // chagne this to 100px
+      }
+      @include responsive(lg) {
+         @apply my-[100px]; // chagne this to 100px
+      }
+   }
+}
+
+.container {
+   margin-inline: 1rem;
+   width: auto;
+
+   @include responsive(md) {
+      max-width: initial;
+   }
+   @include responsive(xl) {
+      max-width: 1300px;
+      margin-inline: auto;
+   }
+
+   &-tight {
+      max-width: 1100px;
+   }
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  @apply backdrop-blur-xl bg-white/70 border border-white/20 shadow-2xl;
+}
+
+.glass-card-dark {
+  @apply backdrop-blur-xl bg-gray-900/70 border border-white/10 shadow-2xl;
+}
+
+.glass-premium {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+.glass-deal {
+  background: linear-gradient(135deg, rgba(93, 46, 140, 0.1) 0%, rgba(0, 194, 255, 0.05) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(93, 46, 140, 0.2);
+}
+
+/* Deal Status Badge */
+.status-badge {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: #B8860B;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Network Connection Background */
+.network-bg {
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(93, 46, 140, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(0, 194, 255, 0.1) 0%, transparent 50%);
+  background-size: 100% 100%;
+  position: relative;
+}
+
+.network-bg::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    rgba(93, 46, 140, 0.3) 0%, 
+    rgba(0, 194, 255, 0.3) 50%, 
+    rgba(93, 46, 140, 0.3) 100%
+  );
+}
+
+/* Metric Cards */
+.metric-card {
+  @apply p-6 rounded-xl transition-all duration-300;
+}
+
+.metric-card:hover {
+  @apply scale-105 shadow-2xl;
+}
+
+/* Chart Container */
+.chart-container {
+  @apply bg-white rounded-xl p-6 shadow-lg border border-gray-200;
+}
+
+/* Timeline Dots */
+.timeline-dot {
+  @apply w-4 h-4 rounded-full border-4;
+}
+
+.timeline-dot-pending {
+  @apply border-gray-300 bg-white;
+}
+
+.timeline-dot-active {
+  @apply border-deal-gold bg-deal-gold shadow-lg;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+/* Due Diligence Checklist */
+.dd-item {
+  @apply flex items-start gap-4 p-4 rounded-lg border transition-all duration-200;
+}
+
+.dd-item-pending {
+  @apply bg-amber-50 border-amber-200;
+}
+
+.dd-item-complete {
+  @apply bg-green-50 border-green-200;
+}
+
+/* Pulse Animation for Buyback */
+.pulse-buyback {
+  animation: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(46, 255, 146, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(46, 255, 146, 0.8);
+    transform: scale(1.05);
+  }
+}
+
+/* Gradient Text */
+.gradient-text-deal {
+  background: linear-gradient(135deg, #5D2E8C 0%, #00C2FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Data Grid */
+.data-grid {
+  @apply grid gap-6 md:grid-cols-2 lg:grid-cols-3;
+}
+
+/* Recharts responsive text */
+.recharts-text {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.recharts-cartesian-axis-tick-value {
+  font-size: 11px;
+}

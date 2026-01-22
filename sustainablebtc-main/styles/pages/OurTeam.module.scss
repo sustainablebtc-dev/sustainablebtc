@@ -1,0 +1,130 @@
+.team {
+   @apply mb-28;
+   @include hero-spacing;
+
+   .container {
+      @apply grid gap-20;
+   }
+
+   .teamHeading {
+      @apply block text-center;
+      @apply mb-16;
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .members {
+      @apply grid grid-cols-2 gap-4;
+
+      .memberCard {
+         @apply flex justify-start items-center flex-col gap-1;
+         @apply rounded-lg;
+         @apply mt-4;
+         background: rgba($color: color($color-light), $alpha: 0.05);
+      }
+
+      .memberImage {
+         @apply -mt-6;
+         @apply max-h-[170px] w-auto;
+      }
+
+      .memberHeading {
+         @include text-gradient(primary);
+         @apply mt-4 px-2;
+         @apply block text-center;
+      }
+
+      .memberDesignation {
+         @apply flex-1;
+         @apply px-4 text-center;
+         @apply mb-2;
+      }
+
+      .memberLinkedIn {
+         &:hover {
+            @include text-gradient(primary);
+         }
+      }
+
+      .memberSeparator {
+         @apply block w-full h-[1px];
+         @apply my-4;
+         background: linear-gradient(
+            40deg,
+            rgba(#339dff, 0.5) 0%,
+            rgba(#0ec1d3, 0.5) 100%
+         );
+
+         @apply relative;
+
+         &::after {
+            content: "Previously At";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            display: block;
+            padding: 0.5rem;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 300;
+            font-size: 10px;
+            white-space: nowrap;
+            background: #292b49;
+            opacity: 0.8;
+         }
+      }
+
+      .memberExperience {
+         @apply px-2 pb-4;
+         @apply flex justify-center items-center gap-3 flex-wrap;
+
+         img {
+            @apply h-[22px] w-auto;
+            filter: grayscale(1) invert(1);
+            opacity: 0.7;
+            @apply transition-all duration-300 ease-out;
+
+            &:hover {
+               opacity: 1;
+            }
+         }
+      }
+   }
+
+   .sbpAdvisors {
+      .members .memberSeparator::after {
+         all: initial !important;
+         display: none !important;
+      }
+   }
+
+   @include responsive(md) {
+      @apply mb-32;
+      .members {
+         @apply flex justify-center items-stretch gap-6 flex-wrap;
+
+         .memberCard {
+            @apply w-[240px];
+         }
+
+         // .memberExperience {
+         //    @apply flex-nowrap;
+         // }
+      }
+   }
+   @include responsive(lg) {
+      .members {
+         .memberExperience {
+            img {
+               &:hover {
+                  transform: scale(1.5);
+                  filter: grayscale(1) brightness(0.8) invert(1);
+               }
+            }
+         }
+      }
+   }
+}
