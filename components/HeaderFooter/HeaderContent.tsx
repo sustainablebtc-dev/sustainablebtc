@@ -25,6 +25,7 @@ import { getSbcInfo } from "@/utils/sbp";
 
 // components
 import ModalWhitepaperEmail from "../Modals/ModalWhitepaperEmail";
+import ModalSBPWrapped from "../Modals/ModalSBPWrapped";
 import { useRouter, usePathname } from "next/navigation";
 
 const HeaderContent = ({
@@ -114,6 +115,10 @@ const HeaderContent = ({
    const [modalIsOpen, setModalIsOpen] = useState(false);
    function openModal() {
       setModalIsOpen(true);
+   }
+   const [sbpWrappedModalIsOpen, setSbpWrappedModalIsOpen] = useState(false);
+   function openSBPWrappedModal() {
+      setSbpWrappedModalIsOpen(true);
    }
    // =====================================================================
 
@@ -530,6 +535,32 @@ const HeaderContent = ({
                                                                                        </span>
                                                                                     </div>
                                                                                  </>
+                                                                              ) : dropdownItem.slug ===
+                                                                              "https://www.sustainablebtc.org/2025-btc-sustainability-report.pdf" ? (
+                                                                                 <>
+                                                                                    <div
+                                                                                       className={`${styles.navModalLink}`}
+                                                                                       onClick={() => {
+                                                                                          if (
+                                                                                             window.innerWidth <
+                                                                                             1440
+                                                                                          ) {
+                                                                                             setIsNavbarToggled(
+                                                                                                !isNavbarToggled
+                                                                                             );
+                                                                                             openSBPWrappedModal();
+                                                                                          } else {
+                                                                                             openSBPWrappedModal();
+                                                                                          }
+                                                                                       }}
+                                                                                    >
+                                                                                       <span>
+                                                                                          {
+                                                                                             dropdownItem.name
+                                                                                          }
+                                                                                       </span>
+                                                                                    </div>
+                                                                                 </>
                                                                               ) : (
                                                                                  <>
                                                                                     <a
@@ -725,6 +756,11 @@ const HeaderContent = ({
          <ModalWhitepaperEmail
             modalIsOpen={modalIsOpen}
             setModalIsOpen={setModalIsOpen}
+         />
+
+         <ModalSBPWrapped
+            modalIsOpen={sbpWrappedModalIsOpen}
+            setModalIsOpen={setSbpWrappedModalIsOpen}
          />
       </>
    );

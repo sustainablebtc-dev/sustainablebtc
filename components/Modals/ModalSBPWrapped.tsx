@@ -2,23 +2,10 @@
 
 // Importing Libraries
 import React, { useState, useEffect, useRef } from "react";
-// import Modal from "react-modal";
+import Modal from "react-modal";
 import Image from "next/image";
-// import axios from "axios";
-// import validator from "validator";
-
-// Mock Modal since react-modal is missing
-const Modal = ({ isOpen, children, style }: any) => {
-   if (!isOpen) return null;
-   return (
-      <div style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-         <div style={{ ...style?.content, transform: 'none', position: 'relative', top: 'auto', left: 'auto' }}>
-            {children}
-         </div>
-      </div>
-   );
-};
-
+import axios from "axios";
+import validator from "validator";
 
 // Importing styles
 import styles from "@/styles/components/Modal.module.scss";
@@ -43,9 +30,9 @@ const customStyles = {
 };
 
 // Bind modal to the appElement
-// Modal.setAppElement("#modalWhitepaperEmail");
+// Modal.setAppElement("#ModalSBPWrapped");
 
-const ModalWhitepaperEmail = ({
+const ModalSBPWrapped = ({
    modalIsOpen,
    setModalIsOpen,
 }: {
@@ -78,23 +65,14 @@ const ModalWhitepaperEmail = ({
          setIsDisabled(false);
          return;
       } else {
-         // Commented out validator check since validator is missing
-         /*
          if (!validator.isEmail(email)) {
             emailErrorText.innerHTML = "Invalid Email!";
             setIsDisabled(false);
             return;
          }
-         */
          emailErrorText.innerHTML = "";
       }
 
-      // Disabled form submission due to missing dependencies
-      emailErrorText.innerHTML = "Form submission temporarily disabled";
-      setIsDisabled(false);
-      return;
-
-      /*
       try {
          // Collect the response
          const hubspot_response = await submit_hubspot_form(email);
@@ -107,7 +85,7 @@ const ModalWhitepaperEmail = ({
             hubspot_response.status === 201
          ) {
             // Download Whitepaper
-            fetch("whitepaper.pdf").then((response) => {
+            fetch("2025-btc-sustainability-report.pdf").then((response) => {
                response.blob().then((blob) => {
                   // Creating new object of PDF file
                   const fileURL = window.URL.createObjectURL(blob);
@@ -137,7 +115,6 @@ const ModalWhitepaperEmail = ({
 
    // Send data to hubspot
    const submit_hubspot_form = async (email: string) => {
-      /*
       const region = process.env.NEXT_PUBLIC_HUBSPOT_REGION;
       const portalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID;
       const formGuid = process.env.NEXT_PUBLIC_HUBSPOT_FORM_WHITEPAPER_ID;
@@ -164,8 +141,6 @@ const ModalWhitepaperEmail = ({
          config
       );
       return response;
-      */
-      return { status: 200 }; // Mock response
    };
 
    return (
@@ -180,11 +155,11 @@ const ModalWhitepaperEmail = ({
                {/* Actual Content */}
                <div className={`${styles.content}`}>
                   <h3 className={`${styles.heading} heading heading-4`}>
-                     Download SBP Whitepaper
+                     2025 BTC Sustainability Report
                   </h3>
                   <p className={`${styles.para} para`}>
                      Thank you for your interest in SBP. <br />
-                     Our whitepaper is available for free download.
+                     Our 2025 report is available for free download.
                   </p>
 
                   <form
@@ -213,8 +188,8 @@ const ModalWhitepaperEmail = ({
                         className={`${styles.formBtn} btn btn-dark`}
                         disabled={isDisabled}
                      >
-                        <i className="bi bi-eye"></i>
-                        <span>View Now</span>
+                        <i className="bi bi-download"></i>
+                        <span>Download Now</span>
                      </button>
                   </form>
                </div>
@@ -252,4 +227,4 @@ const ModalWhitepaperEmail = ({
    );
 };
 
-export default ModalWhitepaperEmail;
+export default ModalSBPWrapped;
