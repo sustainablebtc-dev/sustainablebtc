@@ -313,6 +313,10 @@ export default function DealProposal() {
                         <span className="mr-3 text-slate-400">—</span>
                         <span>Membership dues sustain long-term building.</span>
                       </li>
+                      <li className="text-sm leading-relaxed flex items-center">
+                        <span className="mr-3 text-emerald-500">—</span>
+                        <span className="text-emerald-600 font-semibold">EWF Clean Bitcoin Transactions Protocol</span>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -325,7 +329,7 @@ export default function DealProposal() {
                   Deal Objective
                 </h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  SBP to replace GP4BTC with a revenue-generating clean energy bitcoin protocol. The combined entity becomes the standard for regulated, ESG-compliant Bitcoin products.
+                  SBP to combine with EWF Clean Transaction protocol to replace GP4BTC with a revenue-generating clean energy bitcoin protocol. The combined entity becomes the <strong className="text-slate-900">"Sustainable Bitcoin Standard"</strong> for regulated, ESG-compliant Bitcoin products.
                 </p>
               </motion.div>
 
@@ -467,71 +471,98 @@ export default function DealProposal() {
               </div>
             </motion.div>
 
-            {/* Waste Methane & What Doesn't Qualify - Side by Side */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Waste Methane Section */}
-              <motion.div variants={fadeInUp} className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center">
-                    <Leaf className="w-5 h-5 text-emerald-400" />
+            {/* What Does Not Qualify - Prominent Warning Section */}
+            <motion.div variants={fadeInUp} className="mb-12">
+              <div className="border-2 border-slate-200 rounded-2xl overflow-hidden bg-white">
+                {/* Header Bar */}
+                <div className="bg-slate-900 px-8 py-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-red-500/20 rounded-xl flex items-center justify-center border border-red-500/30">
+                      <AlertCircle className="w-8 h-8 text-red-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-3xl font-black text-white tracking-tight">What Does Not Qualify</h3>
+                      <p className="text-slate-400 text-sm mt-1">Location-based claims alone do not meet SBP verification requirements</p>
+                    </div>
                   </div>
-                  <h3 className="text-lg font-bold">Waste Methane Utilization</h3>
                 </div>
-                <p className="text-slate-300 text-sm mb-5 leading-relaxed">
-                  Miners using waste methane can qualify for SBP tokens. This converts a potent greenhouse gas into productive energy.
+                
+                {/* Content */}
+                <div className="p-8">
+                  <p className="text-slate-700 mb-8 text-lg leading-relaxed max-w-3xl">
+                    Co-location with clean energy or operating in a high-renewable grid is <strong className="text-slate-900 font-semibold">insufficient</strong> without proper market-based attribution. The following scenarios do not qualify for SBP issuance:
+                  </p>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {[
+                      { title: 'Mining at hydropower without owning RECs', desc: 'Physical proximity to clean energy does not transfer environmental attributes' },
+                      { title: 'Operating in "green" grids where EACs sold to others', desc: 'Grid composition is irrelevant if certificates are claimed elsewhere' },
+                      { title: 'Co-location without contractual energy claims', desc: 'Must have legal ownership of energy attributes through proper instruments' },
+                      { title: 'Grid-average claims without market instruments', desc: 'Residual mix claims do not constitute verified clean energy use' },
+                    ].map((item, index) => (
+                      <div key={index} className="flex gap-4 p-5 bg-slate-50 rounded-xl border border-slate-200 hover:border-red-200 hover:bg-red-50/30 transition-all">
+                        <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <X className="w-5 h-5 text-red-600" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-slate-900 mb-1">{item.title}</h4>
+                          <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="mt-8 p-4 bg-slate-100 rounded-xl border border-slate-200">
+                    <p className="text-slate-600 text-sm flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-slate-400 flex-shrink-0 mt-0.5" />
+                      <span><strong className="text-slate-800">Important:</strong> SBP follows GHG Protocol Scope 2 market-based methodology. All clean energy claims must be backed by exclusive, verified contractual instruments that transfer environmental attributes.</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Waste Methane Section */}
+            <motion.div variants={fadeInUp} className="border border-slate-200 rounded-2xl overflow-hidden bg-white">
+              <div className="bg-emerald-600 px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                    <Leaf className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Waste Methane Utilization</h3>
+                    <p className="text-emerald-100 text-xs">Special category for emissions reduction</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-slate-600 text-sm mb-5 leading-relaxed max-w-3xl">
+                  Miners using waste methane can qualify for SBP tokens. This converts a potent greenhouse gas—typically vented or flared—into productive energy, delivering significant emissions reductions.
                 </p>
-                <div className="space-y-3">
+                <div className="grid md:grid-cols-3 gap-4 mb-4">
                   {[
                     { title: 'Additionality', desc: 'Gas must be "wasted"—vented or flared with no pipeline access.', metric: null },
                     { title: 'No Moral Hazard', desc: 'Must not incentivize additional methane production.', metric: '< 5% gas value' },
                     { title: 'Efficiency & MRV', desc: 'Emissions reduction verified through MRV.', metric: '≥ 99% efficiency' },
                   ].map((req, index) => (
-                    <div key={index} className="flex gap-3 pb-3 border-b border-white/10 last:border-b-0 last:pb-0">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-sm mb-0.5">{req.title}</h4>
-                        <p className="text-slate-400 text-xs leading-relaxed">{req.desc}</p>
-                        {req.metric && (
-                          <span className="inline-block mt-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold px-2 py-0.5 rounded">{req.metric}</span>
-                        )}
+                    <div key={index} className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                      <div className="flex items-center gap-2 mb-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                        <h4 className="font-semibold text-sm text-slate-900">{req.title}</h4>
                       </div>
+                      <p className="text-slate-500 text-xs leading-relaxed">{req.desc}</p>
+                      {req.metric && (
+                        <span className="inline-block mt-2 bg-emerald-100 text-emerald-700 text-xs font-semibold px-2 py-0.5 rounded">{req.metric}</span>
+                      )}
                     </div>
                   ))}
                 </div>
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <div className="flex items-start gap-2 text-slate-400 text-xs">
-                    <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                    <span><strong className="text-slate-300">Pilot Status:</strong> No SBP tokens issued yet for waste methane due to MRV challenges.</span>
-                  </div>
+                <div className="flex items-start gap-2 text-slate-500 text-xs p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-amber-600" />
+                  <span><strong className="text-amber-700">Pilot Status:</strong> No SBP tokens issued yet for waste methane due to ongoing MRV (Measurement, Reporting, and Verification) challenges.</span>
                 </div>
-              </motion.div>
-
-              {/* What Does Not Qualify */}
-              <motion.div variants={fadeInUp} className="bg-white border border-slate-200 rounded-2xl p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
-                    <AlertCircle className="w-5 h-5 text-amber-600" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900">What Does Not Qualify</h3>
-                </div>
-                <p className="text-slate-600 text-sm mb-5 leading-relaxed">
-                  Location-based claims alone do not meet SBP requirements. Co-location or operating in a high-renewable grid is insufficient without market-based attribution.
-                </p>
-                <div className="space-y-3">
-                  {[
-                    'Mining at hydropower without owning RECs',
-                    'Operating in "green" grids where EACs sold to others',
-                    'Co-location without contractual energy claims',
-                    'Grid-average claims without market instruments',
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center gap-3 p-3 bg-amber-50 rounded-lg">
-                      <X className="w-4 h-4 text-amber-600 flex-shrink-0" />
-                      <span className="text-sm text-amber-800">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
