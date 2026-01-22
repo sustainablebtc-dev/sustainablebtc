@@ -1,0 +1,349 @@
+.heroBg {
+   @apply absolute top-0 right-0 w-full z-0;
+   @apply pointer-events-none select-none;
+   @apply opacity-60;
+
+   @include responsive(lg) {
+      @apply w-[90%];
+   }
+}
+
+.hero {
+   @include hero-spacing();
+   @apply relative z-10;
+
+   .heroHeadingWrapper {
+      @apply flex flex-col justify-center items-center gap-8;
+      @apply max-w-[1000px] mx-auto;
+   }
+
+   .heroHeading {
+      @apply text-center;
+      h1 {
+         font-weight: bold;
+      }
+
+      b,
+      strong {
+         @apply font-black;
+      }
+   }
+
+   .heroSubHeading {
+      @apply text-center;
+
+      h5 {
+         @apply font-medium;
+      }
+   }
+
+   .heroImg {
+      @apply m-auto mt-12;
+   }
+
+   @include responsive(lg) {
+      @apply pb-4;
+      .heroImg {
+         @apply m-auto mt-28;
+      }
+   }
+}
+
+.benefits {
+   @apply text-center relative z-10;
+
+   .container {
+      @apply flex flex-col justify-center items-center gap-12;
+   }
+
+   .benefitsHeading {
+   }
+
+   .benefitsCTA {
+      @apply flex flex-wrap justify-center items-center gap-4;
+   }
+
+   .benefitsItems {
+      @apply flex flex-wrap justify-center items-start text-center gap-4;
+
+      & > div {
+         @apply flex flex-col justify-center items-center gap-4;
+         @apply py-8 p-4 rounded-lg;
+         background: linear-gradient(
+            40deg,
+            rgba(#339dff, 0.1) 0%,
+            rgba(#0ec1d3, 0.1) 100%
+         );
+         border: 1px solid rgba(#339dff, 0.2);
+      }
+
+      .itemImg {
+         @apply block m-auto relative z-20;
+
+         img {
+            @apply w-20 aspect-square;
+            @apply relative z-20;
+         }
+
+         &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            translate: -37% -38%;
+            scale: 0.85;
+            background: url("../../public/home/sbc-icon-bg.svg");
+            width: 338px;
+            height: 342px;
+            z-index: 0;
+            animation: rotation 8s infinite linear;
+         }
+
+         @keyframes rotation {
+            from {
+               transform: translate(0%, 1%) rotate(0deg);
+            }
+            50% {
+               transform: translate(-2%, -2%) rotate(180deg);
+            }
+            to {
+               transform: translate(0%, 1%) rotate(359deg);
+            }
+         }
+      }
+
+      h5 {
+         @apply relative z-30;
+      }
+   }
+
+   @include responsive(lg) {
+      .benefitsItems {
+         @apply gap-8;
+         & > div {
+            @apply max-w-[300px];
+            @apply flex-1;
+            @apply py-10 p-4 rounded-lg;
+         }
+
+         img {
+            @apply w-24 aspect-square;
+         }
+      }
+   }
+}
+
+.comparison {
+   @apply relative z-20;
+
+   .comparisonHeading {
+      @apply text-center;
+
+      h3 {
+         @apply block font-medium;
+
+         span {
+            @apply font-extrabold;
+         }
+      }
+      h2 {
+         strong,
+         span {
+            text-decoration-color: #339dff !important;
+         }
+      }
+   }
+
+   .comparisonFeatures {
+      @apply flex justify-center flex-wrap gap-2 gap-x-4;
+      @apply font-bold;
+      @apply my-8;
+      @include text-gradient(primary);
+      @include typo(heading, 6);
+   }
+
+   .comparisonSlider {
+      @apply flex;
+      @apply max-w-[1100px] mx-auto;
+   }
+
+   @include responsive(md) {
+      .comparisonSlider {
+         @apply h-[50vh];
+         .comparisonSliderImg:first-child {
+            object-position: center 70% !important;
+         }
+      }
+   }
+
+   @include responsive(lg) {
+      .comparisonFeatures {
+         @apply my-12;
+      }
+      .comparisonSlider {
+         @apply h-[60vh];
+      }
+   }
+}
+
+.sbc {
+   @apply text-center grid place-content-center;
+   @apply relative;
+
+   .sbcBg {
+      @apply absolute top-0 left-0 w-full h-full;
+
+      canvas {
+         position: absolute !important;
+         @apply top-0 left-0 right-0 bottom-0;
+      }
+   }
+
+   .container {
+      @apply flex flex-col gap-8;
+      @apply max-w-[900px];
+   }
+
+   .sbcIcon {
+      scale: 0.8;
+      translate: 0 10%;
+      @apply block m-auto relative z-20;
+
+      img {
+         @apply relative z-20;
+      }
+
+      &::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         translate: -35% -35%;
+         background: url("../../public/home/sbc-icon-bg.svg");
+         width: 338px;
+         height: 342px;
+         z-index: 0;
+         animation: rotation 8s infinite linear;
+      }
+
+      @keyframes rotation {
+         from {
+            transform: translate(0%, 1%) rotate(0deg);
+         }
+         50% {
+            transform: translate(0%, -2%) rotate(180deg);
+         }
+         to {
+            transform: translate(0%, 1%) rotate(359deg);
+         }
+      }
+   }
+
+   .sbcHeading {
+      @include text-gradient(primary);
+   }
+
+   .sbcSubHeading {
+      h4 {
+         @apply font-medium block;
+      }
+   }
+
+   .sbcDescription {
+      @apply leading-[140%] opacity-90;
+   }
+
+   .sbcFeatures {
+      @apply flex justify-center flex-wrap gap-2 gap-x-4;
+      @apply font-bold;
+      @apply my-2;
+      @include text-gradient(primary);
+   }
+
+   .sbcDescription {
+      p {
+         @apply mb-3;
+         @apply leading-[140%] opacity-90;
+      }
+   }
+
+   .aboutSbcCTA {
+      @apply flex flex-wrap justify-center items-center gap-4;
+   }
+
+   @include responsive(md) {
+      .sbcIcon {
+         scale: 0.9;
+         translate: 0 5%;
+      }
+   }
+
+   @include responsive(lg) {
+      .sbcFeatures {
+         @apply text-lg font-extrabold;
+      }
+      .sbcIcon {
+         scale: 1;
+      }
+   }
+}
+
+.bitcoinMiners {
+   .bitcoinMinersHeading {
+      @apply max-w-[800px] text-center mx-auto block;
+   }
+
+   .bitcoinMinersFeatures {
+      @apply flex justify-center flex-wrap gap-2 gap-x-4;
+      @apply font-bold;
+      @apply my-8;
+      @include typo(heading, 6);
+   }
+
+   .bitcoinMiners {
+      @apply grid grid-cols-3 gap-3 m-0;
+      grid-auto-rows: 1fr;
+
+      .bitcoinMinersImage {
+         @apply grid place-content-center;
+         @apply border rounded-md;
+         @apply py-2 px-4;
+         @apply transition-all duration-300 ease-out;
+
+         border: 1px solid rgba(#339dff, 0.5);
+         background: rgba($color: color($color-light), $alpha: 0.05);
+
+         img {
+            max-height: 50px;
+            opacity: 0.7;
+            filter: brightness(0) invert(1);
+         }
+
+         &:hover {
+            background: $gradient-primary;
+         }
+      }
+   }
+
+   @include responsive(md) {
+      .bitcoinMiners {
+         @apply grid grid-cols-4 gap-4;
+
+         .bitcoinMinersImage {
+            @apply py-4 px-6;
+         }
+      }
+   }
+   @include responsive(lg) {
+      .bitcoinMinersFeatures {
+         @apply my-12 gap-8;
+      }
+      .bitcoinMiners {
+         @apply grid grid-cols-5;
+
+         .bitcoinMinersImage {
+            @apply py-6 px-8;
+         }
+      }
+   }
+}

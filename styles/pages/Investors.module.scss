@@ -1,0 +1,438 @@
+.hero {
+   @include hero-spacing;
+   @include grid-center;
+   min-height: 20vh;
+
+   .container {
+      @apply max-w-[1000px];
+      @apply flex flex-col justify-center items-center gap-8;
+      @apply text-center;
+   }
+
+   .heroImg {
+      @apply scale-150;
+      @apply mb-8;
+   }
+
+   .heroHeading {
+      @apply max-w-[600px] leading-[110%];
+      @apply mt-4;
+      @include text-gradient(primary);
+   }
+
+   .heroSubHeading {
+      @apply font-semibold;
+   }
+
+   @include responsive(md) {
+      .heroImg {
+         @apply -mt-10;
+         @apply max-w-[800px] mx-auto;
+         @apply scale-125;
+      }
+   }
+
+   @include responsive(lg) {
+      .heroImg {
+         @apply max-w-max -mt-28;
+         @apply scale-125;
+      }
+
+      .heroHeading {
+         @apply max-w-[800px];
+      }
+      .heroPara {
+         font-size: 1.1rem;
+      }
+   }
+}
+
+.investment {
+   .container {
+      @apply max-w-[1100px];
+      @apply flex flex-col justify-center items-center gap-8;
+   }
+
+   .investmentHeading {
+      @apply text-center w-full;
+   }
+
+   .investmentSubHeading {
+      @apply font-normal text-center w-full my-1;
+   }
+
+   .investmentFormula {
+      @apply grid grid-cols-2 gap-2;
+
+      .investmentFormulaLHS {
+         @include text-gradient(primary);
+         @apply text-right;
+      }
+
+      .investmentFormulaValue {
+         @apply text-4xl font-black;
+      }
+
+      .investmentFormulaSubHeading {
+         @apply font-medium;
+      }
+
+      .investmentFormulaTags {
+         @apply flex flex-wrap gap-1 mt-2;
+
+         li {
+            background: #a5e126;
+            box-shadow: 4px 4px 3px 0px rgba(255, 255, 255, 0.75) inset;
+            color: color($color-dark);
+            @apply py-1 px-2 rounded-full text-sm leading-[110%];
+         }
+      }
+   }
+
+   .investmentDescription {
+      @apply max-w-[700px] mx-auto text-center;
+   }
+
+   .investmentCTA {
+      @apply flex justify-center items-center gap-4 flex-wrap;
+   }
+
+   @include responsive(md) {
+      .investmentFormula {
+         .investmentFormulaValue {
+            @apply text-6xl font-black;
+         }
+         .investmentFormulaSubHeading {
+            @apply text-lg;
+         }
+         .investmentFormulaTags {
+            li {
+               @apply text-base py-1 px-3 rounded-full;
+            }
+         }
+      }
+   }
+
+   @include responsive(lg) {
+      .investmentSubHeading {
+         @apply my-2;
+         font-size: 1.3rem;
+      }
+   }
+}
+
+.support {
+   @apply my-28;
+   .container {
+      @apply max-w-[1000px];
+      @apply flex flex-col justify-center items-center gap-8;
+   }
+
+   .supportHeading {
+      @apply block text-center max-w-[700px] mx-auto leading-[110%];
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .supportSubHeading {
+      @apply block mx-auto text-center mt-4;
+   }
+
+   .supportType {
+      @apply mt-10 text-center w-full;
+
+      .supportTypeLogoWrapper {
+         @apply grid grid-cols-2 gap-2 mt-4;
+      }
+
+      .supportTypeLogo {
+         background: rgba($color: color($color-light), $alpha: 0.1);
+         border: 1px solid rgba($color: #339dff, $alpha: 0.5);
+         @apply rounded-lg p-6;
+         @apply flex justify-center items-center;
+         @apply transition-all duration-300 ease-out;
+
+         img {
+            width: auto !important;
+            max-height: 2.5rem;
+            filter: brightness(0) invert(1);
+            @apply transition-all duration-300 ease-out;
+         }
+
+         &:hover {
+            background: rgba($color: color($color-light), $alpha: 1);
+            border: 1px solid rgba($color: color($color-light), $alpha: 1);
+
+            img {
+               filter: initial;
+            }
+         }
+      }
+   }
+
+   @include responsive(md) {
+      .supportType {
+         @apply w-3/4;
+         .supportTypeLogoWrapper {
+            @apply flex justify-center gap-4;
+
+            .supportTypeLogo {
+               @apply py-4;
+            }
+         }
+      }
+   }
+
+   @include responsive(lg) {
+      .container {
+         @apply my-32;
+      }
+      .supportType {
+         @apply w-full;
+         .supportTypeLogoWrapper {
+            @apply mt-8;
+            .supportTypeLogo {
+               @apply py-6;
+            }
+         }
+      }
+   }
+}
+
+.investorHelp {
+   @apply min-h-fit overflow-hidden; //box
+   padding-block: 4rem !important;
+   margin-block: 100px 0;
+   background: linear-gradient(
+      39deg,
+      rgba(51, 157, 255, 0.1) 0%,
+      rgba(14, 193, 211, 0.1) 100%
+   );
+
+   .wrapper {
+      @apply grid gap-y-16;
+   }
+
+   // image animation
+   .image {
+      @apply relative grid place-content-center;
+      @apply w-fit mx-auto max-w-[300px];
+
+      img {
+         @apply relative z-20;
+      }
+
+      &::before {
+         content: "";
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         translate: -50% -50%;
+         scale: 0.6;
+         background: url("../../public/home/trust-shade.svg");
+         background-repeat: no-repeat;
+         background-position: center;
+         width: 200%;
+         height: 200%;
+         z-index: 0;
+         animation: rotation 15s infinite linear;
+      }
+
+      @keyframes rotation {
+         from {
+            transform: translate(0%, 0%) rotate(0deg);
+         }
+
+         50% {
+            transform: translate(0%, -5%) rotate(180deg);
+         }
+
+         to {
+            transform: translate(0%, 0%) rotate(359deg);
+         }
+      }
+
+      // Bitcoin
+      .bitcoin {
+         @apply absolute;
+         @apply transition-all divide-gray-300 ease-out;
+         animation: blinkAnimation 5s infinite;
+
+         &1 {
+            @apply top-1/2 -left-[10px];
+            animation-delay: 0.2s;
+         }
+
+         &2 {
+            @apply top-0 left-1/2 -translate-x-1/2 -translate-y-1/2;
+         }
+
+         &3 {
+            @apply top-[30%] right-[17%];
+            animation-delay: 0.4s;
+         }
+
+         &4 {
+            @apply bottom-[20%] right-[26%];
+            animation-delay: 0.5s;
+         }
+
+         &5 {
+            @apply bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2;
+            animation-delay: 1s;
+         }
+
+         @keyframes blinkAnimation {
+            from {
+               opacity: 1;
+            }
+
+            50% {
+               opacity: 0;
+            }
+
+            to {
+               opacity: 1;
+            }
+         }
+      }
+   }
+
+   .content {
+      @apply flex flex-col items-center justify-center gap-6; //layout
+      @apply text-center; //font
+   }
+
+   .trustHeading {
+      @apply leading-[100%];
+
+      h4 {
+         @apply text-3xl;
+      }
+
+      strong {
+         font-weight: 900;
+         @include text-gradient(primary);
+      }
+   }
+
+   .trustBullet {
+      @apply text-left w-full;
+
+      ul {
+         list-style-type: disc;
+
+         li {
+            margin-bottom: 8px;
+         }
+      }
+   }
+
+   // #region Responsive
+   // Responsive for Tablet
+   @include responsive(md) {
+      .wrapper {
+         @apply grid-cols-2;
+      }
+
+      .content {
+         @apply items-start text-left pr-8;
+      }
+
+      .trustHeading {
+         h4 {
+            @apply text-4xl;
+         }
+      }
+   }
+
+   // Responsive for Desktop
+   @include responsive(lg) {
+      margin-bottom: 0 !important;
+
+      .image {
+         @apply max-w-[400px];
+
+         &::before {
+            scale: 0.75;
+         }
+
+         .bitcoin {
+            &1 {
+               @apply top-1/2 -left-[10px];
+               animation-delay: 0.2s;
+            }
+
+            &2 {
+               @apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-[210px];
+            }
+
+            &3 {
+               @apply top-[30%] right-[20%];
+               animation-delay: 0.4s;
+            }
+
+            &4 {
+               @apply bottom-[25%] right-[26%];
+               animation-delay: 0.5s;
+            }
+
+            &5 {
+               @apply bottom-1/2 left-1/2 -translate-x-1/2 translate-y-[210px];
+               animation-delay: 1s;
+            }
+         }
+      }
+   }
+
+   @include responsive(xl) {
+   }
+
+   // #endregion
+}
+
+.scheduleCall {
+   background: $gradient-primary;
+   padding-block: 4rem;
+   min-height: initial;
+   margin-top: 0 !important;
+   margin-bottom: 0 !important;
+   position: relative;
+   overflow: hidden;
+
+   .container {
+      @apply flex flex-col justify-between items-center gap-8;
+      @apply text-center;
+      @apply max-w-[1200px];
+   }
+
+   .scheduleCallCTA {
+      white-space: nowrap;
+
+      button,
+      a {
+         background: color($color-dark);
+         border-color: color($color-light);
+
+         &:hover {
+            background: color($color-dark, 600);
+         }
+      }
+   }
+
+   .scheduleCallBg {
+      @apply absolute top-1/2 left-1/2 -translate-y-1/2;
+      @apply h-[400px] aspect-square opacity-50;
+   }
+
+   @include responsive(lg) {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+
+      .container {
+         @apply flex-row  gap-12;
+         @apply text-left mx-auto;
+      }
+   }
+}

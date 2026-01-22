@@ -1,0 +1,49 @@
+.hero {
+   @include hero-spacing;
+   @apply pb-20;
+
+   .container {
+      @apply max-w-[650px];
+      @apply relative;
+   }
+
+   .heroShape {
+      @apply absolute;
+      @apply left-1/2 -translate-x-1/2 -translate-y-1/3 top-0;
+      @apply pointer-events-none select-none;
+   }
+
+   .heroHeading {
+      @apply leading-[110%] relative z-10;
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .heroDescription {
+      @apply my-8 relative z-10;
+   }
+
+   @include responsive(md) {
+   }
+
+   @include responsive(lg) {
+      @apply pb-24;
+
+      .heroShape {
+         @apply scale-125;
+      }
+
+      .heroDescription {
+         @apply text-[18px] my-12;
+      }
+   }
+}
+
+.contactForm {
+   @apply flex flex-col gap-2;
+
+   button {
+      @apply justify-center;
+   }
+}

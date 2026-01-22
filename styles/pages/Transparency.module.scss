@@ -1,0 +1,106 @@
+.hero {
+   @include hero-spacing;
+   @apply mb-24;
+   @apply relative;
+
+   .imgCloud {
+      @apply absolute;
+      @apply h-[300px];
+      @apply top-10 left-0 -translate-x-1/2;
+      @apply opacity-25;
+      @apply pointer-events-none select-none;
+   }
+   .imgCloud2 {
+      @apply absolute;
+      @apply h-[300px];
+      @apply top-0 left-0 translate-x-1/2;
+      @apply opacity-25;
+      @apply pointer-events-none select-none;
+   }
+
+   .container {
+      @apply max-w-[1000px];
+      @apply flex justify-center items-center flex-col gap-6;
+   }
+
+   .heroHeading {
+      @apply text-center;
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .heroSubHeading {
+      @apply text-center;
+      font-weight: normal;
+
+      strong {
+         @apply font-extrabold;
+         @include text-gradient(primary);
+         border-bottom: 1px solid #339dff;
+      }
+   }
+
+   .separator {
+      background: $gradient-primary;
+      @apply w-full h-[1px];
+      @apply my-4 opacity-50;
+      @apply max-w-[700px] mx-auto;
+   }
+
+   .heroDescription {
+      @apply max-w-[700px] mx-auto;
+      p {
+         @apply my-2;
+      }
+      h5 {
+         @apply mb-4;
+         font-size: 24px;
+      }
+   }
+
+   .heroType {
+      @apply flex flex-col gap-12;
+      @apply my-12;
+
+      .type {
+         @apply flex flex-col justify-center items-center gap-4;
+         @apply flex-1;
+         @apply max-w-[300px] mx-auto text-center;
+
+         h3 {
+            font-size: 1.25rem;
+            @include text-gradient(primary);
+         }
+
+         img {
+            height: 150px;
+         }
+      }
+   }
+
+   @include responsive(md) {
+      .heroDescription {
+         p {
+            font-size: 18px;
+            line-height: 140%;
+         }
+         h5 {
+         }
+
+         strong {
+            @apply font-extrabold;
+         }
+      }
+
+      .heroType {
+         @apply flex-row justify-start;
+
+         .type {
+            img {
+               height: 200px;
+            }
+         }
+      }
+   }
+}

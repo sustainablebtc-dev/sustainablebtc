@@ -1,0 +1,404 @@
+.hero {
+   @apply h-[100vh] overflow-hidden;
+   @apply relative;
+
+   .videoHeroBg {
+      @apply absolute top-0 left-0 w-full h-full;
+      @apply object-cover;
+      @apply opacity-40;
+      @apply pointer-events-none select-none;
+   }
+
+   .imgHeroOverlay {
+      @apply absolute top-0 left-0 w-full h-full;
+      @apply object-cover;
+      @apply pointer-events-none select-none;
+   }
+
+   .imgHeroShape {
+      @apply hidden;
+   }
+
+   .container {
+      @apply flex justify-center items-center flex-col gap-8;
+      @apply relative z-10;
+      @apply h-[100vh] max-w-[900px];
+      @apply text-center;
+      @apply pt-8;
+   }
+
+   .heroHeading {
+      strong {
+         @include text-gradient(primaryReverse);
+      }
+   }
+
+   .heroDescription {
+      @apply max-w-[800px] mx-auto mb-4 block;
+      @apply text-sm;
+   }
+
+   .heroCTA {
+      @apply flex justify-center items-center flex-wrap gap-4;
+   }
+
+   @include responsive(md) {
+      .imgHeroShape {
+         @apply block;
+         @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+         @apply h-[60vh];
+         @apply opacity-50;
+         @apply pointer-events-none select-none;
+      }
+
+      .container {
+         @apply gap-12;
+      }
+
+      .heroDescription {
+         @apply text-base mb-2;
+      }
+   }
+   @include responsive(lg) {
+      .imgHeroShape {
+         @apply h-[70vh];
+      }
+   }
+}
+
+.sbp {
+   @apply my-28;
+
+   .container {
+      @apply max-w-[900px];
+   }
+
+   .sbpHeading {
+      @apply block text-center;
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+   .sbpDescription {
+      @apply text-center my-8 mx-auto block max-w-[750px];
+   }
+
+   .sbpVisionMission {
+      @apply flex justify-center items-start gap-10 flex-col text-center;
+      @apply mt-32;
+      @apply relative;
+
+      .sbpMission,
+      .sbpVision {
+         @apply flex flex-col gap-4 flex-1;
+
+         strong {
+            @include text-gradient(primary);
+         }
+      }
+
+      .sbpVision {
+         .sbpVisionLine {
+            @apply absolute -top-16 left-0;
+            @apply pointer-events-none select-none;
+         }
+      }
+
+      .sbpMission {
+         .sbpMissionLine {
+            @apply absolute -top-16 right-0;
+            transform: scaleX(-1);
+            @apply pointer-events-none select-none;
+         }
+      }
+
+      .sbpIcon {
+         @apply hidden;
+      }
+   }
+
+   @include responsive(md) {
+      @apply my-32;
+      .sbpVisionMission {
+         @apply flex-row gap-20;
+
+         .sbpVision {
+            @apply text-left;
+         }
+         .sbpMission {
+            & > * {
+               @apply block text-right;
+            }
+         }
+      }
+   }
+
+   @include responsive(lg) {
+      @apply my-48;
+
+      .sbpVisionMission {
+         @apply mt-44;
+         .sbpIcon {
+            translate: 0 10%;
+            @apply block m-auto relative z-20;
+
+            img {
+               @apply relative z-20;
+            }
+            &::before {
+               content: "";
+               position: absolute;
+               top: 0;
+               left: 0;
+               translate: -35% -35%;
+               background: url("../../public/home/sbc-icon-bg.svg");
+               width: 338px;
+               height: 342px;
+               z-index: 0;
+               animation: rotation 8s infinite linear;
+            }
+
+            @keyframes rotation {
+               from {
+                  transform: translate(0%, 1%) rotate(0deg);
+               }
+               50% {
+                  transform: translate(0%, -2%) rotate(180deg);
+               }
+               to {
+                  transform: translate(0%, 1%) rotate(359deg);
+               }
+            }
+         }
+      }
+   }
+}
+
+.commitment {
+   @apply my-28;
+   .container {
+      @apply max-w-[1200px];
+   }
+
+   .commitmentHeading {
+      @apply block;
+
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .commitments {
+      @apply grid grid-cols-1 gap-8;
+      @apply mt-8 relative;
+
+      &::after {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0.5rem;
+         transform: translateX(-50%);
+         width: 1px;
+         height: 100%;
+         background: $gradient-primary;
+         opacity: 0.3;
+      }
+
+      .commitmentItem {
+         @apply relative;
+         @apply pl-8;
+         @apply flex flex-col gap-2;
+
+         &::before {
+            content: "";
+            position: absolute;
+            top: 0.9rem;
+            left: 0.5rem;
+            transform: translate(-50%, -50%);
+            width: 0.8rem;
+            height: 0.8rem;
+            border-radius: 100%;
+            background: $gradient-primary;
+         }
+
+         ol,
+         ul {
+            @apply pl-6;
+
+            li {
+               @apply my-1;
+            }
+         }
+      }
+   }
+
+   @include responsive(md) {
+      @apply my-32;
+
+      .commitmentHeading {
+         @apply text-center;
+      }
+
+      .commitments {
+         @apply grid grid-cols-2 gap-10 gap-y-4;
+         @apply mt-16;
+         @apply relative;
+
+         &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100%;
+            background: $gradient-primary;
+            opacity: 0.3;
+         }
+
+         .commitmentItem {
+            @apply relative;
+            @apply py-10 pl-0;
+
+            // Horizontal Line
+            &:nth-child(1)::after,
+            &:nth-child(3)::after,
+            &:nth-child(5)::after {
+               content: "";
+               position: absolute;
+               top: 0;
+               left: 0;
+               width: calc((100% * 2) + (2.5rem));
+               height: 1px;
+               background: $gradient-primary;
+               opacity: 0.3;
+            }
+
+            // Verticle Line
+            &:nth-child(2)::after {
+               all: initial;
+            }
+
+            &::before {
+               content: "";
+               position: absolute;
+               top: 0;
+               left: initial;
+               transform: translateY(-50%);
+               width: 0.8rem;
+               height: 0.8rem;
+               border-radius: 100%;
+               background: $gradient-primary;
+            }
+         }
+      }
+   }
+
+   @include responsive(lg) {
+      .commitments {
+         @apply grid grid-cols-3 gap-x-20 gap-y-6;
+         @apply mt-28;
+
+         &::after,
+         &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: calc((100% / 3) - 1rem);
+            transform: translate(-50%, -50%);
+            width: 1px;
+            height: 110%;
+            background: $gradient-primary;
+            opacity: 0.3;
+         }
+
+         &::before {
+            left: calc(((100% / 3) * 2) + 1rem);
+         }
+
+         .commitmentItem {
+            @apply py-12 pl-0;
+
+            // Horizontal Line
+            &:nth-child(1)::after,
+            &:nth-child(4)::after {
+               content: "";
+               position: absolute;
+               top: 0;
+               left: 0;
+               width: calc((100% * 3) + (5rem * 2));
+               height: 1px;
+               background: $gradient-primary;
+               opacity: 0.3;
+            }
+
+            &::before {
+               content: "";
+               position: absolute;
+               top: 0;
+               transform: translateY(-50%);
+               width: 0.8rem;
+               height: 0.8rem;
+               border-radius: 100%;
+               background: $gradient-primary;
+            }
+         }
+      }
+   }
+}
+
+.support {
+   @apply my-32;
+   @apply min-h-0;
+
+   .supportHeading {
+      @apply block mx-auto max-w-[850px];
+      @apply leading-[110%] text-center;
+      @apply mb-16;
+
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+   .supportCompanySlide {
+      @apply w-auto h-16;
+
+      @apply rounded-md;
+      border: 1px solid rgba(#339dff, 0.5);
+      background: linear-gradient(
+         40deg,
+         rgba(#339dff, 0.05) 0%,
+         rgba(#0ec1d3, 0.05) 100%
+      );
+
+      @apply grid place-content-center;
+      @apply p-2;
+
+      img {
+         @apply max-w-[60%] h-auto mx-auto;
+         filter: brightness(0) invert(1);
+      }
+
+      &:hover {
+         border: 1px solid rgba(#339dff, 1);
+         background: linear-gradient(
+            40deg,
+            rgba(#339dff, 1) 0%,
+            rgba(#0ec1d3, 1) 100%
+         );
+      }
+   }
+
+   @include responsive(md) {
+      @apply my-44;
+   }
+
+   @include responsive(lg) {
+      .supportCompanySlide {
+         @apply p-4;
+         img {
+            @apply max-w-[70%] h-auto mx-auto;
+         }
+      }
+   }
+}

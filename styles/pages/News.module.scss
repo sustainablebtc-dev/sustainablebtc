@@ -1,0 +1,333 @@
+.hero {
+   @include hero-spacing;
+   @apply pb-20;
+
+   .heroHeading {
+      @apply text-center block mb-4;
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .heroSubHeading {
+      @apply text-center block mb-24 leading-normal;
+      font-weight: 400;
+
+      strong {
+         @apply font-extrabold;
+         @include text-gradient(primary);
+         // border-bottom: 1px solid #339dff;
+      }
+   }
+
+   .categoryFilter {
+      @apply flex flex-wrap justify-center gap-3;
+      @apply mt-16 mb-20;
+
+      li {
+         @apply grid place-content-center;
+         @apply py-2 px-8 rounded-full cursor-pointer;
+         @apply font-medium;
+         background: linear-gradient(
+            40deg,
+            rgba(#339dff, 0.2) 0%,
+            rgba(#0ec1d3, 0.2) 100%
+         );
+
+         &:hover {
+            background: linear-gradient(
+               40deg,
+               rgba(#339dff, 0.4) 0%,
+               rgba(#0ec1d3, 0.4) 100%
+            );
+         }
+         &.active {
+            background: $gradient-primary;
+         }
+      }
+   }
+
+   .allCategoryHero {
+      @apply flex flex-wrap;
+
+      @include responsive(lg) {
+         & .articleCard:nth-child(1) {
+            width: 100%;
+            max-width: initial;
+            @apply flex gap-8 pb-10;
+            @apply flex-row;
+
+            .articleImage {
+               max-width: initial;
+               width: calc((100% * 2.3));
+            }
+
+            .content {
+               @apply gap-4;
+            }
+
+            .articleTitle {
+               @apply text-4xl;
+            }
+
+            .articleDescription {
+               @apply line-clamp-none;
+            }
+         }
+      }
+      & .articleCard {
+         .content {
+            @apply flex flex-col gap-3;
+         }
+         .articleDescription {
+            @apply mb-2;
+         }
+         .articleDate {
+            @apply mt-0;
+         }
+
+         @include responsive(lg) {
+            @apply pb-4;
+         }
+      }
+
+      label {
+         @apply absolute top-4 left-4 z-10;
+         @apply px-4 py-1;
+         @apply text-sm;
+         @apply rounded-sm;
+
+         background: linear-gradient(
+            40deg,
+            rgba(#339dff, 0.9) 0%,
+            rgba(#0ec1d3, 0.9) 100%
+         );
+         backdrop-filter: blur(2px);
+      }
+   }
+
+   .articles {
+      @apply grid grid-cols-1 gap-8 gap-y-12;
+   }
+
+   .articleCard {
+      @apply flex flex-col gap-4 pb-12;
+
+      .articleImage {
+         @apply aspect-video w-full overflow-hidden;
+         @apply relative;
+         background: color($color-dark, 400);
+
+         img {
+            @apply transition-all duration-300 ease-out;
+            object-fit: cover;
+         }
+
+         &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: $gradient-primary;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            @apply transition-all duration-300 ease-out;
+         }
+      }
+
+      .articleTitle {
+         @apply line-clamp-2;
+         @apply font-semibold;
+      }
+
+      .articleInfoData {
+         @apply flex justify-between items-center;
+      }
+
+      .articleDate {
+         @apply font-medium text-sm;
+         @include text-gradient(primary);
+      }
+
+      .articleCategories {
+         @apply flex flex-wrap gap-2;
+
+         div {
+            @apply inline-block py-1 px-3 rounded-md text-sm;
+            background: linear-gradient(
+               40deg,
+               rgba(#339dff, 0.5) 0%,
+               rgba(#0ec1d3, 0.5) 100%
+            );
+         }
+      }
+
+      .articleDescription {
+         @apply opacity-80;
+         @apply line-clamp-3;
+      }
+
+      &:hover {
+         .articleImage {
+            img {
+               // rotate: -3deg;
+               // scale: 1.2;
+            }
+
+            &::after {
+               opacity: 0.2;
+               visibility: visible;
+            }
+         }
+      }
+   }
+
+   .categoryWiseSliders {
+      @apply my-20;
+
+      .sliderHeader {
+         @apply my-8;
+         @apply flex justify-between items-center;
+
+         .sliderHeading {
+            @apply font-bold;
+         }
+
+         .sliderControl {
+            @apply flex items-center gap-6;
+         }
+
+         .sliderControlLink {
+            @include gradient-text;
+            @apply underline underline-offset-4 decoration-[#339dff];
+            @apply cursor-pointer;
+
+            &:hover {
+               @include text-gradient(primaryReverse);
+               @apply decoration-[#0ec1d3];
+            }
+         }
+         .sliderControlBtns {
+            @apply flex items-center gap-2 text-lg;
+         }
+
+         @include responsive(md) {
+            @apply px-4;
+         }
+      }
+
+      .sliderBody {
+         .articleCard {
+            @apply m-0 p-0;
+         }
+
+         @include responsive(md) {
+            @apply px-4;
+         }
+      }
+   }
+
+   @include responsive(md) {
+      @apply pb-24;
+      .articles {
+         @apply grid grid-cols-2 gap-6 gap-y-8;
+      }
+
+      .articleCard {
+         @apply flex flex-col gap-4 max-w-[calc(100%/2-2rem)] px-4 pb-12;
+      }
+   }
+
+   @include responsive(lg) {
+      .articles {
+         @apply grid grid-cols-3 gap-8 gap-y-12;
+      }
+      .articleCard {
+         @apply flex flex-col gap-4 max-w-[calc(100%/3-2rem)] px-4 pb-12;
+      }
+   }
+}
+
+.article {
+   @include hero-spacing;
+   @apply pb-20;
+   @apply relative;
+
+   .articleContent {
+      @apply col-span-8;
+      @apply flex flex-col gap-4 md:gap-6 lg:gap-8;
+      @apply p-4 md:p-6 lg:p-8;
+      @apply rounded-xl;
+
+      background: linear-gradient(
+         40deg,
+         rgba(#339dff, 0.05) 0%,
+         rgba(#0ec1d3, 0.05) 100%
+      );
+      border: 1px solid rgba(#339dff, 0.15);
+   }
+
+   .articleAside {
+      @apply col-span-4 lg:py-8;
+      @apply sticky top-[100px] h-fit;
+   }
+   .articleImage {
+      @apply w-full aspect-video overflow-hidden;
+      @apply rounded-lg;
+
+      img {
+         @apply object-cover;
+      }
+   }
+   .separator {
+      @apply w-full h-[1px];
+      background: $gradient-primary;
+      @apply my-4;
+      @apply opacity-20;
+   }
+
+   .articleAsideCard {
+      @apply rounded-lg;
+   }
+
+   // related list
+   .relatedList {
+      @apply flex flex-col gap-3 mt-6;
+
+      li {
+         @apply flex gap-3 items-center;
+      }
+
+      img {
+         @apply max-w-[6rem];
+      }
+
+      .relatedListHeading {
+         @include typo(para);
+         @apply text-base;
+
+         &:hover {
+            @include text-gradient(primary);
+         }
+      }
+
+      .separator {
+         @apply my-0 opacity-20;
+
+         &:last-child {
+            @apply hidden;
+         }
+      }
+   }
+   @include responsive(md) {
+      @apply pb-24;
+   }
+   @include responsive(lg) {
+      .container {
+         @apply grid grid-cols-12 gap-12;
+      }
+   }
+}

@@ -1,0 +1,151 @@
+.hero {
+   margin-bottom: 0 !important;
+
+   @apply relative; //position
+   @apply flex items-center justify-center flex-col gap-4 text-center; //layout
+   @apply px-4 min-h-[60vh]; //box
+   @apply overflow-hidden;
+   margin-top: 9.5rem !important;
+
+   &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("../../public/learning-center/learningCentreHeroBg.png")
+         center/cover no-repeat;
+      opacity: 0.2; /* Adjust opacity */
+   }
+
+   * {
+      @apply relative z-10;
+   }
+
+   .heroDescription {
+      p {
+         @apply text-xl;
+      }
+   }
+
+   .heroTags{
+      @apply flex justify-center items-center gap-2 flex-wrap;
+      @apply mt-4;
+
+      span{
+         @apply inline-block p-2 px-6;
+         @apply rounded-full text-sm;
+         background: rgba($color: #339dff, $alpha: 0.2);
+         border: 1px solid rgba($color: #339dff, $alpha: 0.5);
+      }
+   }
+
+   @include responsive(md){
+      margin-top: 100px !important;
+   }
+}
+
+.videoLesson {
+   margin-top: 3rem !important;
+
+   .videoWrapper {
+      @apply grid grid-cols-1 gap-8 gap-y-12;
+
+      .videoItem {
+         @apply grid gap-4 place-content-start;
+
+         .videoItemContent {
+            @apply grid gap-2;
+         }
+      }
+
+      .videoItemLabels {
+         @apply flex justify-between items-center gap-2 my-2;
+
+         .videoItemBubbles {
+            @apply flex flex-wrap gap-1;
+            span {
+               @apply inline;
+               @apply rounded-md py-1 p-2;
+
+               color: color($color-light);
+               background: linear-gradient(
+                  40deg,
+                  rgba(#339dff, 0.8) 0%,
+                  rgba(#0ec1d3, 0.8) 100%
+               );
+            }
+         }
+
+         .videoItemDuration {
+            @include gradient-text;
+         }
+      }
+
+      .videoLessonButton {
+         @apply mt-2;
+      }
+   }
+
+   .videoItemImageWrapper {
+      @apply relative;
+      @apply overflow-hidden;
+      @apply cursor-pointer rounded-lg;
+
+      .videoItemImageBubble {
+         @apply rounded-md py-1 px-2 text-sm;
+         @apply absolute top-4 left-4 z-10;
+
+         color: color($color-light);
+         background: linear-gradient(
+            40deg,
+            rgba(#339dff, 0.7) 0%,
+            rgba(#0ec1d3, 0.7) 100%
+         );
+      }
+
+      .videoItemImage {
+         @apply rounded-lg;
+         @apply aspect-video w-full object-contain;
+         @apply transition-all ease-linear duration-75;
+      }
+
+      &:hover{
+         .videoItemImage{
+            @apply scale-[1.1]
+         }
+      }
+   }
+
+   @include responsive(md) {
+      .videoWrapper {
+         @apply grid-cols-2;
+
+         .videoItem:first-child {
+            @apply col-span-full;
+            @apply flex items-center gap-8;
+
+            .videoItemImageWrapper {
+               @apply w-[100%];
+            }
+
+            .videoItemContent {
+               @apply max-w-[300px];
+            }
+         }
+      }
+   }
+
+   @include responsive(lg) {
+      .videoWrapper {
+         @apply grid-cols-3;
+
+         .videoItem:first-child {
+            .videoItemContent {
+               @apply max-w-[500px];
+            }
+         }
+      }
+   }
+}

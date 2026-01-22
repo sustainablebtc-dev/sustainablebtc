@@ -1,0 +1,21 @@
+.hero {
+   .container {
+      @apply h-[100vh];
+      @apply flex flex-col justify-center items-center gap-4;
+      @apply max-w-[500px];
+      @apply text-center;
+   }
+
+   .lottie {
+      @apply max-h-[500px];
+   }
+
+   .subHeading {
+      @apply font-medium;
+   }
+
+   .btnGroup {
+      @apply mt-8;
+      @apply flex flex-wrap items-center justify-center gap-4;
+   }
+}

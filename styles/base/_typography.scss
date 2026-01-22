@@ -1,0 +1,137 @@
+.heading {
+   @apply font-black inline-block leading-[110%];
+   color: color($color-light);
+
+   * {
+      @apply leading-[110%];
+   }
+
+   &-1 {
+      @apply text-5xl;
+   }
+   &-2 {
+      @apply text-4xl;
+   }
+   &-3 {
+      @apply text-3xl;
+   }
+   &-4 {
+      @apply text-2xl;
+   }
+   &-5 {
+      @apply text-xl font-extrabold;
+   }
+   &-6 {
+      @apply text-lg font-bold;
+   }
+
+   &-gradient {
+      @include text-gradient(primary);
+   }
+
+   strong,
+   b {
+      @include text-gradient(primary);
+   }
+
+   @include responsive(md) {
+      &-1 {
+         @apply text-6xl;
+      }
+      &-2 {
+         @apply text-5xl;
+      }
+      &-3 {
+         @apply text-4xl;
+      }
+      &-4 {
+         @apply text-3xl;
+      }
+      &-5 {
+         @apply text-2xl;
+      }
+      &-6 {
+         @apply text-xl font-bold;
+      }
+   }
+}
+
+.para {
+   @apply leading-[150%];
+   opacity: 0.95;
+   font-size: 1.1rem;
+
+   &-small {
+      @apply text-sm;
+   }
+}
+
+.link {
+   color: color($color-primary);
+
+   &:hover,
+   &:focus {
+      text-decoration: underline;
+   }
+}
+
+.text-primary {
+   color: color($color-primary);
+}
+.text-danger {
+   color: color($color-red);
+}
+
+.portableText {
+   @apply flex flex-col gap-3;
+   p {
+      @include typo(para);
+   }
+   ul,
+   li {
+      @apply pl-4;
+   }
+   ul {
+      list-style-type: circle;
+   }
+   ol {
+      @apply pl-6;
+      list-style-type: decimal;
+   }
+   h1 {
+      @include typo(heading, 1);
+   }
+   h2 {
+      @include typo(heading, 2);
+   }
+   h3 {
+      @include typo(heading, 3);
+   }
+   h4 {
+      @include typo(heading, 4);
+   }
+   h5 {
+      @include typo(heading, 5);
+   }
+   h6 {
+      @include typo(heading, 6);
+   }
+
+   a {
+      color: #339dff;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+   }
+
+   b,
+   strong {
+      @apply font-extrabold;
+   }
+
+   blockquote {
+      border-left: 3px solid #339dff;
+      padding: 0.8rem 1rem;
+      background: rgba($color: #339dff, $alpha: 0.1);
+      margin-block: 1rem;
+   }
+}

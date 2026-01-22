@@ -1,0 +1,674 @@
+.hero {
+   @apply relative overflow-hidden;
+   @apply pt-16;
+
+   // Container
+   .container {
+      @apply mt-8 px-3;
+      @apply relative;
+      @apply min-h-[80vh];
+      @apply flex items-center justify-center rounded-md;
+   }
+
+   // Video
+   .videoHeroBg {
+      @apply absolute top-0 left-0 right-0 bottom-0 object-cover rounded-md;
+
+      video {
+         @apply rounded-md object-cover w-full h-full;
+      }
+
+      &::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         @apply rounded-md;
+         background: linear-gradient(
+               0deg,
+               rgba(#1e203f, 0) 0%,
+               rgba(#1e203f, 0.95) 100%
+            ),
+            radial-gradient(
+               circle at center,
+               rgba(30, 32, 63, 0) 0%,
+               rgba(30, 32, 63, 1) 100%
+            );
+      }
+   }
+
+   // Content Wrapper
+   .heroContentWrapper {
+   }
+
+   // Description
+   .heroDescription {
+      @apply relative z-20;
+      @apply flex flex-col justify-center items-center gap-6;
+      @apply text-center;
+      @apply w-full;
+
+      .heroHeading {
+         @apply max-w-[800px];
+         h1 {
+            @apply font-black;
+            @apply text-[3rem];
+            line-height: 110%;
+         }
+
+         b,
+         strong {
+            @apply font-black;
+            @include gradient-text;
+         }
+      }
+      .heroPara {
+         @apply max-w-[800px];
+      }
+      .heroBtnWrapper {
+         @apply flex flex-wrap justify-center gap-4;
+         @apply my-4;
+      }
+   }
+
+   // Clients
+   .heroClient {
+      @apply mt-20;
+      @apply flex md:hidden flex-col gap-4 items-center justify-center;
+
+      .heroClientLogoTitle {
+         @include typo(para);
+         @apply font-extrabold;
+         @apply mb-4;
+      }
+
+      .heroClientLogo {
+         @apply flex gap-6 items-center flex-wrap justify-center;
+         @apply relative z-20;
+         @apply max-w-[1000px];
+
+         img {
+            @apply opacity-70;
+            @apply transition-all duration-300 ease-out;
+            height: 1.5rem !important;
+            width: auto !important;
+            filter: brightness(0) invert(1);
+
+            &:hover {
+               @apply opacity-100;
+            }
+         }
+      }
+   }
+
+   // responsive
+   @include responsive(md) {
+      .container {
+         @apply pt-0;
+      }
+      .heroDescription {
+         .heroHeading {
+            h1 {
+               @apply text-5xl;
+               line-height: 120%;
+            }
+         }
+         .heroPara {
+            P {
+               @apply line-clamp-none;
+            }
+         }
+      }
+   }
+
+   @include responsive(lg) {
+      @apply pt-0;
+
+      .container {
+         @apply w-full mt-24;
+      }
+      .heroDescription {
+         @apply pt-10;
+
+         .heroHeading {
+            h1 {
+               @apply text-7xl;
+            }
+         }
+
+         .heroPara {
+            font-size: 1.1rem;
+         }
+      }
+
+      .heroClient {
+         .heroClientLogo {
+            @apply gap-12;
+            img {
+               height: 1.8rem !important;
+            }
+         }
+      }
+   }
+}
+
+.miners {
+   margin-block: 100px !important;
+   min-height: initial;
+
+   .heroClientHeading {
+      @apply px-16 block text-center leading-[110%] mb-12 font-medium text-xl;
+   }
+   .heroClientImage {
+      height: auto;
+      @apply grid place-content-center;
+
+      img {
+         filter: brightness(0) invert(1);
+         opacity: 0.8;
+         max-height: 40px;
+         width: auto;
+      }
+   }
+
+   &.heroClientsTop {
+      @apply block;
+      @apply my-8;
+   }
+   &.heroClientsBottom {
+      @apply hidden;
+   }
+
+   @include responsive(lg) {
+      &.heroClientsTop {
+         @apply hidden;
+      }
+      &.heroClientsBottom {
+         @apply block;
+      }
+   }
+}
+
+.sbc {
+   @apply text-center grid place-content-center;
+   @apply relative;
+   margin-top: 5rem !important;
+
+   .sbcBg {
+      @apply absolute top-0 left-0 w-full h-full;
+
+      canvas {
+         position: absolute !important;
+         @apply top-0 left-0 right-0 bottom-0;
+      }
+   }
+
+   .container {
+      @apply flex flex-col gap-8;
+      @apply max-w-[900px];
+   }
+
+   .sbcIcon {
+      scale: 0.8;
+      translate: 0 10%;
+      @apply block m-auto relative z-20;
+
+      img {
+         @apply relative z-20;
+      }
+
+      &::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         translate: -35% -35%;
+         background: url("../../public/home/sbc-icon-bg.svg");
+         width: 338px;
+         height: 342px;
+         z-index: 0;
+         animation: rotation 8s infinite linear;
+      }
+
+      @keyframes rotation {
+         from {
+            transform: translate(0%, 1%) rotate(0deg);
+         }
+         50% {
+            transform: translate(0%, -2%) rotate(180deg);
+         }
+         to {
+            transform: translate(0%, 1%) rotate(359deg);
+         }
+      }
+   }
+
+   .sbcHeading {
+      @apply relative z-20;
+   }
+
+   .sbcSubHeading {
+      @apply block my-1;
+      @apply relative z-20;
+
+      * {
+         @apply font-medium;
+      }
+   }
+
+   .sbcDescription {
+      @apply relative z-20;
+   }
+
+   .sbcFeatures {
+      @apply flex justify-center flex-wrap gap-2 gap-x-4;
+      @apply font-bold;
+      @apply my-2;
+      @include text-gradient(primary);
+      @apply relative z-20;
+
+      & > div {
+         @include typo(heading, 6);
+      }
+   }
+
+   .sbcBtn {
+      @apply mx-auto;
+      @apply relative z-20;
+   }
+
+   @include responsive(md) {
+      .sbcIcon {
+         scale: 0.9;
+         translate: 0 5%;
+      }
+      .sbcIconLine {
+         scale: 0.9;
+      }
+   }
+
+   @include responsive(lg) {
+      margin-top: 5rem !important;
+      .sbcFeatures {
+         @apply text-lg font-extrabold;
+      }
+      .sbcIcon {
+         scale: 1;
+      }
+      .sbcIconLine {
+         scale: 1.25;
+      }
+   }
+}
+//about
+.about {
+   @apply overflow-hidden;
+   @apply py-12;
+   margin-block: 0 !important;
+   background: linear-gradient(
+      39deg,
+      rgba(51, 157, 255, 0.03) 0%,
+      rgba(14, 193, 211, 0.03) 100%
+   );
+
+   .wrapper {
+      @apply grid gap-8 justify-center;
+   }
+
+   .image {
+      img {
+         @apply aspect-video;
+         @apply max-w-[630px] w-full;
+      }
+   }
+
+   .content {
+      @apply flex flex-col items-center text-center justify-center gap-8;
+   }
+
+   .heading {
+      h4 {
+         @include gradient-text;
+         @apply leading-[100%];
+         @apply text-xl font-normal;
+
+         strong {
+            @apply text-4xl font-black block;
+         }
+      }
+   }
+
+   .aboutCTA {
+      @apply mt-4;
+      border-radius: 20px;
+   }
+
+   @include responsive(md) {
+      @apply py-24;
+      .wrapper {
+         @apply grid grid-cols-2 gap-12 items-center;
+      }
+      .content {
+         @apply items-start text-left;
+      }
+      .heading {
+         h4 {
+            strong {
+               @apply inline-block;
+            }
+         }
+      }
+   }
+   @include responsive(lg) {
+   }
+}
+.testimonials {
+   @apply relative;
+
+   .container {
+      .testimonialWrapper {
+         @apply flex flex-col gap-8;
+      }
+
+      .testimonialHeadingWrapper {
+         @apply flex flex-col gap-8;
+
+         .btnWrapper {
+            @apply flex gap-4 items-center;
+         }
+      }
+
+      .testimonialHeading {
+         @include text-gradient(primaryReverse);
+         @apply leading-[110%];
+      }
+
+      .testimonialSlider {
+         width: fit-content;
+         width: 100%;
+      }
+
+      .testimonialSlide {
+         @apply flex flex-col gap-4;
+         @apply rounded-lg;
+         @apply p-8 h-full;
+         max-width: 500px !important;
+
+         background: linear-gradient(
+            39deg,
+            rgba(51, 157, 255, 0.2) 0%,
+            rgba(14, 193, 211, 0.2) 100%
+         );
+
+         .testimonialTestimonyImage {
+            @apply rounded-full w-24 aspect-square;
+         }
+
+         .testimonialTestimony {
+            @apply italic font-normal;
+         }
+
+         .testimonialTestimonyName {
+            @apply font-bold text-lg;
+            @apply mt-4 mb-2;
+         }
+
+         .testimonialTestimonyCompanyLogo {
+            filter: brightness(0) invert(1);
+            height: 1.2rem;
+            width: auto;
+         }
+      }
+   }
+
+   @include responsive(md) {
+      &::after {
+         content: "";
+         position: absolute;
+         width: 50vw;
+         height: 100%;
+         top: 0;
+         right: 0;
+         pointer-events: none;
+         background: linear-gradient(
+            to right,
+            rgba(#1e203f, 0) 0%,
+            rgba(#1e203f, 1) 100%
+         );
+         z-index: 1000;
+      }
+      .container {
+         .testimonialWrapper {
+            @apply flex flex-row gap-24;
+         }
+         .testimonialHeadingWrapper {
+            @apply flex gap-12 py-8;
+         }
+         .testimonialSlide {
+            @apply items-start gap-8;
+            @apply p-12;
+         }
+      }
+   }
+
+   @include responsive(lg) {
+      .container {
+         .testimonialWrapper {
+         }
+         .testimonialSlide {
+            .testimonialTestimonyImage {
+               height: 100px;
+               width: 100px;
+            }
+            .testimonialTestimony {
+               font-size: 1rem;
+            }
+         }
+      }
+   }
+}
+
+.trust {
+   @apply overflow-hidden;
+   @apply min-h-fit;
+   @apply py-4;
+   .wrapper {
+      @apply grid gap-8;
+   }
+
+   .image {
+      @apply relative grid place-content-center;
+      @apply w-fit mx-auto max-w-[300px];
+
+      img {
+         @apply relative z-20;
+      }
+
+      &::before {
+         content: "";
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         translate: -50% -50%;
+         scale: 0.6;
+         background: url("../../public/home/trust-shade.svg");
+         background-repeat: no-repeat;
+         background-position: center;
+         width: 200%;
+         height: 200%;
+         z-index: 0;
+         animation: rotation 15s infinite linear;
+      }
+
+      @keyframes rotation {
+         from {
+            transform: translate(0%, 0%) rotate(0deg);
+         }
+         50% {
+            transform: translate(0%, -5%) rotate(180deg);
+         }
+         to {
+            transform: translate(0%, 0%) rotate(359deg);
+         }
+      }
+
+      // Bitcoin
+      .bitcoin {
+         @apply absolute;
+         @apply transition-all divide-gray-300 ease-out;
+         animation: blinkAnimation 5s infinite;
+
+         &1 {
+            @apply top-1/2 -left-[10px];
+            animation-delay: 0.2s;
+         }
+
+         &2 {
+            @apply top-0 left-1/2 -translate-x-1/2 -translate-y-1/2;
+         }
+
+         &3 {
+            @apply top-[30%] right-[17%];
+            animation-delay: 0.4s;
+         }
+
+         &4 {
+            @apply bottom-[20%] right-[26%];
+            animation-delay: 0.5s;
+         }
+
+         &5 {
+            @apply bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2;
+            animation-delay: 1s;
+         }
+
+         @keyframes blinkAnimation {
+            from {
+               opacity: 1;
+            }
+            50% {
+               opacity: 0;
+            }
+            to {
+               opacity: 1;
+            }
+         }
+      }
+   }
+
+   .content {
+      @apply flex flex-col items-center text-center justify-center gap-8;
+   }
+
+   .trustHeading {
+      @apply leading-[100%];
+
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .trustCTA {
+      @apply mt-4;
+   }
+
+   @include responsive(md) {
+      .wrapper {
+         @apply grid-cols-2;
+      }
+      .content {
+         @apply items-start text-left;
+      }
+   }
+   @include responsive(lg) {
+      .image {
+         @apply max-w-[400px];
+         &::before {
+            scale: 0.75;
+         }
+      }
+   }
+}
+.downloadwhitepaper {
+   @apply overflow-hidden;
+
+   .container {
+      background: linear-gradient(40deg, #339dff 0%, #0ec1d3 100%);
+      @apply rounded-lg relative overflow-hidden;
+   }
+
+   .wrapper {
+      @apply py-12;
+      @apply grid gap-8 justify-center items-center text-center;
+   }
+   .content {
+      @apply flex flex-col items-center text-center justify-center gap-4;
+   }
+   .downloadwhitepaperHeading {
+      @apply leading-[100%];
+
+      strong {
+         @include text-gradient(light);
+      }
+   }
+   .downloadwhitepaperCTA {
+      color: color($color-light);
+   }
+   .whitepaperdownloadCTABtn {
+      background: color($color-dark, 500);
+      border-color: color($color-light);
+
+      &:hover {
+         background: color($color-dark, 300);
+      }
+   }
+   .whitepaperBg {
+      @apply absolute top-1/2 left-1/2 -translate-y-1/2;
+      @apply h-[400px] aspect-square opacity-50;
+   }
+
+   @include responsive(md) {
+      .wrapper {
+         @apply px-24 py-16;
+         @apply flex items-center justify-between gap-12 text-left;
+      }
+      .content {
+         @apply items-start text-left;
+      }
+   }
+}
+.faq {
+   @apply overflow-hidden;
+   @apply min-h-fit;
+   @apply py-4;
+   .wrapper {
+      //@apply flex items-center text-center justify-center gap-x-14;
+   }
+
+   .content {
+      @apply flex flex-row  text-center gap-2;
+   }
+
+   .faqHeading {
+      @apply leading-[100%];
+
+      strong {
+         @include text-gradient(primary);
+      }
+   }
+
+   .faqCTA {
+      @apply mt-4;
+   }
+
+   @include responsive(md) {
+      .wrapper {
+         @apply grid-cols-2;
+      }
+      .content {
+         @apply items-start text-left;
+      }
+   }
+}
