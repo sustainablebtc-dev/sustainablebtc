@@ -15,7 +15,7 @@ import { urlFor } from "@/sanity/sanity-urlFor";
 
 // Lib
 import { PortableText } from "@portabletext/react";
-import Isotope from "isotope-layout";
+// import Isotope from "isotope-layout";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -27,14 +27,15 @@ import "swiper/css/free-mode";
 const NewsHero = ({ newsPageData }: { newsPageData: any }) => {
    // * Implementing Isotope Library
    // init one ref to store the future isotope object
-   const isotope = useRef<Isotope | null>();
+   const isotope = useRef<any | null>(null);
    // store the filter keyword in a state
    const [filterKey, setFilterKey] = useState("*");
    const [isCategoryActive, setIsCategoryActive] = useState("*");
 
    // initialize an Isotope object with configs
    useEffect(() => {
-      if (isCategoryActive !== "*") {
+      if (typeof window !== "undefined" && isCategoryActive !== "*") {
+         const Isotope = require("isotope-layout");
          isotope.current = new Isotope(".filter-container", {
             itemSelector: ".filter-item",
             layoutMode: "fitRows",

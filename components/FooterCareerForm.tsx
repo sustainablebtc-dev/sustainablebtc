@@ -5,7 +5,7 @@ import styles from "@/styles/components/Footer.module.scss";
 
 // Packages
 import { useRef, useState, useEffect } from "react";
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser";
 
 // Importing images
 import imgFooterFormBg from "@/public/footer-form-bg.svg";
@@ -88,12 +88,14 @@ const FooterCareerForm = () => {
 
          try {
             // Send the form data using emailjs.send()
+            /*
             await emailjs.send(
                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_KEY || "",
                process.env.NEXT_PUBLIC_EMAILJS_CONTACTFORM_TEMPLATE_KEY || "",
                contactData,
                process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
             );
+            */
             setGlobalError(""); // Clear error if successful
          } catch (error: any) {
             setGlobalError("An error occurred while sending the form.");

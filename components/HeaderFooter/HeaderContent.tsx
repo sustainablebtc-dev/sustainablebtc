@@ -117,6 +117,11 @@ const HeaderContent = ({
    }
    // =====================================================================
 
+   // Hide header on /energyweb page
+   if (pathname?.includes("/energyweb")) {
+      return null;
+   }
+
    return (
       <>
          {/* Navigation Top Strip */}

@@ -39,7 +39,7 @@ const Breadcrum = () => {
       }
    }, [router]);
 
-   if (!breadcrumbs) {
+   if (!breadcrumbs || router?.includes("/energyweb")) {
       return null;
    }
 
