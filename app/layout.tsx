@@ -11,6 +11,7 @@ import Header from "@/components/HeaderFooter/Header";
 import Footer from "@/components/Footer";
 import Breadcrum from "@/components/Breadcrum";
 import ProgressBar from "@/components/ProgressBar";
+import AgeRestrictionWrapper from "@/components/AgeRestriction/AgeRestrictionWrapper";
 
 // Importing icons
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -94,6 +95,8 @@ export default function RootLayout({
             <body>
                {/* Progress Bar */}
                <ProgressBar />
+               {/* Age Restriction Gate (session-based) */}
+               <AgeRestrictionWrapper />
                {/* Navbar */}
                <Header />
                {/* Breadcrumb */}
