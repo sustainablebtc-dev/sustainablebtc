@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import ModalAgeRestriction from "../Modals/ModalAgeRestriction";
 
 const COOKIE_NAME = "sbp_age_verified";
@@ -41,12 +42,20 @@ function deleteCookie(name: string) {
 }
 
 export default function AgeRestrictionWrapper() {
+   const pathname = usePathname();
+
    const [mounted, setMounted] = useState(false);
    const [isModalOpen, setIsModalOpen] = useState(true);
    const [variant, setVariant] = useState<"prompt" | "denied">("prompt");
 
    useEffect(() => {
       setMounted(true);
+
+      // If the current route contains "page/", do not show the modal.
+      if (pathname && pathname.includes("page/")) {
+         setIsModalOpen(false);
+         return;
+      }
 
       try {
          const verified = getCookie(COOKIE_NAME) === "true";
@@ -59,7 +68,7 @@ export default function AgeRestrictionWrapper() {
       } catch {
          // ignore
       }
-   }, []);
+   }, [pathname]);
 
    const onAccept = () => {
       // Set a cookie that lasts COOKIE_EXPIRY_HOURS hours.

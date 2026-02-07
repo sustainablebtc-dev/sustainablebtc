@@ -3,11 +3,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Modal from "react-modal";
 import styles from "@/styles/components/ModalAgeRestriction.module.scss";
+import Link from "next/link";
 
 type Variant = "prompt" | "denied";
-
-const LEGAL_TEXT =
-   "Access to this website and apps is restricted to individuals who are 18 years of age or older. Users are prohibited from accessing or using the website or apps if they are subject to economic sanctions, trade restrictions, or are otherwise barred under applicable laws and regulations. The availability of certain products or services may be restricted or unavailable in specific jurisdictions, subject to local legal and regulatory requirements. Access may be denied where such offerings are not permitted by law.";
 
 export default function ModalAgeRestriction({
    isOpen,
@@ -58,7 +56,7 @@ export default function ModalAgeRestriction({
       <Modal
          isOpen={isOpen}
          // Age-gate requires an explicit action; don't allow ESC/overlay click.
-         onRequestClose={() => {}}
+         onRequestClose={() => { }}
          shouldCloseOnOverlayClick={false}
          shouldCloseOnEsc={false}
          style={customStyles}
@@ -71,7 +69,7 @@ export default function ModalAgeRestriction({
                onClick={variant === "denied" ? onReset : onReject}
                aria-label={variant === "denied" ? "Try again" : "Close modal"}
             >
-               <i 
+               <i
                   className={variant === "denied" ? "bi bi-arrow-clockwise" : "bi bi-x-lg"}
                ></i>
             </button>
@@ -81,19 +79,40 @@ export default function ModalAgeRestriction({
                      <>Access denied !!</>
                   ) : (
                      <>
-                        This website is <strong>18+ only</strong>
+                        Restricted Access — Please Review Before Entering
                      </>
                   )}
                </h2>
 
-               <div className={styles.text}>
-                  <p className="para">{LEGAL_TEXT}</p>
+               <div className={styles.textWrapper}>
+                  <div className={styles.text}>
+                     <p className="para">By accessing this website and any associated applications, you represent and warrant that:</p>
+                     <ol className="list">
+                        <li>You are at least 18 years of age (or the age of majority in your jurisdiction, whichever is greater).</li>
+                        <li>You are not a resident of, located in, or otherwise subject to the jurisdiction of any country, territory, or region that is subject to comprehensive economic sanctions imposed by the United States (including OFAC), the European Union, the United Kingdom, or the United Arab Emirates.</li>
+                        <li>You are not listed on any applicable sanctions list, including but not limited to the OFAC Specially Designated Nationals (SDN) List, the EU Consolidated List, or the UK Sanctions List.</li>
+                        <li>Your access to and use of this website and its services does not violate any applicable laws or regulations in your jurisdiction.</li>
+                        <li>You understand that the products and services described on this website may not be available in all jurisdictions, and nothing on this website constitutes an offer, solicitation, or recommendation in any jurisdiction where such activity would be unlawful.</li>
+                     </ol>
+                  </div>
                </div>
 
                {variant === "prompt" ? (
                   <>
-                     <p className={styles.ctaLine}>
-                        <span>To enter this website you must be 18 or older</span>
+                     <p className={`${styles.ctaLine} text-sm md:text-base`}>
+                        <span>This website does not provide investment, legal, or tax advice. Digital assets involve significant risk, including the potential loss of principal. Past performance is not indicative of future results.</span>
+                     </p>
+                     <p className="text-xs md:text-sm text-center italic mt-4 mb-6">
+                        <span>
+                           <span>By clicking “I Agree — Enter Site” below, you acknowledge that you have read, understood, and agree to be bound by these terms and our </span>
+                           <Link href="/page/terms-and-conditions" className="underline hover:no-underline">
+                              Terms and Conditions
+                           </Link>
+                           <span>&nbsp; and &nbsp;</span>
+                           <Link href="/page/privacy-policy" className="underline hover:no-underline">
+                              Privacy Policy
+                           </Link>.
+                        </span>
                      </p>
 
                      <div className={styles.actions}>
@@ -102,7 +121,7 @@ export default function ModalAgeRestriction({
                            className="btn btn-dark"
                            onClick={onAccept}
                         >
-                           <span>I&apos;m 18 or older - enter</span>
+                           <span>I Agree — Enter Site</span>
                         </button>
                      </div>
                   </>
