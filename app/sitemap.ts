@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { url: `${baseUrl}/`, lastModified },
       { url: `${baseUrl}/about-us`, lastModified },
       { url: `${baseUrl}/our-team`, lastModified },
-      { url: `${baseUrl}/sustainable-bitcoin-certificate`, lastModified },
+      { url: `${baseUrl}/sbp-token`, lastModified },
       { url: `${baseUrl}/investors`, lastModified },
       { url: `${baseUrl}/miners`, lastModified },
       { url: `${baseUrl}/learn/download-whitepaper`, lastModified },

@@ -18,7 +18,7 @@ export default function NotFound() {
             <div className={styles.btnGroup}>
                <a
 
-                  href="/sustainable-bitcoin-certificate"
+                  href="/sbp-token"
                   className="btn btn-primary"
                >
                   <span>Learn about SBP Token</span>
