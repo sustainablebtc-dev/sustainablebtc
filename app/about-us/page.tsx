@@ -8,14 +8,14 @@ import AboutUsPage from "@/components/AboutUs/AboutUsPage";
 export const metadata: Metadata = {
    title: "About Us",
    description:
-      "Unlock a new era of climate-positive investments with Sustainable Bitcoin Certificates (SBCs) from Sustainable Bitcoin Protocol. By harnessing Bitcoin's unique role as a decentralized, location-agnostic energy buyer, SBCs transform Bitcoin into a revolutionary asset class driving the global clean energy transition. Pair Bitcoin's performance as the best asset of the past decade with SBCs' unparalleled climate impact—combining financial growth with meaningful environmental progress.",
+      "Unlock a new era of climate-positive investments with Sustainable Bitcoin Protocols (SBP Token) from Sustainable Bitcoin Protocol. By harnessing Bitcoin's unique role as a decentralized, location-agnostic energy buyer, SBP Token transform Bitcoin into a revolutionary asset class driving the global clean energy transition. Pair Bitcoin's performance as the best asset of the past decade with SBP Token's unparalleled climate impact—combining financial growth with meaningful environmental progress.",
    keywords: [
       "Renewable energy Bitcoin mining",
       "Bitcoin mining renewable energy",
       "Bitcoin environmental impact",
       "Bitcoin mining environmental impact",
       "Climate-positive investments",
-      "Sustainable Bitcoin Certificates (SBCs)",
+      "Sustainable Bitcoin Protocols (SBP Token)",
       "Sustainable Bitcoin Protocol",
       "Bitcoin",
       "Decentralized energy buyer",

@@ -211,7 +211,7 @@ const FooterCareerForm = () => {
                            onChange={handleChange}
                         />
                         <span className={styles.checkmark}></span>
-                        <div>{`I want to invest in SBC`}</div>
+                        <div>{`I want to invest in SBP Token`}</div>
                      </label>
                      <label htmlFor='isMiner' className={styles.formCheckboxGroup}>
                         <input

@@ -126,7 +126,7 @@ const MinerQualifyForm = () => {
             <div className={styles.qualifyFormWrapper}>
                {/* Heading */}
                <h2 className={`${styles.qualifyFormHeading} heading heading-2`}>
-                  Do I qualify for SBC?
+                  Do I qualify for SBP Token?
                </h2>
                {/* Form */}
                <form

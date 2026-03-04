@@ -153,7 +153,7 @@ const InvestSBC = ({ sbcData }: { sbcData: any }) => {
             {/* Sbc Image */}
             <div className={styles.sbcImageWrapper}>
                <div className={styles.sbcIcon}>
-                  <Image src={imgSbcIcon} alt="SBC Icon" />
+                  <Image src={imgSbcIcon} alt="SBP Token Icon" />
                </div>
             </div>
 

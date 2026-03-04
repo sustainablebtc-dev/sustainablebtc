@@ -154,9 +154,9 @@ export default function HomeSBC({ sbcData }: { sbcData: any }) {
             <div className={styles.sbcImageWrapper}>
                <h1 className="heading heading-2">Our Token</h1>
                <div className={styles.sbcIcon}>
-                  <Image src={imgSbcIcon} alt="SBC Icon" />
+                  <Image src={imgSbcIcon} alt="SBP Token Icon" />
                </div>
-               <h1 className="heading heading-2">The SBC</h1>
+               <h1 className="heading heading-2">The SBP Token</h1>
             </div>
 
             {/* Line */}

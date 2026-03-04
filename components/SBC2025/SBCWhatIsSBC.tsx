@@ -26,7 +26,7 @@ const SBCWhatIsSBC = ({ whatSBCData }: { whatSBCData: any }) => {
                      src={imageWhatIsSBC}
                      width={800}
                      height={600}
-                     alt={"What is SBC"}
+                     alt={"What is SBP Token"}
                   />
                </div>
 

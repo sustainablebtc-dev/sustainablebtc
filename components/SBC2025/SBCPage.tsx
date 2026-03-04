@@ -30,19 +30,19 @@ export default async function SBC2025Page() {
          {/* Hero */}
          <SBC2025Hero heroData={heroData} />
 
-         {/* What are SBC */}
+         {/* What are SBP Token */}
          <SBCWhatIsSBC whatSBCData={whatSBCData}/>
 
          {/* Trusted by global leaders */}
          <HomeMiners minerData={minerData}/>
 
-         {/* Key features of SBC */}
+         {/* Key features of SBP Token */}
          <SBCKeyFeatures keyFeaturesData = {keyFeaturesData} />
 
          {/* Problem & Solution */}
          <SBCProblemAndSolution problemAndSolutionData={problemAndSolutionData}/>
 
-         {/* How SBCs are created */}
+         {/* How SBP Tokens are created */}
          <SBCFaq faqData={faqData} />
 
          {/* Schedule a call */}

@@ -145,13 +145,13 @@ const RegisterForAnEventPage = () => {
 
          {/* Icons */}
          <div className={`${styles.heroIcon} ${styles.heroIconTopRight}`}>
-            <Image src={imgSbcIcon} alt="SBC Icon" loading="lazy" />
+            <Image src={imgSbcIcon} alt="SBP Token Icon" loading="lazy" />
          </div>
          <div className={`${styles.heroIcon} ${styles.heroIconBottomRight}`}>
-            <Image src={imgSbcIcon} alt="SBC Icon" loading="lazy" />
+            <Image src={imgSbcIcon} alt="SBP Token Icon" loading="lazy" />
          </div>
          <div className={`${styles.heroIcon} ${styles.heroIconBottomLeft}`}>
-            <Image src={imgSbcIcon} alt="SBC Icon" loading="lazy" />
+            <Image src={imgSbcIcon} alt="SBP Token Icon" loading="lazy" />
          </div>
 
          <div className={`${styles.container} container`}>
@@ -221,7 +221,7 @@ const RegisterForAnEventPage = () => {
                         onChange={handleChange}
                      />
                      <span className={styles.checkmark}></span>
-                     <div>{`I want to invest in SBC`}</div>
+                     <div>{`I want to invest in SBP Token`}</div>
                   </label>
                   <label htmlFor='isMiner' className={styles.formCheckboxGroup}>
                      <input

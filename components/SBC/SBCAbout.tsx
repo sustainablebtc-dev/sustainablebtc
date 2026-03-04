@@ -148,7 +148,7 @@ const SBCAbout = ({ aboutSbcData }: { aboutSbcData: any }) => {
          <div className={`${styles.container} container container-tight`}>
             {/* Sbc Image */}
             <div className={styles.sbcIcon}>
-               <Image src={imgSbcIcon} alt="SBC Icon" />
+               <Image src={imgSbcIcon} alt="SBP Token Icon" />
             </div>
 
             {aboutSbcData && (

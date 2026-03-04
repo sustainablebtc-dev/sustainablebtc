@@ -21,7 +21,7 @@ export default function NotFound() {
                   href="/sustainable-bitcoin-certificate"
                   className="btn btn-primary"
                >
-                  <span>Learn about SBC</span>
+                  <span>Learn about SBP Token</span>
                </a>
                <a href="/" className="btn btn-secondary">
                   <span>Visit Home</span>

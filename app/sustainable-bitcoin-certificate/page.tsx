@@ -4,9 +4,9 @@ import SBC2025Page from "@/components/SBC2025/SBCPage";
 import SBCPage from "@/components/SBC/SBCPage";
 
 export const metadata: Metadata = {
-   title: "Sustainable Bitcoin Certificates",
+   title: "Sustainable Bitcoin Protocols",
    description:
-      "Sustainable Bitcoin Certificates (SBCs): Pioneering Renewable Energy in Bitcoin Mining. Discover how SBCs align Bitcoin mining with renewable energy innovation. As the first environmental commodity tied to Bitcoin, SBCs monetize clean energy use, providing a unique investment opportunity that supports the global clean energy transition. SBCs help reduce the environmental impact of Bitcoin mining while offering financial appreciation as Bitcoin's energy consumption grows. Explore sustainable Bitcoin investment strategies, climate-positive cryptocurrency assets, and green energy solutions for the future. Ready to drive real-world renewable energy adoption while diversifying your portfolio? Learn how SBCs bridge renewable energy and Bitcoin's decentralized infrastructure today.",
+      "Sustainable Bitcoin Protocols (SBP Token): Pioneering Renewable Energy in Bitcoin Mining. Discover how SBP Token align Bitcoin mining with renewable energy innovation. As the first environmental commodity tied to Bitcoin, SBP Token monetize clean energy use, providing a unique investment opportunity that supports the global clean energy transition. SBP Token help reduce the environmental impact of Bitcoin mining while offering financial appreciation as Bitcoin's energy consumption grows. Explore sustainable Bitcoin investment strategies, climate-positive cryptocurrency assets, and green energy solutions for the future. Ready to drive real-world renewable energy adoption while diversifying your portfolio? Learn how SBP Token bridge renewable energy and Bitcoin's decentralized infrastructure today.",
    keywords: [
       "renewable energy bitcoin mining",
       "bitcoin mining renewable energy",

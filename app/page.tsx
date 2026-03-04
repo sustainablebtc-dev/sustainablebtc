@@ -7,14 +7,14 @@ import HomePage from "@/components/HomeNew/HomePage";
 export const metadata: Metadata = {
    title: "Sustainable Bitcoin Protocol | Accelerating the Clean Energy Transition: Powered by Bitcoin",
    description:
-      "Discover how Sustainable Bitcoin Protocol (SBP) aligns Bitcoin mining with renewable energy to drive financial returns and climate impact. Learn about Sustainable Bitcoin Certificates (SBCs), a climate-positive asset and the groundbreaking solution for clean energy Bitcoin investments, methane mitigation, and environmental transparency. Explore how institutional investors can accelerate renewable energy adoption, decarbonize digital assets, and create a new class of appreciating environmental commodities.",
+      "Discover how Sustainable Bitcoin Protocol (SBP) aligns Bitcoin mining with renewable energy to drive financial returns and climate impact. Learn about Sustainable Bitcoin Protocols (SBP Tokens), a climate-positive asset and the groundbreaking solution for clean energy Bitcoin investments, methane mitigation, and environmental transparency. Explore how institutional investors can accelerate renewable energy adoption, decarbonize digital assets, and create a new class of appreciating environmental commodities.",
    keywords: [
       "Sustainable Bitcoin Protocol",
       "Bitcoin mining",
       "renewable energy",
       "financial returns",
       "climate impact",
-      "Sustainable Bitcoin Certificates",
+      "Sustainable Bitcoin Protocols",
       "clean energy Bitcoin investments",
       "methane mitigation",
       "environmental transparency",

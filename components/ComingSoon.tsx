@@ -24,7 +24,7 @@ const ComingSoon = () => {
                </p>
                <p className="para mt-2">
                   SBP will publish all clean energy data pertaining to the
-                  issuance of Sustainable Bitcoin Certificates so that all
+                  issuance of Sustainable Bitcoin Protocols so that all
                   stakeholders including investors, governments, and climate
                   organizations can make informed decisions.
                </p>

@@ -24,7 +24,7 @@ export default function HomeHero({ heroData }: { heroData: any }) {
                   {/* descriptive */}
                   <div className={styles.heroDescription}>
                      <div className={`${styles.heroIcon}`}>
-                        <Image src={imgSbcIcon} alt="SBC Icon" loading="lazy"/>
+                        <Image src={imgSbcIcon} alt="SBP Token Icon" loading="lazy"/>
                      </div>
                      <div className={`${styles.heroHeading} portableText`}>
                         <PortableText value={heroData.heroHeading} />
