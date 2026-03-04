@@ -24,7 +24,8 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
-   return <ReIntroducingSBPPage />;
+   return <></> 
+   // <ReIntroducingSBPPage />;
 };
 
 export default page;
