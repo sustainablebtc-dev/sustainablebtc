@@ -1,0 +1,9 @@
+{
+   "chat.mcp.serverSampling": {
+      "sustainablebtc/.vscode/mcp.json: figma": {
+         "allowedModels": [
+            "copilot/claude-haiku-4.5"
+         ]
+      }
+   }
+}

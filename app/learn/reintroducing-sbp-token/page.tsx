@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-// import ReIntroducingSBPPage from "@/components/ReIntroducingSBP/ReIntroducingSBPPage";
+import ReIntroducingSBPPage from "@/components/ReIntroducingSBP/ReIntroducingSBPPage";
 
 export const metadata: Metadata = {
    title: "Re-introducing the SBP Token",
@@ -24,8 +24,7 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
-   return <></> 
-   // <ReIntroducingSBPPage />;
+   return <ReIntroducingSBPPage />;
 };
 
 export default page;

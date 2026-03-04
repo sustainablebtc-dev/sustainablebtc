@@ -1,0 +1,834 @@
+/* ReIntroducingSBP Hero Section */
+
+.hero {
+   @include hero-spacing;
+   @apply pb-20;
+   @apply relative overflow-hidden;
+   @apply w-full;
+   // @apply py-16 md:py-20 lg:py-24;
+   @apply flex items-center justify-center;
+
+   .conatainer{
+      @apply my-32 md:my-auto;
+   }
+}
+
+/* Main Wrapper */
+.heroWrapper {
+   @apply flex flex-col gap-12 lg:gap-16;
+   @apply items-center w-full;
+}
+
+/* Tag Line Section */
+.tagLine {
+   @apply flex items-center justify-center gap-4 md:gap-6;
+   @apply flex-wrap;
+
+   .gradientLine {
+      @apply h-[2px] w-[50px] md:w-[60px];
+      @apply flex-shrink-0;
+      background: linear-gradient(
+         90deg,
+         rgba(0, 0, 0, 0) 0%,
+         rgba(51, 157, 255, 1) 50%,
+         rgba(14, 193, 211, 1) 100%
+      );
+
+      &:last-of-type {
+         background: linear-gradient(
+            90deg,
+            rgba(14, 193, 211, 1) 0%,
+            rgba(51, 157, 255, 1) 50%,
+            rgba(0, 0, 0, 0) 100%
+         );
+      }
+   }
+
+   .tagLineText {
+      @apply text-sm md:text-base font-medium;
+      @apply tracking-widest uppercase;
+      @apply whitespace-nowrap;
+      color: #339dff;
+   }
+}
+
+/* Content Grid */
+.contentWrapper {
+   @apply w-full relative;
+   @apply grid grid-cols-1 lg:grid-cols-2;
+   @apply gap-8 lg:gap-12;
+   @apply items-start lg:items-center;
+}
+
+/* Left Column - Heading */
+.leftColumn {
+   @apply flex flex-col gap-6;
+   @apply items-center lg:items-start;
+   @apply lg:pr-8;
+
+   .heading {
+      @apply text-3xl md:text-5xl lg:text-6xl;
+      @apply font-bold leading-tight;
+      @apply text-center lg:text-left;
+      color: color($color-light);
+      line-height: 1.1;
+
+      span {
+         @apply block;
+
+         &.sbpToken {
+            @apply text-3xl md:text-5xl lg:text-6xl;
+            @apply font-black;
+            @include gradient-text;
+         }
+      }
+   }
+}
+
+/* Right Column - Description & CTA */
+.rightColumn {
+   @apply flex flex-col gap-4 md:gap-6;
+   @apply items-center lg:items-start;
+   @apply lg:pl-8;
+
+   .description {
+      @apply text-base md:text-lg;
+      @apply leading-relaxed;
+      @apply text-center lg:text-left;
+      color: color($color-light);
+      @apply opacity-90;
+      @apply max-w-full md:max-w-[420px];
+   }
+}
+
+/* Button Group */
+.buttonGroup {
+   @apply flex flex-col gap-4;
+   @apply items-center justify-center lg:items-start lg:justify-start;
+   @apply w-full md:w-auto;
+
+   .btn {
+      @apply inline-flex items-center justify-center gap-3;
+      @apply px-9 py-4;
+      @apply rounded-full;
+      @apply font-bold text-base;
+      @apply no-underline;
+      @apply relative;
+      transition: none !important;
+
+      i {
+         @apply text-sm;
+      }
+
+      &.btnPrimary {
+         @apply text-white;
+         background: linear-gradient(
+            167.4317498565429deg,
+            rgb(51, 157, 255) 0%,
+            rgb(14, 193, 211) 100%
+         );
+
+         /* Override all hover states */
+         &:hover,
+         &:active,
+         &:focus {
+            background: linear-gradient(
+               167.4317498565429deg,
+               rgb(51, 157, 255) 0%,
+               rgb(14, 193, 211) 100%
+            );
+         }
+      }
+
+      &.btnSecondary {
+         @apply border border-[#339dff];
+         @apply bg-transparent;
+         color: #339dff;
+
+         /* Override all hover states */
+         &:hover,
+         &:active,
+         &:focus {
+            color: #339dff;
+            background: transparent;
+            border-color: #339dff;
+         }
+      }
+   }
+}
+
+/* Vertical Divider */
+.divider {
+   @apply hidden lg:block;
+   @apply absolute left-1/2 top-0 h-[240px];
+   @apply w-[2px];
+   @apply translate-x-[-50%];
+   background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(51, 157, 255, 0.4) 33.333%,
+      rgba(14, 193, 211, 0.4) 66.667%,
+      rgba(0, 0, 0, 0) 100%
+   );
+}
+
+/* ReIntroducingSBP Announcement Section */
+
+.announcement {
+   @apply w-full;
+   @apply py-12 md:py-16 lg:py-20 min-h-fit pt-0;
+   margin-block: 0 !important;
+}
+
+.announcementContent {
+   @apply flex flex-col gap-4 md:gap-6;
+   @apply px-6 md:px-12 lg:px-16;
+   @apply py-12 md:py-16 lg:py-20;
+   @apply rounded-2xl;
+   background: linear-gradient(
+      1.35deg,
+      rgb(51, 157, 255) 20.861%,
+      rgb(14, 193, 211) 70.954%
+   );
+
+   @include responsive(md) {
+      @apply px-12;
+      @apply py-16;
+   }
+
+   @include responsive(lg) {
+      @apply px-16;
+      @apply py-20;
+   }
+}
+
+.announcementHeading {
+   @apply text-2xl md:text-3xl lg:text-4xl;
+   @apply font-black;
+   @apply text-white;
+   @apply leading-[1.4];
+   @apply w-full;
+
+   @include responsive(md) {
+      @apply text-3xl;
+   }
+
+   @include responsive(lg) {
+      @apply text-4xl;
+   }
+}
+
+.announcementDescription {
+   @apply text-base md:text-lg;
+   @apply text-[#fafafa];
+   @apply leading-[1.4];
+   @apply opacity-95;
+
+   @include responsive(md) {
+      @apply text-lg;
+   }
+
+   @include responsive(lg) {
+      @apply text-lg;
+   }
+}
+
+/* ReIntroducingSBP Change Section */
+
+.change {
+   @apply w-full;
+   @apply py-12 md:py-16 lg:py-20;
+   @apply bg-transparent;
+   padding-block: 0 !important;
+}
+
+.changeWrapper {
+   @apply flex flex-col gap-6 md:gap-7 lg:gap-7 lg:pr-28;
+}
+
+.changeHeading {
+   @apply text-4xl md:text-5xl lg:text-5xl;
+   @apply font-black leading-tight;
+   @apply text-[#fafafa];
+   line-height: 1.1;
+
+   span {
+      &.gradientText {
+         @include gradient-text;
+      }
+   }
+
+   @include responsive(md) {
+      @apply text-5xl;
+   }
+
+   @include responsive(lg) {
+      @apply text-5xl;
+   }
+}
+
+.changeParagraph {
+   @apply text-sm md:text-base lg:text-base;
+   @apply leading-[1.7];
+   @apply text-[#fafafa];
+   @apply opacity-90;
+
+   @include responsive(md) {
+      @apply text-base;
+   }
+
+   @include responsive(lg) {
+      @apply text-base;
+   }
+}
+
+.contextSection {
+   @apply flex flex-col gap-6;
+}
+
+.bulletContainer {
+   @apply flex flex-col gap-4;
+   @apply border-l-4 border-[rgba(51,157,255,0.4)];
+   @apply pl-6 md:pl-9;
+}
+
+.bulletPoint {
+   @apply flex gap-4 items-start;
+   @apply opacity-90;
+
+   p {
+      @apply text-sm md:text-base lg:text-base;
+      @apply leading-[1.7];
+      @apply text-[#fafafa];
+      @apply m-0;
+
+      strong {
+         @apply font-semibold;
+         @apply text-white;
+         @apply opacity-100;
+      }
+   }
+}
+
+.bulletDot {
+   @apply block w-2 h-2 rounded-full flex-shrink-0 mt-1.5;
+   background: linear-gradient(
+      135deg,
+      rgb(51, 157, 255) 0%,
+      rgb(14, 193, 211) 100%
+   );
+}
+
+.calloutBox {
+   @apply px-6 md:px-8 lg:px-8;
+   @apply py-8 md:py-8 lg:py-8;
+   @apply rounded-2xl;
+   @apply border border-[rgba(51,157,255,0.2)];
+   background: linear-gradient(
+      170.687deg,
+      rgba(51, 157, 255, 0.06) 0%,
+      rgba(14, 193, 211, 0.04) 100%
+   );
+
+   p {
+      @apply text-sm md:text-base lg:text-base;
+      @apply leading-[1.6];
+      @apply text-[#fafafa];
+      @apply font-medium;
+      @apply m-0;
+   }
+
+   @include responsive(md) {
+      @apply px-8;
+      @apply py-8;
+   }
+
+   @include responsive(lg) {
+      @apply px-8;
+      @apply py-8;
+   }
+}
+
+/* ReIntroducingSBP Bitcoin Fixing Section */
+
+.bitcoinFixing {
+   @apply w-full;
+   @apply py-12 md:py-16 lg:py-20;
+   @apply bg-transparent;
+}
+
+.parallaxContainer {
+   @apply relative w-full;
+   @apply max-w-none;
+   @apply overflow-hidden;
+   @apply rounded-3xl;
+   height: 300px;
+
+   @include responsive(md) {
+      height: 350px;
+   }
+
+   @include responsive(lg) {
+      height: 400px;
+   }
+}
+
+.parallaxOverlay {
+   @apply absolute inset-0 w-full h-full;
+   @apply pointer-events-none;
+   background: linear-gradient(
+      to bottom,
+      rgba(30, 32, 63, 0.75),
+      rgba(30, 32, 63, 0.85)
+   );
+}
+
+.radialOverlay {
+   @apply absolute inset-0 w-full h-full;
+   @apply pointer-events-none;
+   background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1280 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><rect x="0" y="0" height="100%" width="100%" fill="url(%23grad)" opacity="1"/><defs><radialGradient id="grad" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="10" gradientTransform="matrix(0 -24 -102.4 0 640 200)"><stop stop-color="rgba(51,157,255,0.08)" offset="0"/><stop stop-color="rgba(0,0,0,0)" offset="0.7"/></radialGradient></defs></svg>');
+}
+
+.parallaxContent {
+   @apply absolute inset-0 w-full h-full;
+   @apply flex items-center justify-center;
+   @apply pointer-events-none;
+   @apply z-10;
+}
+
+.parallaxHeading {
+   @apply text-3xl md:text-4xl lg:text-5xl;
+   @apply font-black leading-tight;
+   @apply text-white;
+   @apply text-center;
+   @apply max-w-4xl;
+   @apply px-6;
+   line-height: 1.2;
+
+   @include responsive(md) {
+      @apply text-4xl;
+   }
+
+   @include responsive(lg) {
+      @apply text-5xl;
+   }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+   .contentWrapper {
+      @apply grid-cols-1;
+      @apply gap-8;
+   }
+
+   .leftColumn,
+   .rightColumn {
+      @apply lg:pr-0 lg:pl-0;
+   }
+
+   .heading {
+      @apply text-4xl;
+
+      span {
+         &.sbpToken {
+            @apply text-4xl;
+         }
+      }
+   }
+}
+
+@media (max-width: 768px) {
+   .hero {
+      @apply py-12 md:py-16;
+   }
+
+   .heroWrapper {
+      @apply gap-8;
+   }
+
+   .heading {
+      @apply text-3xl;
+
+      span {
+         &.sbpToken {
+            @apply text-3xl;
+         }
+      }
+   }
+
+   .description {
+      @apply text-base;
+   }
+}
+
+/* ReIntroducingSBPRepresentation */
+
+.representation {
+   @apply w-full;
+   @apply text-white;
+}
+
+.representationWrapper {
+   @apply flex flex-col gap-8 md:gap-12 lg:gap-16 lg:pr-28;
+}
+
+.representationIntro {
+   @apply flex flex-col gap-4;
+}
+
+.representationHeading {
+   @apply text-3xl md:text-4xl lg:text-5xl;
+   @apply font-black leading-tight;
+   color: #fafafa;
+
+   @include responsive(md) {
+      @apply text-4xl;
+   }
+
+   @include responsive(lg) {
+      @apply text-5xl;
+   }
+
+   .gradientText {
+      @include gradient-text;
+   }
+}
+
+.representationIntroText {
+   @apply text-sm md:text-base;
+   @apply leading-[1.7];
+   @apply max-w-3xl;
+   color: #fafafa;
+   @apply opacity-90;
+
+   strong {
+      @apply font-semibold;
+      @apply opacity-100;
+   }
+}
+
+.representationSection {
+   @apply grid grid-cols-[auto_1fr];
+   @apply gap-6 md:gap-8 lg:gap-12;
+   @apply relative;
+   @apply items-start;
+}
+
+.sectionBadge {
+   @apply w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16;
+   @apply flex items-center justify-center;
+   @apply flex-shrink-0;
+   @apply rounded-full;
+   @apply border-2;
+   border-color: rgba(51, 157, 255, 0.6);
+   background: linear-gradient(135deg, rgba(51, 157, 255, 0.1) 0%, rgba(14, 193, 211, 0.05) 100%);
+   position: relative;
+   @apply sticky;
+   top: 0;
+   margin-top: 0.25rem;
+}
+
+.badgeNumber {
+   @apply text-lg md:text-xl lg:text-2xl;
+   @apply font-black;
+   background: linear-gradient(135deg, rgb(51, 157, 255) 0%, rgb(14, 193, 211) 100%);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   background-clip: text;
+}
+
+.sectionContent {
+   @apply flex flex-col gap-4;
+}
+
+.sectionTitle {
+   @apply text-xl md:text-2xl lg:text-3xl;
+   @apply font-bold;
+   @apply leading-tight;
+   color: #fafafa;
+
+   @include responsive(md) {
+      @apply text-2xl;
+   }
+
+   @include responsive(lg) {
+      @apply text-3xl;
+   }
+}
+
+.sectionText {
+   @apply text-sm md:text-base;
+   @apply leading-[1.7];
+   color: #fafafa;
+   @apply opacity-90;
+
+   @include responsive(md) {
+      @apply text-base;
+   }
+}
+
+.infoBox {
+   @apply flex flex-col gap-3;
+   @apply py-4 md:py-5;
+   @apply px-5 md:px-6;
+   @apply rounded-lg;
+   background: rgba(51, 157, 255, 0.05);
+   border-left: 4px solid rgba(51, 157, 255, 0.4);
+}
+
+.boxIntroText {
+   @apply text-sm md:text-base;
+   @apply leading-[1.7];
+   color: #fafafa;
+   @apply opacity-90;
+   @apply mb-2;
+}
+
+.bulletList {
+   @apply flex flex-col gap-2 md:gap-3;
+}
+
+.bulletItem {
+   @apply flex gap-3 items-start;
+
+   .bulletBubble {
+      @apply w-5 h-5;
+      @apply rounded-full;
+      @apply flex-shrink-0;
+      @apply flex items-center justify-center;
+      @apply border;
+      border-color: rgba(51, 157, 255, 0.5);
+      background: rgba(51, 157, 255, 0.1);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.25rem;
+
+      &::after {
+         content: '';
+         @apply w-1.5 h-1.5;
+         @apply rounded-full;
+         background: linear-gradient(135deg, rgb(51, 157, 255) 0%, rgb(14, 193, 211) 100%);
+      }
+   }
+
+   p {
+      @apply text-sm md:text-base;
+      @apply leading-[1.6];
+      color: #fafafa;
+      @apply opacity-90;
+   }
+}
+
+.calloutBoxRepresentation {
+   @apply py-4 md:py-5;
+   @apply px-5 md:px-6;
+   @apply rounded-lg;
+   background: rgba(51, 157, 255, 0.08);
+   border-left: 4px solid rgba(51, 157, 255, 0.5);
+
+   p {
+      @apply text-sm md:text-base;
+      @apply leading-[1.7];
+      @apply font-medium;
+      color: #fafafa;
+      @apply opacity-95;
+   }
+}
+
+.featureGrid {
+   @apply grid grid-cols-1 md:grid-cols-2;
+   @apply gap-3 md:gap-4;
+   @apply my-4 md:my-5;
+}
+
+.featureBox {
+   @apply py-4 md:py-5;
+   @apply px-4 md:px-5;
+   @apply rounded-md;
+   @apply border border-solid;
+   border-color: rgba(51, 157, 255, 0.15);
+   background: rgba(51, 157, 255, 0.03);
+
+   p {
+      @apply text-sm md:text-base;
+      @apply leading-[1.6];
+      @apply font-medium;
+      color: #fafafa;
+   }
+}
+
+/* Responsive adjustments for Representation */
+@media (max-width: 768px) {
+   .representation {
+      @apply py-16 md:py-20;
+   }
+
+   .representationWrapper {
+      @apply gap-12 md:gap-16;
+   }
+
+   .representationHeading {
+      @apply text-3xl;
+   }
+
+   .sectionTitle {
+      @apply text-xl;
+   }
+
+   .sectionBadge {
+      @apply w-12 h-12;
+   }
+}
+
+/* ReIntroducingSBPUnderstanding */
+
+.understandingSection {
+   @apply py-20;
+   @apply flex flex-col items-center justify-center;
+   @apply gap-8 md:gap-10 lg:gap-12;
+   @apply px-6 md:px-8 lg:px-12;
+   @apply rounded-2xl lg:rounded-3xl;
+   @apply border border-solid;
+   @apply text-center;
+   border-color: rgba(51, 157, 255, 0.2);
+   background: linear-gradient(
+      153.99deg,
+      rgba(51, 157, 255, 0.08) 0%,
+      rgba(14, 193, 211, 0.06) 50%,
+      rgba(30, 32, 63, 0.4) 100%
+   );
+}
+
+.iconBadge {
+   @apply w-16 h-16 md:w-20 md:h-20;
+   @apply flex items-center justify-center;
+   @apply flex-shrink-0;
+   @apply rounded-full;
+   @apply border-2;
+   border-color: rgba(51, 157, 255, 0.4);
+   background: linear-gradient(135deg, rgba(51, 157, 255, 0.2) 0%, rgba(14, 193, 211, 0.15) 100%);
+
+   i {
+      @apply text-2xl md:text-3xl;
+      background: linear-gradient(135deg, rgb(51, 157, 255) 0%, rgb(14, 193, 211) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+   }
+}
+
+.iconSvg {
+   @apply w-8 h-8 md:w-10 md:h-10;
+   @apply flex-shrink-0;
+}
+
+.understandingHeading {
+   @apply text-3xl md:text-4xl lg:text-5xl;
+   @apply font-black leading-tight;
+   @apply max-w-4xl;
+   color: #fafafa;
+   line-height: 1.15;
+
+   @include responsive(md) {
+      @apply text-4xl;
+   }
+
+   @include responsive(lg) {
+      @apply text-5xl;
+   }
+
+   .gradientText {
+      @include gradient-text;
+   }
+
+   br {
+      @apply hidden md:block;
+   }
+}
+
+.understandingDescription {
+   @apply text-sm md:text-base;
+   @apply leading-[1.7];
+   @apply max-w-3xl;
+   color: #fafafa;
+   @apply opacity-90;
+
+   @include responsive(md) {
+      @apply text-base;
+   }
+}
+
+.gradientDivider {
+   @apply h-1 rounded-full;
+   @apply w-20;
+   @apply flex-shrink-0;
+   background: linear-gradient(90deg, rgb(51, 157, 255) 0%, rgb(14, 193, 211) 100%);
+}
+
+.understandingSection .buttonGroup {
+   @apply flex flex-col sm:flex-row;
+   @apply gap-4 md:gap-6;
+   @apply items-center justify-center;
+   @apply flex-wrap;
+}
+
+.button {
+   @apply px-8 md:px-10 py-3 md:py-4;
+   @apply rounded-full;
+   @apply flex items-center gap-2;
+   @apply font-bold text-sm md:text-base;
+   @apply border-2;
+   @apply no-underline;
+   @apply whitespace-nowrap;
+   color: #fafafa;
+   text-decoration: none;
+   transition: none !important;
+
+   i {
+      @apply flex-shrink-0;
+      @apply text-base md:text-lg;
+   }
+}
+
+.buttonPrimary {
+   @apply border-transparent;
+   background: linear-gradient(167.38deg, rgb(51, 157, 255) 0%, rgb(14, 193, 211) 100%);
+   
+   &:hover {
+      @apply opacity-90;
+   }
+}
+
+.buttonSecondary {
+   border-color: rgba(51, 157, 255, 0.5);
+   background: rgba(51, 157, 255, 0.1);
+
+   &:hover {
+      @apply opacity-80;
+   }
+}
+
+/* Responsive adjustments for Understanding */
+@media (max-width: 768px) {
+   .understandingSection {
+      @apply py-16 md:py-20;
+      @apply gap-6 md:gap-8;
+      @apply rounded-2xl;
+   }
+
+   .understandingHeading {
+      @apply text-3xl;
+   }
+
+   .buttonGroup {
+      @apply flex-col;
+      @apply w-full;
+   }
+
+   .button {
+      @apply  md:w-auto;
+      @apply justify-center;
+   }
+}
