@@ -7,7 +7,7 @@ const ReIntroducingSBPBitcoinFixing = () => {
    return (
       <section className={`${styles.bitcoinFixing} bitcoinFixing`}>
          <div
-            className={`container`}
+            className={`${styles.container} container`}
          >
             <div
                className={`${styles.parallaxContainer} `}

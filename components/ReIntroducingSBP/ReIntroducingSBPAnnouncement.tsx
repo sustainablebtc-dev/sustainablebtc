@@ -6,7 +6,7 @@ import styles from "@/styles/pages/ReIntroducingSBP.module.scss";
 const ReIntroducingSBPAnnouncement = () => {
    return (
       <section className={`${styles.announcement} announcement`}>
-         <div className="container container-tight">
+         <div className={`${styles.container} container container-tight`}>
             <div className={styles.announcementContent}>
                <h2 className={styles.announcementHeading}>
                   The Sustainable Bitcoin Certificate (SBC) is now the Sustainable Bitcoin Protocol token (SBP).

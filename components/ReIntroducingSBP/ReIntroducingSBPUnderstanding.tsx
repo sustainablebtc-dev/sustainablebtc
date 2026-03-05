@@ -1,11 +1,12 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import styles from "@/styles/pages/ReIntroducingSBP.module.scss";
 
 const ReIntroducingSBPUnderstanding = () => {
    return (
-      <section className="container container-tight">
+      <section className={`${styles.container} container container-tight`}>
          <div className={styles.understandingSection}>
             {/* Icon Badge */}
             <div className={styles.iconBadge}>
@@ -27,14 +28,14 @@ const ReIntroducingSBPUnderstanding = () => {
             <div className={styles.gradientDivider} />
             {/* Buttons */}
             <div className={styles.buttonGroup}>
-               <a href="/learn/faq" className={`${styles.button} ${styles.buttonSecondary}`}>
+               <Link href="/learn/faq" className={`${styles.button} ${styles.buttonSecondary}`}>
                   <span>Explore FAQs</span>
                   <i className="bi bi-arrow-right"></i>
-               </a>
-               <a href="/learn/download-whitepaper" className={`${styles.button} ${styles.buttonPrimary}`}>
+               </Link>
+               <Link href="/learn/download-whitepaper" className={`${styles.button} ${styles.buttonPrimary}`}>
                   <span>Read Whitepaper</span>
                   <i className="bi bi-arrow-right"></i>
-               </a>
+               </Link>
             </div>
          </div >
       </section >

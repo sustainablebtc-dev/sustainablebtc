@@ -7,7 +7,7 @@ import styles from "@/styles/pages/ReIntroducingSBP.module.scss";
 const ReIntroducingSBPHero = () => {
    return (
       <section className={`${styles.hero} hero`}>
-         <div className={`${styles.conatainer} container-tight`}>
+         <div className={`${styles.container} container container-tight`}>
             {/* ReIntroducingSBPHero */}
             <div className={styles.heroWrapper}>
                {/* Tag Line */}
@@ -39,18 +39,10 @@ const ReIntroducingSBPHero = () => {
 
                      <div className={styles.buttonGroup}>
                         <Link 
-                           href="/learn/reintroducing-sbp-token"
+                           href="/sbp-token"
                            className={`${styles.button} ${styles.buttonPrimary}`}
                         >
                            <span>Learn About SBP Token</span>
-                           <i className="bi bi-arrow-right"></i>
-                        </Link>
-
-                        <Link
-                           href="/learn/reintroducing-sbp-token"
-                           className={`${styles.button} ${styles.buttonSecondary}`}
-                        >
-                           <span>View Documentation</span>
                            <i className="bi bi-arrow-right"></i>
                         </Link>
                      </div>

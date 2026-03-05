@@ -6,7 +6,7 @@ import styles from "@/styles/pages/ReIntroducingSBP.module.scss";
 const ReIntroducingSBPRepresentation = () => {
    return (
       <section className={`${styles.representation} representation`}>
-         <div className="container container-tight">
+         <div className={`${styles.container} container container-tight`}>
             <div className={styles.representationWrapper}>
                {/* Heading */}
                <div className={styles.representationIntro}>

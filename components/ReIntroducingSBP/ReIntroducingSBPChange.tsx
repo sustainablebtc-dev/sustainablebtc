@@ -6,7 +6,7 @@ import styles from "@/styles/pages/ReIntroducingSBP.module.scss";
 const ReIntroducingSBPChange = () => {
    return (
       <section className={`${styles.change} change`}>
-         <div className="container container-tight">
+         <div className={`${styles.container} container container-tight`}>
             <div className={styles.changeWrapper}>
                {/* Heading */}
                <h2 className={styles.changeHeading}>

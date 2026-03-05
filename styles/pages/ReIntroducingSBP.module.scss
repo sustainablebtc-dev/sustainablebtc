@@ -1,21 +1,23 @@
 /* ReIntroducingSBP Hero Section */
 
+.container {
+   @apply px-4 mx-auto max-w-[initial] lg:max-w-[1100px];
+}
+
 .hero {
    @include hero-spacing;
-   @apply pb-20;
-   @apply relative overflow-hidden;
-   @apply w-full;
-   // @apply py-16 md:py-20 lg:py-24;
-   @apply flex items-center justify-center;
+   @apply pb-16 md:pb-20 relative overflow-hidden w-full flex items-center justify-center min-h-[initial];
+   @apply mt-40 md:mt-8 md:my-0;
 
-   .conatainer{
-      @apply my-32 md:my-auto;
+   .container{
+      @apply w-full;
+      margin-block: 0;
    }
 }
 
 /* Main Wrapper */
 .heroWrapper {
-   @apply flex flex-col gap-12 lg:gap-16;
+   @apply flex flex-col gap-10 lg:gap-12;
    @apply items-center w-full;
 }
 
@@ -54,9 +56,8 @@
 
 /* Content Grid */
 .contentWrapper {
-   @apply w-full relative;
-   @apply grid grid-cols-1 lg:grid-cols-2;
-   @apply gap-8 lg:gap-12;
+   @apply w-full relative grid grid-cols-1 lg:grid-cols-2;
+   @apply gap-6 lg:gap-10;
    @apply items-start lg:items-center;
 }
 
@@ -67,18 +68,20 @@
    @apply lg:pr-8;
 
    .heading {
-      @apply text-3xl md:text-5xl lg:text-6xl;
+      @apply text-3xl md:text-5xl lg:text-5xl;
       @apply font-bold leading-tight;
       @apply text-center lg:text-left;
+      @apply w-full;
       color: color($color-light);
       line-height: 1.1;
 
       span {
-         @apply block;
+         @apply inline-block m-1.5;
 
          &.sbpToken {
-            @apply text-3xl md:text-5xl lg:text-6xl;
+            @apply text-3xl md:text-5xl lg:text-5xl;
             @apply font-black;
+            @apply block;
             @include gradient-text;
          }
       }
@@ -87,7 +90,7 @@
 
 /* Right Column - Description & CTA */
 .rightColumn {
-   @apply flex flex-col gap-4 md:gap-6;
+   @apply flex flex-col gap-4 md:gap-6 w-full;
    @apply items-center lg:items-start;
    @apply lg:pl-8;
 
@@ -97,7 +100,7 @@
       @apply text-center lg:text-left;
       color: color($color-light);
       @apply opacity-90;
-      @apply max-w-full md:max-w-[420px];
+      @apply max-w-[460px];
    }
 }
 
@@ -160,7 +163,7 @@
 /* Vertical Divider */
 .divider {
    @apply hidden lg:block;
-   @apply absolute left-1/2 top-0 h-[240px];
+   @apply absolute left-1/2 top-0 h-full;
    @apply w-[2px];
    @apply translate-x-[-50%];
    background: linear-gradient(
@@ -175,15 +178,22 @@
 /* ReIntroducingSBP Announcement Section */
 
 .announcement {
-   @apply w-full;
-   @apply py-12 md:py-16 lg:py-20 min-h-fit pt-0;
-   margin-block: 0 !important;
+   @apply w-full min-h-[initial];
+   margin-block: 3rem;
+
+   @include responsive(md) {
+      margin-block: 4rem;
+   }
+
+   @include responsive(lg) {
+      margin-block: 5rem;
+   }
 }
 
 .announcementContent {
    @apply flex flex-col gap-4 md:gap-6;
-   @apply px-6 md:px-12 lg:px-16;
-   @apply py-12 md:py-16 lg:py-20;
+   @apply px-6 md:px-12;
+   @apply py-12 md:py-14;
    @apply rounded-2xl;
    background: linear-gradient(
       1.35deg,
@@ -191,14 +201,9 @@
       rgb(14, 193, 211) 70.954%
    );
 
-   @include responsive(md) {
-      @apply px-12;
-      @apply py-16;
-   }
-
    @include responsive(lg) {
-      @apply px-16;
-      @apply py-20;
+      @apply px-14;
+      @apply py-16;
    }
 }
 
@@ -236,14 +241,20 @@
 /* ReIntroducingSBP Change Section */
 
 .change {
-   @apply w-full;
-   @apply py-12 md:py-16 lg:py-20;
-   @apply bg-transparent;
-   padding-block: 0 !important;
+   @apply w-full bg-transparent;
+   margin-block: 3rem;
+
+   @include responsive(md) {
+      margin-block: 4rem;
+   }
+
+   @include responsive(lg) {
+      margin-block: 5rem;
+   }
 }
 
 .changeWrapper {
-   @apply flex flex-col gap-6 md:gap-7 lg:gap-7 lg:pr-28;
+   @apply flex flex-col gap-5 md:gap-6 lg:gap-7 lg:pr-28;
 }
 
 .changeHeading {
@@ -283,11 +294,11 @@
 }
 
 .contextSection {
-   @apply flex flex-col gap-6;
+   @apply flex flex-col gap-5;
 }
 
 .bulletContainer {
-   @apply flex flex-col gap-4;
+   @apply flex flex-col gap-3;
    @apply border-l-4 border-[rgba(51,157,255,0.4)];
    @apply pl-6 md:pl-9;
 }
@@ -352,9 +363,16 @@
 /* ReIntroducingSBP Bitcoin Fixing Section */
 
 .bitcoinFixing {
-   @apply w-full;
-   @apply py-12 md:py-16 lg:py-20;
-   @apply bg-transparent;
+   @apply w-full bg-transparent min-h-[initial];
+   margin-block: 3rem;
+
+   @include responsive(md) {
+      margin-block: 4rem;
+   }
+
+   @include responsive(lg) {
+      margin-block: 5rem;
+   }
 }
 
 .parallaxContainer {
@@ -464,16 +482,24 @@
 /* ReIntroducingSBPRepresentation */
 
 .representation {
-   @apply w-full;
-   @apply text-white;
+   @apply w-full text-white;
+   margin-block: 3rem;
+
+   @include responsive(md) {
+      margin-block: 4rem;
+   }
+
+   @include responsive(lg) {
+      margin-block: 5rem;
+   }
 }
 
 .representationWrapper {
-   @apply flex flex-col gap-8 md:gap-12 lg:gap-16 lg:pr-28;
+   @apply flex flex-col gap-6 md:gap-8 lg:gap-10 lg:pr-28;
 }
 
 .representationIntro {
-   @apply flex flex-col gap-4;
+   @apply flex flex-col gap-3;
 }
 
 .representationHeading {
@@ -509,9 +535,8 @@
 
 .representationSection {
    @apply grid grid-cols-[auto_1fr];
-   @apply gap-6 md:gap-8 lg:gap-12;
-   @apply relative;
-   @apply items-start;
+   @apply gap-4 md:gap-6 lg:gap-8;
+   @apply relative items-start;
 }
 
 .sectionBadge {
@@ -538,7 +563,7 @@
 }
 
 .sectionContent {
-   @apply flex flex-col gap-4;
+   @apply flex flex-col gap-3;
 }
 
 .sectionTitle {
@@ -662,7 +687,7 @@
 /* Responsive adjustments for Representation */
 @media (max-width: 768px) {
    .representation {
-      @apply py-16 md:py-20;
+      @apply md:py-20;
    }
 
    .representationWrapper {
@@ -685,9 +710,9 @@
 /* ReIntroducingSBPUnderstanding */
 
 .understandingSection {
-   @apply py-20;
+   @apply py-14 md:py-16 lg:py-20;
    @apply flex flex-col items-center justify-center;
-   @apply gap-8 md:gap-10 lg:gap-12;
+   @apply gap-6 md:gap-8 lg:gap-10;
    @apply px-6 md:px-8 lg:px-12;
    @apply rounded-2xl lg:rounded-3xl;
    @apply border border-solid;
@@ -699,6 +724,15 @@
       rgba(14, 193, 211, 0.06) 50%,
       rgba(30, 32, 63, 0.4) 100%
    );
+   margin-block: 3rem;
+
+   @include responsive(md) {
+      margin-block: 4rem;
+   }
+
+   @include responsive(lg) {
+      margin-block: 5rem;
+   }
 }
 
 .iconBadge {
@@ -813,8 +847,8 @@
 /* Responsive adjustments for Understanding */
 @media (max-width: 768px) {
    .understandingSection {
-      @apply py-16 md:py-20;
-      @apply gap-6 md:gap-8;
+      @apply py-12 md:py-14;
+      @apply gap-4 md:gap-6;
       @apply rounded-2xl;
    }
 
@@ -828,7 +862,8 @@
    }
 
    .button {
-      @apply  md:w-auto;
+      @apply md:w-auto;
       @apply justify-center;
    }
 }
+
