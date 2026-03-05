@@ -42,7 +42,7 @@ const ReIntroducingSBPHero = () => {
                            href="/sbp-token"
                            className={`${styles.button} ${styles.buttonPrimary}`}
                         >
-                           <span>Learn About SBP Token</span>
+                           <span>Learn About the SBP Token</span>
                            <i className="bi bi-arrow-right"></i>
                         </Link>
                      </div>

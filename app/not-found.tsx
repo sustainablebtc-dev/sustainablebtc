@@ -21,7 +21,7 @@ export default function NotFound() {
                   href="/sbp-token"
                   className="btn btn-primary"
                >
-                  <span>Learn about SBP Token</span>
+                  <span>Learn about the SBP Token</span>
                </a>
                <a href="/" className="btn btn-secondary">
                   <span>Visit Home</span>
