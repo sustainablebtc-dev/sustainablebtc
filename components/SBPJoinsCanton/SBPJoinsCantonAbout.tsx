@@ -10,7 +10,7 @@ const SBPJoinsCantonAbout = () => {
    ];
 
    return (
-      <section className={`${styles.about} about`}>
+      <section id="about" className={`${styles.about} about`}>
          <div className={`${styles.container} container`}>
             {/* Header Section */}
             <div className={styles.aboutHeader}>
