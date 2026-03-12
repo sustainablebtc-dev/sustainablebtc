@@ -29,8 +29,9 @@
 - If data fetching is required, use `fetch`
 - Always work on responsive design and accessibility when generating UI code.
 - Don't add any transitions or animations unless explicitly asked for.
+- Always use next/link and next/image for links and images respectively.
 
 ## 6. Component Instructions
-- **New Component:** When asked to create a new component, generate a TypeScript React functional component, add import the necessary SCSS file. if not available, create a new SCSS file with the same name as the directory. e.g. Home/HomeHero.tsx would. have Home.scss file created in styles/pages/Home.scss.
+- **New Component:** When asked to create a new component, generate a TypeScript React functional component, add import the necessary SCSS file. if not available, create a new SCSS file with the same name as the directory. e.g. Home/HomeHero.tsx would. have Home.scss file created in styles/pages/Home.scss. Also create one rule .home {} so all the styles related to that component should be nested within that rule.
 - **Writing SCSS:** Kindly use meaningful class names, and don't put any inline css or tailwind. everything should be class based, and exlcosed within {`${styles.[classname]} ${styles.[classname2]}`} syntax
 - **Existing SCSS:** always use the defined colors within _variables.scss. and typography from _typography.scss. do not hardcode any values, and use the defined variables instead. there are _mixins.scss file as well, so please use the mixins when needed. and follow the defined breakpoints for media queries.

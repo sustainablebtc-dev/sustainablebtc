@@ -1,0 +1,383 @@
+
+
+// ===================================
+// GLOBAL STYLES
+// ===================================
+
+// ===================================
+// HERO COMPONENT
+// ===================================
+.hero {
+	margin-top: 19.5dvh;
+
+	@include responsive(md) {
+		margin-top: 18dvh;
+	}
+
+	@include responsive(lg) {
+		margin-top: 21dvh;
+	}
+}
+
+.heroWrapper {
+	@apply flex flex-col gap-8 items-center;
+	@apply py-12 md:py-16 lg:py-20;
+	@apply relative overflow-hidden w-full rounded-xl;
+	background: linear-gradient(
+		20.57deg,
+		rgba(51, 157, 255, 0.03) 17.81%,
+		rgba(14, 193, 211, 0.03) 73.148%
+	);
+	backdrop-filter: blur(1.5px);
+	margin-block: 3rem;
+
+	@include responsive(md) {
+		margin-block: 4rem;
+	}
+
+	@include responsive(lg) {
+		margin-block: 5rem;
+	}
+}
+
+.heading {
+	@apply text-4xl md:text-5xl lg:text-6xl;
+	@apply font-black leading-tight;
+	@apply text-center;
+	@apply max-w-5xl;
+	color: color($color-light);
+	line-height: 1.1;
+
+	span {
+		@apply block md:inline;
+
+		&.gradientText {
+			@include gradient-text;
+		}
+	}
+}
+
+.description {
+	@apply text-base md:text-lg;
+	@apply leading-relaxed text-center;
+	@apply max-w-3xl;
+	@apply opacity-90;
+	color: color($color-light);
+
+	.gradientText {
+		@include gradient-text;
+	}
+}
+
+.buttonGroup {
+	@apply flex flex-col md:flex-row gap-4 md:gap-6;
+	@apply items-center justify-center;
+	@apply mt-4 md:mt-6;
+}
+
+.button {
+	@apply inline-flex items-center gap-2;
+	@apply px-8 md:px-10 py-3 md:py-4;
+	@apply rounded-full;
+	@apply font-bold text-sm md:text-base;
+	@apply no-underline whitespace-nowrap;
+	text-decoration: none;
+	transition: none !important;
+	color: #fafafa;
+	border: none;
+
+	i {
+		@apply flex-shrink-0 text-base md:text-lg;
+	}
+
+	&:hover {
+		@apply opacity-90;
+	}
+}
+
+.buttonPrimary {
+	background: linear-gradient(
+		4.163deg,
+		rgb(51, 157, 255) 8.741%,
+		rgb(14, 193, 211) 82.041%
+	);
+	border: 1px solid #2ca5f6;
+
+	&:hover {
+		@apply opacity-100;
+		filter: brightness(1.1);
+	}
+}
+
+.buttonSecondary {
+	border: 1px solid #2ca5f6;
+	background: transparent;
+	color: #fafafa;
+
+	&:hover {
+		background: rgba(51, 157, 255, 0.1);
+	}
+}
+
+// ===================================
+// ABOUT COMPONENT
+// ===================================
+.about {
+	@apply min-h-[initial];
+}
+
+.about .container {
+	@apply flex flex-col gap-8 items-center;
+}
+
+.aboutHeader {
+	@apply flex flex-col gap-4 md:gap-0 items-center;
+	@apply w-full md:w-auto;
+
+	.sectionLabel {
+		@apply flex items-center gap-4 md:gap-6;
+
+		.labelLine {
+			@apply h-0.5 w-12 lg:w-16;
+			background: linear-gradient(0.58deg, rgb(51, 157, 255) 8.74%, rgb(14, 193, 211) 82.04%);
+		}
+
+		.labelText {
+			@apply font-medium text-xs md:text-sm;
+			@apply uppercase tracking-wider;
+			color: #339dff;
+			font-family: "Helvetica Now Display", sans-serif;
+			white-space: nowrap;
+		}
+	}
+
+	.aboutHeading {
+		@apply text-4xl md:text-4xl lg:text-5xl;
+		@apply font-black text-center;
+		@apply max-w-4xl;
+
+		span {
+			@apply block md:inline;
+
+			&.gradientText {
+				@include gradient-text;
+			}
+		}
+	}
+}
+
+.aboutDescription {
+	@apply text-lg md:text-xl;
+	@apply leading-relaxed text-center;
+	@apply max-w-3xl;
+	color: #fafafa;
+	font-family: "Helvetica Now Display", sans-serif;
+}
+
+.featuresContainer {
+	@apply flex flex-col md:flex-row gap-8 md:gap-8;
+	@apply w-full items-center justify-center;
+	@apply max-w-4xl mt-4;
+
+	.featureItem {
+		@apply flex flex-col gap-4 items-center;
+		@apply flex-1;
+		@apply w-full;
+
+		.featureLine {
+			@apply h-0.5 w-12 lg:w-16;
+			background: linear-gradient(0.58deg, rgb(51, 157, 255) 8.74%, rgb(14, 193, 211) 82.04%);
+		}
+
+		.featureLabel {
+			@apply font-medium text-base md:text-lg;
+			@apply text-center whitespace-nowrap;
+			color: #339dff;
+			font-family: "Helvetica Now Display", sans-serif;
+		}
+	}
+}
+
+// ===================================
+// LEADERSHIP PERSPECTIVE COMPONENT
+// ===================================
+.leadershipPerspective {
+	@apply w-full;
+	min-height: initial;
+
+	.leadershipContainer {
+		@apply relative overflow-clip rounded-xl;
+		@apply flex flex-col gap-8 items-center justify-center;
+		@apply px-8 md:px-20 py-16 md:py-16;
+		background-color: #13152a;
+		color: #fafafa;
+
+		.sectionLabel {
+			@apply flex items-center gap-4 md:gap-6;
+
+			.labelLine {
+				@apply h-0.5 w-12 lg:w-16;
+				background: linear-gradient(0.58deg, rgb(51, 157, 255) 8.74%, rgb(14, 193, 211) 82.04%);
+			}
+
+			.labelText {
+				@apply font-medium text-xs md:text-sm;
+				@apply uppercase tracking-wider;
+				color: #339dff;
+				font-family: "Helvetica Now Display", sans-serif;
+				white-space: nowrap;
+			}
+		}
+
+		.leadershipQuote {
+			@apply text-xl md:text-2xl;
+			@apply leading-snug;
+			@apply max-w-5xl;
+			font-family: "Helvetica Now Display", sans-serif;
+			color: #fafafa;
+
+			span {
+				&.gradientText {
+					@include gradient-text;
+				}
+			}
+		}
+
+		.authorInfo {
+			@apply flex flex-col gap-2 items-start;
+			@apply w-full max-w-5xl;
+
+			.authorName {
+				@apply font-medium text-base;
+				color: #fafafa;
+				font-family: "Helvetica Now Display", sans-serif;
+			}
+
+			.authorTitle {
+				@apply font-normal text-sm;
+				@apply opacity-60;
+				color: #fafafa;
+				font-family: "Helvetica Now Display", sans-serif;
+			}
+		}
+
+		.bgImage {
+			@apply absolute;
+			@apply opacity-10;
+			@apply overflow-hidden pointer-events-none;
+			@apply top-20 left-full;
+			transform: translate(-80%, -50%) rotate(-15deg);
+			@apply w-48 lg:w-64;
+			aspect-ratio: 1 / 1;
+
+			img {
+				@apply block w-full h-full;
+			}
+		}
+	}
+}
+
+// ===================================
+// INTRODUCING CWBTC COMPONENT
+// ===================================
+.introducingCwBTC {
+	@apply w-full;
+
+   .container{
+      @apply flex flex-col gap-16 lg:gap-24 items-center justify-center;
+   }
+
+	.cwbtcHeader {
+		@apply flex flex-col gap-4 md:gap-0 items-center;
+		@apply w-full;
+
+		.sectionLabel {
+			@apply flex items-center gap-4 md:gap-6;
+
+			.labelLine {
+				@apply h-0.5 w-12 lg:w-16;
+				background: linear-gradient(0.58deg, rgb(51, 157, 255) 8.74%, rgb(14, 193, 211) 82.04%);
+			}
+
+			.labelText {
+				@apply font-medium text-xs md:text-sm;
+				@apply uppercase tracking-wider;
+				color: #339dff;
+				white-space: nowrap;
+			}
+		}
+
+		.cwbtcHeading {
+			@apply text-4xl md:text-4xl lg:text-5xl;
+			@apply font-black text-center;
+			@apply max-w-4xl;
+			color: #fafafa;
+			line-height: 1.4;
+		}
+	}
+
+	.featuresGrid {
+		@apply grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6;
+		@apply w-full max-w-6xl;
+      @apply mt-4 md:mt-6;
+
+		.featureCard {
+			@apply flex flex-col gap-4 items-center justify-start;
+			@apply p-5;
+
+			.iconWrapper {
+				@apply flex items-center justify-center;
+				@apply w-16 h-16;
+				@apply rounded-full;
+				background-color: #1a1b38;
+				border: 1px solid #2a2d52;
+
+				img {
+					@apply w-6 h-6;
+				}
+			}
+
+			.featureText {
+				@apply font-medium text-base md:text-lg;
+				@apply text-center;
+				color: #fafafa;
+				font-family: "Helvetica Now Display", sans-serif;
+				line-height: 1.4;
+			}
+		}
+	}
+
+	.quoteSection {
+		@apply max-w-5xl;
+		@apply px-8 md:px-16 lg:px-20 py-8 md:py-12;
+		@apply rounded-xl;
+		background: linear-gradient(0.865deg, rgb(51, 157, 255) 20.861%, rgb(14, 193, 211) 70.954%);
+
+		.quoteText {
+			@apply font-medium text-lg md:text-xl;
+			@apply leading-relaxed;
+			color: #fafafa;
+			font-family: "Helvetica Now Display", sans-serif;
+		}
+	}
+
+	.additionalText {
+		@apply text-lg md:text-xl;
+		@apply text-center;
+		@apply max-w-3xl;
+		color: #fafafa;
+		font-family: "Helvetica Now Display", sans-serif;
+		line-height: 1.6;
+
+		.gradientText {
+			@include gradient-text;
+		}
+	}
+}
+
+// ===================================
+// CTA COMPONENT
+// ===================================
+.cta {
+	@apply py-16 md:py-20 w-full;
+}
