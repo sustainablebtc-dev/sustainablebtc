@@ -379,5 +379,61 @@
 // CTA COMPONENT
 // ===================================
 .cta {
-	@apply py-16 md:py-20 w-full;
+	.container {
+		@apply w-full;
+	}
+}
+
+.ctaContent {
+	@include flex-center;
+	@apply flex-col gap-8;
+	@apply px-6 md:px-12 py-16 md:py-20 lg:py-[65px];
+	@apply rounded-3xl;
+	border: 1px solid rgba(51, 157, 255, 0.2);
+	background: linear-gradient(
+		160.83deg,
+		rgba(51, 157, 255, 0.08) 0%,
+		rgba(14, 193, 211, 0.06) 50%,
+		rgba(30, 32, 63, 0.4) 100%
+	);
+}
+
+.iconContainer {
+	@include flex-center;
+	@apply w-16 h-16 md:w-20 md:h-20 flex-shrink-0;
+	@apply rounded-full;
+	border: 2px solid rgba(51, 157, 255, 0.4);
+	background: linear-gradient(
+		135deg,
+		rgba(51, 157, 255, 0.2) 0%,
+		rgba(14, 193, 211, 0.15) 100%
+	);
+
+   i {
+      @apply text-2xl md:text-3xl;
+      background: linear-gradient(135deg, rgb(51, 157, 255) 0%, rgb(14, 193, 211) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+   }
+}
+
+.icon {
+	@apply w-7 h-7;
+}
+
+.ctaText {
+	@apply text-center;
+	@apply text-base md:text-lg lg:text-xl;
+	@apply leading-relaxed;
+	color: #fafafa;
+	font-family: "Helvetica Now Display", sans-serif;
+	font-weight: 400;
+	max-width: 767px;
+}
+
+.divider {
+	@apply h-1 w-20;
+	@apply rounded-full;
+	background: linear-gradient(90deg, rgb(51, 157, 255) 0%, rgb(14, 193, 211) 100%);
 }

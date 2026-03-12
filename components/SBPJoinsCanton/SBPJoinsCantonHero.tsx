@@ -18,11 +18,13 @@ const SBPJoinsCantonHero = () => {
 					</h1>
 
 					{/* Description */}
-					<p className={styles.description}>
-						Sustainable Bitcoin Protocol (SBP) has been approved as a{" "}
-						<span className={styles.gradientText}>validator</span> on the{" "}
-						<span className={styles.gradientText}>Canton Network</span>, joining a validator cohort that includes Zodia Custody, GSR, Copper, BitGo, and DRW Cumberland.
-					</p>
+               <p className={styles.description}>
+                  Sustainable Bitcoin Protocol (SBP) has been approved as a validator on the Canton Network, joining a {" "}
+                  <a href="https://www.cantonecosystem.com/" target="_blank" rel="noopener noreferrer" className={styles.gradientText}>
+                     cohort
+                  </a> {" "}
+                  that includes Zodia Custody, GSR, Copper, BitGo, and DRW Cumberland.
+               </p>
 
 					{/* Button Group */}
 					<div className={styles.buttonGroup}>
