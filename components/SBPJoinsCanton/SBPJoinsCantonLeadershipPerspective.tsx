@@ -26,7 +26,7 @@ const SBPJoinsCantonLeadershipPerspective = () => {
 
 					{/* Author Info */}
 					<div className={styles.authorInfo}>
-						<p className={styles.authorName}>Matt Twomey</p>
+						<p className={styles.authorName}>Matthew Twomey</p>
 						<p className={styles.authorTitle}>Co-Founder & Head of Institutional, Sustainable Bitcoin Protocol</p>
 					</div>
 
