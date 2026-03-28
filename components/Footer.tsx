@@ -254,12 +254,24 @@ const Footer = () => {
                            return (
                               <>
                                  <li key={i}>
-                                    <Link
-                                       href={`/${item.footerLinkSlug}`}
-                                       className={styles.footerLink}
-                                    >
-                                       {item.footerLinkName}
-                                    </Link>
+                                    {item.footerLinkSlug.includes("http") ? (
+                                       <a
+                                          href={item.footerLinkSlug}
+                                          className={styles.footerLink}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                       >
+                                          <span>{item.footerLinkName}</span>
+                                          <i className="bi bi-box-arrow-up-right ml-2"></i>
+                                       </a>
+                                    ) : (
+                                       <Link
+                                          href={`/${item.footerLinkSlug}`}
+                                          className={styles.footerLink}
+                                       >
+                                          <span>{item.footerLinkName}</span>
+                                       </Link>
+                                    )}
                                  </li>
                               </>
                            );
