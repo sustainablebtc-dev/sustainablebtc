@@ -22,6 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { url: `${baseUrl}/page/terms-and-conditions`, lastModified },
       { url: `${baseUrl}/page/privacy-policy`, lastModified },
       { url: `${baseUrl}/page/disclaimer`, lastModified },
+      { url: `${baseUrl}/legal/mica-whitepaper`, lastModified },
       { url: `${baseUrl}/events`, lastModified },
       { url: `${baseUrl}/invest`, lastModified },
    ];
