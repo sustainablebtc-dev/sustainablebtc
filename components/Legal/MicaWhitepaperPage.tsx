@@ -4,7 +4,6 @@ import React from "react";
 import styles from "@/styles/pages/Legal.module.scss";
 
 const MicaWhitepaperPage = () => {
-   const isProduction = process.env.NODE_ENV === "production";
    return (
       <div className={styles.legal}>
          {/* Hero Section */}
@@ -15,7 +14,7 @@ const MicaWhitepaperPage = () => {
                      MiCA <span className={styles.gradientText}>Whitepaper</span>
                   </h1>
                   <p className={styles.notification}>
-                     This white paper was notified to the Central Bank of Ireland in accordance with Regulation (EU) 2023/1114 on February 27th, 2026.
+                     This whitepaper was notified to the Central Bank of Ireland in accordance with Regulation (EU) 2023/1114 on February 27th, 2026.
                   </p>
                </div>
             </div>
@@ -25,35 +24,29 @@ const MicaWhitepaperPage = () => {
          <section className={styles.contentSection}>
             <div className={styles.container}>
                <div className={styles.viewerWrapper}>
-                  {isProduction ? (
-                     <iframe
-                        src="/sbp-mica-whitepaper.pdf"
-                        className={styles.pdfViewer}
-                        title="MiCA Whitepaper"
-                        sandbox="allow-same-origin allow-scripts"
-                     />
-                  ) : (
-                     <div className={styles.devNotice}>
-                        <p>
-                           <strong>Note:</strong> The PDF viewer is disabled in development mode due to Firefox security restrictions on localhost. The PDF will display normally in production.
-                        </p>
-                        <a 
-                           href="/sbp-mica-whitepaper.pdf" 
-                           target="_blank" 
+                  <object
+                     data="/sbp-mica-whitepaper.pdf"
+                     type="application/pdf"
+                     className={styles.pdfViewer}
+                     aria-label="MiCA Whitepaper PDF"
+                  >
+                     <p>
+                        Your browser does not support embedded PDFs.{" "}
+                        <a
+                           href="/sbp-mica-whitepaper.pdf"
+                           target="_blank"
                            rel="noopener noreferrer"
-                           className={styles.devLink}
                         >
-                           <i className="bi bi-file-pdf"></i>
-                           <span>View PDF in New Window</span>
+                           Download the PDF
                         </a>
-                     </div>
-                  )}
+                     </p>
+                  </object>
 
                   <p className={styles.viewerFallback}>
                      Having trouble viewing the whitepaper?{" "}
-                     <a 
-                        href="/sbp-mica-whitepaper.pdf" 
-                        target="_blank" 
+                     <a
+                        href="/sbp-mica-whitepaper.pdf"
+                        target="_blank"
                         rel="noopener noreferrer"
                         className={styles.fallbackLink}
                      >
@@ -72,7 +65,7 @@ const MicaWhitepaperPage = () => {
                   <div className={styles.downloadContent}>
                      <h2 className={styles.downloadTitle}>Download Full Whitepaper</h2>
                      <p className={styles.downloadDescription}>
-                        Access the complete MiCA-compliant whitepaper document:
+                        Access the complete MiCA Whitepaper document
                      </p>
                      <div className={styles.buttonGroup}>
                         <a

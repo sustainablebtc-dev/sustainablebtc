@@ -20,7 +20,14 @@ const nextConfig = {
             ],
          },
          {
-            source: '/(.*)', // Apply to all other routes
+            source: '/legal/mica-whitepaper',
+            headers: [
+               { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+               { key: 'Content-Security-Policy', value: "frame-ancestors 'self';" }
+            ],
+         },
+         {
+            source: '/((?!sbp-mica-whitepaper\\.pdf).*)', // Apply to all other routes except the PDF
             headers: [
                { key: 'X-Frame-Options', value: 'DENY' },
                { key: 'Content-Security-Policy', value: "frame-ancestors 'none';" }
