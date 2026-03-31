@@ -48,6 +48,15 @@ const MicaWhitepaperPage = () => {
                             padding: 0 !important;
                             margin: 0 !important;
                         }
+                        * {
+                            max-width: 100% !important;
+                            box-sizing: border-box;
+                        }
+                        table {
+                            width: 100% !important;
+                            table-layout: fixed;
+                            word-wrap: break-word;
+                        }
                     </style>
                     ${bodyContent}
                 `;

@@ -9,7 +9,18 @@ const nextConfig = {
       domains: ['cdn.sanity.io', 'lcw.nyc3.cdn.digitaloceanspaces.com']
    },
 
-   // Clickjacking headers are handled in middleware.ts
+   // Fix for click jacking vulnerability
+   async headers() {
+      return [
+         {
+            source: '/(.*)',
+            headers: [
+               { key: 'X-Frame-Options', value: 'DENY' },
+               { key: 'Content-Security-Policy', value: "frame-ancestors 'none';" }
+            ],
+         },
+      ];
+   },
 }
 
 module.exports = nextConfig

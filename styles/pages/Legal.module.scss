@@ -61,57 +61,17 @@
 
 .viewerWrapper {
    @apply flex flex-col items-center w-full;
-   @apply w-full max-w-7xl -z-10;
+   @apply w-full max-w-4xl -z-10;
    @apply mx-auto;
 }
 
 .whitepaperContent {
-   @apply w-auto z-10;
+   @apply w-full max-w-4xl mx-auto z-10;
    background-color: #fff;
-   overflow: hidden;
+   overflow-x: auto;
    padding: 0;
-   margin: 0;
-}
-
-.pdfNavigation {
-   @apply flex items-center justify-center gap-4 mt-6;
-   @apply flex-wrap;
-}
-
-.navButton {
-   @apply inline-flex items-center gap-2;
-   @apply px-4 md:px-6 py-2 md:py-3;
-   @apply rounded-lg;
-   @apply font-semibold text-sm md:text-base;
-   @apply transition-all;
-   background: rgba(51, 157, 255, 0.1);
-   color: #339dff;
-   border: 1px solid rgba(51, 157, 255, 0.3);
-   cursor: pointer;
-
-   &:hover:not(:disabled) {
-      background: rgba(51, 157, 255, 0.2);
-      border-color: rgba(51, 157, 255, 0.5);
-   }
-
-   &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-   }
-
-   i {
-      @apply flex-shrink-0 text-base;
-   }
-}
-
-.pageInfo {
-   @apply text-sm md:text-base;
-   @apply font-semibold;
-   @apply px-3 py-2;
-   color: color($color-light);
-   background: rgba(51, 157, 255, 0.05);
-   @apply rounded-lg;
-   @apply whitespace-nowrap;
+   margin-top: 0;
+   margin-bottom: 0;
 }
 
 .loadingState {
@@ -144,113 +104,6 @@
 .fallbackLink {
    color: #339dff;
    @apply font-semibold underline hover:opacity-75 transition-opacity;
-}
-
-.devNotice {
-   @apply w-full py-8 px-6 rounded-lg;
-   background: rgba(251, 146, 60, 0.1);
-   border: 1px solid rgba(251, 146, 60, 0.3);
-   @apply text-center;
-
-   p {
-      @apply text-base md:text-lg;
-      @apply leading-relaxed;
-      @apply mb-4;
-      color: #f97316;
-   }
-}
-
-.devLink {
-   @apply inline-flex items-center gap-2;
-   @apply px-6 py-3;
-   @apply rounded-lg;
-   @apply font-semibold;
-   background: rgba(251, 146, 60, 0.2);
-   color: #f97316;
-   border: 1px solid rgba(251, 146, 60, 0.5);
-   @apply no-underline transition-all;
-
-   &:hover {
-      background: rgba(251, 146, 60, 0.3);
-      border-color: rgba(251, 146, 60, 0.7);
-   }
-
-   i {
-      @apply text-lg;
-   }
-}
-
-/* ===================================
-   WHITEPAPER VIEWER SECTION
-   =================================== */
-
-.whitepapeSection {
-   @apply min-h-[initial];
-   @apply py-4 md:py-6;
-}
-
-.whitepapeWrapper {
-   @apply flex flex-col items-center w-full;
-}
-
-.whitepapeInfo {
-   @apply w-full max-w-3xl;
-   @apply rounded-xl;
-   @apply py-8 md:py-10 px-6 md:px-10;
-   background: linear-gradient(
-      20.57deg,
-      rgba(51, 157, 255, 0.08) 17.81%,
-      rgba(14, 193, 211, 0.08) 73.148%
-   );
-   backdrop-filter: blur(2px);
-   border: 1px solid rgba(51, 157, 255, 0.15);
-   @apply flex flex-col gap-4;
-}
-
-.whitepapeTitle {
-   @apply text-xl md:text-2xl font-bold;
-   @apply text-white;
-   @apply m-0;
-
-   @media (max-width: 768px) {
-      @apply text-lg;
-   }
-}
-
-.whitepapeMessage {
-   @apply text-base md:text-lg;
-   @apply leading-relaxed;
-   color: color($color-light);
-   @apply opacity-90;
-   @apply m-0;
-
-   @media (max-width: 768px) {
-      @apply text-sm;
-   }
-}
-
-.whitepapeFrame {
-   @apply w-full;
-   @apply rounded-xl;
-   @apply overflow-hidden;
-   @apply h-[600px] md:h-[800px];
-   background: linear-gradient(
-      135deg,
-      rgba(51, 157, 255, 0.05) 0%,
-      rgba(14, 193, 211, 0.05) 100%
-   );
-   border: 1px solid rgba(51, 157, 255, 0.1);
-
-   iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-   }
-
-   @media (max-width: 768px) {
-      height: 400px;
-   }
 }
 
 /* ===================================
