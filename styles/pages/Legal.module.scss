@@ -65,7 +65,26 @@
    @apply mx-auto;
 }
 
-.whitepapeViewer {
+.pdfDocument {
+   @apply w-full;
+   @apply rounded-lg;
+   @apply border;
+   border-color: rgba(51, 157, 255, 0.2);
+   @apply bg-white;
+   @apply shadow-lg;
+
+   div {
+      @apply flex justify-center;
+   }
+
+   canvas {
+      @apply rounded-lg;
+      max-width: 100%;
+      height: auto;
+   }
+}
+
+.pdfViewer {
    @apply w-full;
    @apply rounded-lg;
    @apply border;
@@ -83,6 +102,67 @@
    }
 }
 
+.pdfNavigation {
+   @apply flex items-center justify-center gap-4 mt-6;
+   @apply flex-wrap;
+}
+
+.navButton {
+   @apply inline-flex items-center gap-2;
+   @apply px-4 md:px-6 py-2 md:py-3;
+   @apply rounded-lg;
+   @apply font-semibold text-sm md:text-base;
+   @apply transition-all;
+   background: rgba(51, 157, 255, 0.1);
+   color: #339dff;
+   border: 1px solid rgba(51, 157, 255, 0.3);
+   cursor: pointer;
+
+   &:hover:not(:disabled) {
+      background: rgba(51, 157, 255, 0.2);
+      border-color: rgba(51, 157, 255, 0.5);
+   }
+
+   &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+   }
+
+   i {
+      @apply flex-shrink-0 text-base;
+   }
+}
+
+.pageInfo {
+   @apply text-sm md:text-base;
+   @apply font-semibold;
+   @apply px-3 py-2;
+   color: color($color-light);
+   background: rgba(51, 157, 255, 0.05);
+   @apply rounded-lg;
+   @apply whitespace-nowrap;
+}
+
+.loadingState {
+   @apply w-full py-12 text-center;
+   @apply text-base md:text-lg;
+   color: color($color-light);
+   @apply opacity-75;
+}
+
+.errorState {
+   @apply w-full py-8 px-6 rounded-lg mb-4;
+   background: rgba(239, 68, 68, 0.1);
+   border: 1px solid rgba(239, 68, 68, 0.3);
+
+   p {
+      @apply text-base md:text-lg;
+      @apply leading-relaxed;
+      color: #ef4444;
+      @apply m-0;
+   }
+}
+
 .viewerFallback {
    @apply text-center mt-4;
    @apply text-sm md:text-base;
@@ -93,6 +173,40 @@
 .fallbackLink {
    color: #339dff;
    @apply font-semibold underline hover:opacity-75 transition-opacity;
+}
+
+.devNotice {
+   @apply w-full py-8 px-6 rounded-lg;
+   background: rgba(251, 146, 60, 0.1);
+   border: 1px solid rgba(251, 146, 60, 0.3);
+   @apply text-center;
+
+   p {
+      @apply text-base md:text-lg;
+      @apply leading-relaxed;
+      @apply mb-4;
+      color: #f97316;
+   }
+}
+
+.devLink {
+   @apply inline-flex items-center gap-2;
+   @apply px-6 py-3;
+   @apply rounded-lg;
+   @apply font-semibold;
+   background: rgba(251, 146, 60, 0.2);
+   color: #f97316;
+   border: 1px solid rgba(251, 146, 60, 0.5);
+   @apply no-underline transition-all;
+
+   &:hover {
+      background: rgba(251, 146, 60, 0.3);
+      border-color: rgba(251, 146, 60, 0.7);
+   }
+
+   i {
+      @apply text-lg;
+   }
 }
 
 /* ===================================

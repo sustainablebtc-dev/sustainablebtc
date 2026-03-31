@@ -13,7 +13,14 @@ const nextConfig = {
    async headers() {
       return [
          {
-            source: '/(.*)', // Apply to all routes
+            source: '/sbp-mica-whitepaper.pdf',
+            headers: [
+               { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+               { key: 'Content-Security-Policy', value: "frame-ancestors 'self';" }
+            ],
+         },
+         {
+            source: '/(.*)', // Apply to all other routes
             headers: [
                { key: 'X-Frame-Options', value: 'DENY' },
                { key: 'Content-Security-Policy', value: "frame-ancestors 'none';" }

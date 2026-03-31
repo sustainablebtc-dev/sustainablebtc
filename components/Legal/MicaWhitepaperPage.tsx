@@ -4,6 +4,7 @@ import React from "react";
 import styles from "@/styles/pages/Legal.module.scss";
 
 const MicaWhitepaperPage = () => {
+   const isProduction = process.env.NODE_ENV === "production";
    return (
       <div className={styles.legal}>
          {/* Hero Section */}
@@ -24,16 +25,34 @@ const MicaWhitepaperPage = () => {
          <section className={styles.contentSection}>
             <div className={styles.container}>
                <div className={styles.viewerWrapper}>
-                  <iframe
-                     src="/sbp-mica-whitepaper.xhtml"
-                     className={styles.whitepapeViewer}
-                     title="MiCA Whitepaper"
-                     sandbox="allow-same-origin"
-                  />
+                  {isProduction ? (
+                     <iframe
+                        src="/sbp-mica-whitepaper.pdf"
+                        className={styles.pdfViewer}
+                        title="MiCA Whitepaper"
+                        sandbox="allow-same-origin allow-scripts"
+                     />
+                  ) : (
+                     <div className={styles.devNotice}>
+                        <p>
+                           <strong>Note:</strong> The PDF viewer is disabled in development mode due to Firefox security restrictions on localhost. The PDF will display normally in production.
+                        </p>
+                        <a 
+                           href="/sbp-mica-whitepaper.pdf" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           className={styles.devLink}
+                        >
+                           <i className="bi bi-file-pdf"></i>
+                           <span>View PDF in New Window</span>
+                        </a>
+                     </div>
+                  )}
+
                   <p className={styles.viewerFallback}>
                      Having trouble viewing the whitepaper?{" "}
                      <a 
-                        href="/sbp-mica-whitepaper.xhtml" 
+                        href="/sbp-mica-whitepaper.pdf" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className={styles.fallbackLink}
@@ -57,12 +76,12 @@ const MicaWhitepaperPage = () => {
                      </p>
                      <div className={styles.buttonGroup}>
                         <a
-                           href="/sbp-mica-whitepaper.xhtml"
-                           download="sbp-mica-whitepaper.xhtml"
+                           href="/sbp-mica-whitepaper.pdf"
+                           download="sbp-mica-whitepaper.pdf"
                            className={`${styles.button} ${styles.buttonPrimary}`}
                         >
                            <i className="bi bi-download"></i>
-                           <span>Download Whitepaper (XHTML)</span>
+                           <span>Download Whitepaper</span>
                         </a>
                      </div>
                   </div>
