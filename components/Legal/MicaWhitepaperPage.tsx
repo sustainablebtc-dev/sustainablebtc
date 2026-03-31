@@ -9,38 +9,39 @@ const MicaWhitepaperPage = () => {
          {/* Hero Section */}
          <section className={styles.hero}>
             <div className={styles.container}>
-               <div className={styles.heroWrapper}>
-                  <div className={styles.tagLine}>
-                     <div className={styles.gradientLine}></div>
-                     <span className={styles.tagLineText}>Regulatory Documentation</span>
-                     <div className={styles.gradientLine}></div>
-                  </div>
-
-                  <div className={styles.heroContent}>
-                     <h1 className={styles.heading}>
-                        MiCA <span className={styles.gradientText}>Whitepaper</span>
-                     </h1>
-                     <p className={styles.description}>
-                        Notified to the Central Bank of Ireland in accordance with Regulation (EU) 2023/1114
-                     </p>
-                  </div>
+               <div className={styles.heroContent}>
+                  <h1 className={styles.heading}>
+                     MiCA <span className={styles.gradientText}>Whitepaper</span>
+                  </h1>
+                  <p className={styles.notification}>
+                     This white paper was notified to the Central Bank of Ireland in accordance with Regulation (EU) 2023/1114 on February 27th, 2026.
+                  </p>
                </div>
             </div>
          </section>
 
-         {/* Disclaimer Section */}
-         <section className={styles.disclaimerSection}>
+         {/* Embedded Whitepaper Viewer */}
+         <section className={styles.contentSection}>
             <div className={styles.container}>
-               <div className={styles.disclaimerWrapper}>
-                  <div className={styles.disclaimerBanner}>
-                     <h3 className={styles.disclaimerTitle}>Regulatory Notification</h3>
-                     <p className={styles.disclaimerText}>
-                        This white paper was notified to the <span className={styles.highlight}>Central Bank of Ireland</span> in accordance with <span className={styles.highlight}>Regulation (EU) 2023/1114</span> on <span className={styles.dateHighlight}>February 27th, 2026</span>.
-                     </p>
-                     <p className={styles.disclaimerText}>
-                        It was subsequently amended on <span className={styles.dateHighlight}>[Date]</span> to include the <span className={styles.highlight}>Digital Token Identifier (DTI)</span> and <span className={styles.highlight}>Equivalent Digital Token Group Identifier (FFG/EDTG)</span>. These updates are non-material and do not affect the rights, obligations, or characteristics of the SBP token.
-                     </p>
-                  </div>
+               <div className={styles.viewerWrapper}>
+                  <iframe
+                     src="/sbp-mica-whitepaper.xhtml"
+                     className={styles.whitepapeViewer}
+                     title="MiCA Whitepaper"
+                     sandbox="allow-same-origin"
+                  />
+                  <p className={styles.viewerFallback}>
+                     Having trouble viewing the whitepaper?{" "}
+                     <a 
+                        href="/sbp-mica-whitepaper.xhtml" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={styles.fallbackLink}
+                     >
+                        <span>Open in new window</span>
+                        <i className="bi bi-box-arrow-up-right ml-2"></i>
+                     </a>
+                  </p>
                </div>
             </div>
          </section>
@@ -50,9 +51,9 @@ const MicaWhitepaperPage = () => {
             <div className={styles.container}>
                <div className={styles.downloadWrapper}>
                   <div className={styles.downloadContent}>
-                     <h2 className={styles.downloadTitle}>Full Document Download</h2>
+                     <h2 className={styles.downloadTitle}>Download Full Whitepaper</h2>
                      <p className={styles.downloadDescription}>
-                        Access the complete MiCA whitepaper in XHTML format:
+                        Access the complete MiCA-compliant whitepaper document:
                      </p>
                      <div className={styles.buttonGroup}>
                         <a
@@ -61,7 +62,7 @@ const MicaWhitepaperPage = () => {
                            className={`${styles.button} ${styles.buttonPrimary}`}
                         >
                            <i className="bi bi-download"></i>
-                           <span>Download XHTML</span>
+                           <span>Download Whitepaper (XHTML)</span>
                         </a>
                      </div>
                   </div>
