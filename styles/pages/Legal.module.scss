@@ -57,6 +57,29 @@
 .contentSection {
    @apply min-h-[initial];
    @apply py-4 md:py-6;
+   margin-top: 50px !important;
+   margin-bottom: 0 !important;
+   
+   @media (min-width: 768px) {
+      margin-top: 50px !important;
+      margin-bottom: 0 !important;
+   }
+}
+
+section:not(.hero):not(.contentSection) {
+   margin-bottom: 0 !important;
+}
+
+@media (min-width: 768px) {
+   section:not(.hero):not(.contentSection) {
+      margin-bottom: 0 !important;
+   }
+}
+
+@media (min-width: 1024px) {
+   section:not(.hero):not(.contentSection) {
+      margin-bottom: 0 !important;
+   }
 }
 
 .viewerWrapper {

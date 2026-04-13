@@ -82,8 +82,8 @@ const MicaWhitepaperPage = () => {
                      <span className={styles.gradientText}>Whitepaper</span>
                   </h1>
                   <p className={styles.notification}>
-                     <span>This whitepaper was notified to the Central Bank of Ireland in accordance with Regulation (EU) 2023/1114 on February 27th, 2026.</span> <br /> 
-                     <span>It was subsequently amended on [March 31st, 2026] to include the Digital Token Identifier (DTI) and Equivalent Digital Token Group Identifier (FFG/EDTG).</span><br />
+                     <span>This whitepaper was notified to the Central Bank of Ireland in accordance with Regulation (EU) 2023/1114 on February 27th, 2026.</span>
+                     <span>It was subsequently amended on [March 31st, 2026] to include the Digital Token Identifier (DTI) and Equivalent Digital Token Group Identifier (FFG/EDTG).</span>
                      <span>These updates are non-material and do not affect the rights, obligations, or characteristics of the SBP token.</span>
                   </p>
                   <a
