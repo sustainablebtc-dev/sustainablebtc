@@ -90,7 +90,7 @@ const MicaWhitepaperPage = () => {
                      className={`${styles.fallbackLink} mt-6 lg:mt-8`}
                   >
                      <i className="bi bi-download mr-2"></i>
-                     <span>Download the complete MiCA Whitepaper document</span>
+                     <span>Download the Complete MiCA Whitepaper</span>
                   </a>
                </div>
             </div>
