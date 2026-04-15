@@ -57,27 +57,30 @@
 .contentSection {
    @apply min-h-[initial];
    @apply py-4 md:py-6;
-   margin-top: 50px !important;
+   margin-top: 0 !important;
    margin-bottom: 0 !important;
    
    @media (min-width: 768px) {
-      margin-top: 50px !important;
+      margin-top: 0 !important;
       margin-bottom: 0 !important;
    }
 }
 
 section:not(.hero):not(.contentSection) {
+   margin-top: 50px !important;
    margin-bottom: 0 !important;
 }
 
 @media (min-width: 768px) {
    section:not(.hero):not(.contentSection) {
+      margin-top: 70px !important;
       margin-bottom: 0 !important;
    }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 976px) {
    section:not(.hero):not(.contentSection) {
+      margin-top: 100px !important;
       margin-bottom: 0 !important;
    }
 }

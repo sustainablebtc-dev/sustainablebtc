@@ -74,7 +74,7 @@ const MicaWhitepaperPage = () => {
    return (
       <div className={styles.legal}>
          {/* Hero Section */}
-         <section className={styles.hero}>
+         <section className={`${styles.hero} hero`}>
             <div className={styles.container}>
                <div className={styles.heroContent}>
                   <h1 className={styles.heading}>
