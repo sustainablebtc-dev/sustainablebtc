@@ -1,23 +1,39 @@
-# Harvestt — Copilot Orchestration System
+# Sustainable Bitcoin Protocol — Copilot Orchestration System
+
+## Project Context
+
+This is the **Sustainable Bitcoin Protocol (SBP)** marketing and investor platform. It is a regulated, institutional-grade website targeting sovereign wealth funds, asset managers, and regulated capital allocators. The product communicates the SBP Token, Sustainable Bitcoin Certificate (SBC), mining transparency, and clean energy Bitcoin investment thesis.
+
+The current website uses a **dark navy theme** (deep blue-black backgrounds with gradient blue-cyan accents). The active design initiative is a **skin migration** to a new institutional design language: light/white backgrounds, `#1b1b1b` brand, structured typographic hierarchy — keeping the same content architecture and component shapes while updating the visual layer.
+
+---
 
 ## Stack
-'
+
 | Layer | Technology |
 |---|---|
 | Framework | Next.js (App Router, latest) |
 | Language | TypeScript — strict mode |
-| Styling | SCSS modules + Tailwind via `@apply` only |
+| Styling | SCSS (page-level modules + global utilities) + Tailwind via `@apply` only |
 | Design system | `.github/instructions/design-system/` — tokens, components, patterns |
-| Data layer | `/data` — single source of truth for all structured content |
-| Fonts | Geist (primary) — loaded in `app/layout.tsx` |
+| CMS | Sanity (GROQ queries via `sanity/sanity-utils.ts`, image CDN via `sanity/sanity-urlFor.ts`) |
+| Rich text | `@portabletext/react` — PortableText renderer |
+| Font (current) | Helvetica Now Display — loaded via `@font-face` in global CSS |
+| Font (target) | Geist — the new design system target; migrate during skin update |
+| Icons | Bootstrap Icons via `bi bi-*` class pattern |
+| Slider | Swiper.js — imported via `swiper/react` |
+
+---
 
 ## Agent Pipeline
 
 Every feature or fix flows through this sequence. No step may be skipped silently.
 
 ```
-planner → frontend → backend → content → reviewer
+planner → frontend → backend → content
 ```
+
+---
 
 ## Orchestrator Enforcement
 
@@ -26,8 +42,8 @@ planner → frontend → backend → content → reviewer
 1. **The orchestrator never writes product code.** Its only job is to read context, dispatch agents via `runSubagent`, and relay results to the user.
 2. **Every Figma link, feature request, or bug fix MUST start by dispatching the `planner` agent.** No exceptions.
 3. **Git safety check runs before the planner is dispatched** — not inside it. The orchestrator checks branch and working tree state first and stops if conditions are not met.
-4. **No agent step may be skipped.** Even for "small" changes, the sequence is: `planner` → specialist(s) → `reviewer`. Skipping any step is a pipeline violation.
-5. **Figma designs are not self-implementing.** A Figma URL in a request means: dispatch `planner` with the node context, let `frontend` implement, let `reviewer` audit.
+4. **No agent step may be skipped.** Even for "small" changes, the sequence is: `planner` → specialist(s). Skipping any step is a pipeline violation.
+5. **Figma designs are not self-implementing.** A Figma URL in a request means: dispatch `planner` with the node context, then let `frontend` implement.
 6. **The orchestrator may not partially implement then hand off.** Either it delegates entirely or it does nothing.
 7. **All inter-agent communication goes through the orchestrator.** Agents never call, invoke, or read from other agents directly. The orchestrator is the sole channel for task handoffs, outputs, and sequencing decisions.
 
@@ -35,9 +51,10 @@ planner → frontend → backend → content → reviewer
 |---|---|---|
 | [`planner`](agents/planner.agent.md) | task graph, sequencing, acceptance mapping | product code, copy, approvals |
 | [`frontend`](agents/frontend.agent.md) | UI, pages, layouts, components, metadata wiring | server logic, API contracts, copy |
-| [`backend`](agents/backend.agent.md) | route handlers, server actions, APIs, forms, validation | UI rendering, copy, approvals |
-| [`content`](agents/content.agent.md) | page copy, metadata text, SEO/GEO content, schema inputs | implementation, design decisions |
-| [`reviewer`](agents/reviewer.agent.md) | quality audit, PR gate, findings with remediation | rewriting other agents' work |
+| [`backend`](agents/backend.agent.md) | route handlers, server actions, APIs, forms, Sanity queries, validation | UI rendering, copy, approvals |
+| [`content`](agents/content.agent.md) | page copy, metadata text, SEO/GEO content, Sanity schema inputs | implementation, design decisions |
+
+---
 
 ## Non-Negotiable Rules
 
@@ -46,7 +63,7 @@ planner → frontend → backend → content → reviewer
 3. Default to server components. Use `use client` only when state, effects, refs, or browser APIs are required.
 4. **SCSS only for styling.** Use Tailwind exclusively via `@apply` inside `.scss` files. No inline Tailwind classes in JSX.
 5. Use design system tokens exclusively. No arbitrary hex values, hardcoded sizes, or magic numbers in styles.
-6. **Data layer first.** All structured and repeatable content lives in `/data`. No hardcoded nav links, footer links, social links, or config values inside components.
+6. **Sanity CMS is the data source.** All dynamic content (nav, footer, hero, sections, team, news) is fetched from Sanity via GROQ. Never hardcode content that belongs in the CMS.
 7. Keep business logic out of presentation layers.
 8. Write deterministic outputs. Avoid vague advice.
 9. No agent may silently expand scope.
@@ -55,63 +72,358 @@ planner → frontend → backend → content → reviewer
 12. **Responsiveness is non-negotiable.** Every UI surface must be mobile-first and pass the responsiveness checklist in [`skills/responsiveness/SKILL.md`](skills/responsiveness/SKILL.md) before delivery. A desktop-only implementation is an incomplete implementation.
 13. **Accessibility is non-negotiable.** Every UI surface must pass the accessibility checklist in [`skills/accessibility/SKILL.md`](skills/accessibility/SKILL.md). Keyboard navigation, semantic HTML, and focus states are required, not optional.
 
-## Data Layer (Hard Enforcement)
+---
 
-All structured content lives in `/data` — the single source of truth. Components map over data; they never hardcode it.
+## Project Scaffolding
+
+### Directory Structure
 
 ```
-data/
-  types.ts              ← TypeScript interfaces for all data shapes
-  nav/navbar.json       ← Navigation links, login, CTA
-  footer/
-    footer-links.json   ← Footer link groups
-    social.json         ← Social media links
-  site/config.json      ← Site name, tagline, URL, default metadata
-  content/faqs.md       ← Structured FAQ content (H2 per question)
+app/                          ← Next.js App Router routes
+  layout.tsx                  ← Root layout — Header + Footer wired here
+  page.tsx                    ← Home route → renders HomeNew/HomePage.tsx
+  [route]/page.tsx            ← Route-level entry, imports Page component
+  api/                        ← Next.js route handlers (API endpoints)
+
+components/                   ← All React components
+  HomeNew/                    ← Current homepage components (active)
+  Home/                       ← Legacy homepage (keep, do not delete)
+  HeaderFooter/               ← Header.tsx + Footer.tsx (server wrappers)
+                                 HeaderContent.tsx + FooterContent.tsx (client)
+  AboutUs/ ContactUs/ Miner/ SBC/ Investors/ ...  ← Page-section components
+  Modals/                     ← Modal components (age restriction, whitepaper, etc.)
+  Misc/                       ← Shared one-off components
+
+styles/                       ← ALL styles live here
+  global.scss                 ← Global reset + Tailwind base
+  imports.scss                ← Barrel import for base + utils
+  base/
+    _variables.scss           ← SCSS variables (colors, fonts, radius)
+    _typography.scss          ← Global typography utility classes
+    _cta.scss                 ← Global button utility classes (.btn, .btn-primary, etc.)
+    _form.scss                ← Global form utility classes
+    _modal.scss               ← Global modal utility classes
+    _resets.scss              ← CSS reset
+  utils/
+    _mixins.scss              ← Reusable SCSS mixins
+    _helpers.scss             ← Helper utilities
+    _swiper.scss              ← Swiper.js overrides
+  pages/                      ← Page-level SCSS modules (one per page/section group)
+    Home.module.scss
+    HomeNew.module.scss
+    About.module.scss
+    Contact.module.scss
+    Miners.module.scss
+    SBC.module.scss
+    ...
+  components/                 ← Component-level SCSS modules (shared components)
+    Header.module.scss
+    Footer.module.scss
+    Modal.module.scss
+    ...
+
+sanity/                       ← Sanity CMS integration
+  sanity-utils.ts             ← All GROQ queries (getNavbarData, getHomeData, etc.)
+  sanity-urlFor.ts            ← Image URL builder (urlFor)
+  schemas/                    ← Sanity schema definitions
+  components/                 ← Sanity Studio custom components
+
+public/                       ← Static assets (SVG, PNG, Lottie JSON, fonts)
+  home/ about/ miner/ sbc/    ← Route-specific static images
+  fonts/                      ← Helvetica Now Display font files
+
+types/                        ← TypeScript interfaces for Sanity response shapes
+  footer-type.ts
+  navbar.ts
+  projects.ts
+
+utils/                        ← Utility functions
+  livecoinwatch.ts            ← BTC price API integration
+  sbp.ts                      ← SBP Token data integration
 ```
 
-**Rules:**
-- JSON → navigation, footer, social, config, structured UI data
-- Markdown → FAQs, long-form content, blog posts
-- Every JSON file has a corresponding interface in `data/types.ts`
-- JSON files are imported with type assertion — `resolveJsonModule` is enabled
-- Markdown files are parsed server-side only — never in client components
-- See [`instructions/data-layer.instructions.md`](instructions/data-layer.instructions.md) for full rules
+### Component Architecture Pattern
+
+Components follow a **page-component → section-component** hierarchy:
+
+```
+app/[route]/page.tsx
+  └── components/[Section]/[Section]Page.tsx    ← orchestrates all sections
+        ├── [Section]Hero.tsx
+        ├── [Section]Content.tsx
+        └── ...
+```
+
+Page-level components are server components that fetch Sanity data and pass it as props to section components.
+
+### SCSS Architecture Pattern
+
+**This project does NOT use colocated component SCSS modules.** Styles are organized at the page level:
+
+```
+styles/pages/HomeNew.module.scss   ← Contains ALL styles for HomeNew/* components
+styles/pages/About.module.scss     ← Contains ALL styles for AboutUs/* components
+styles/components/Header.module.scss  ← Exception: shared layout components
+```
+
+A component imports its **page-level** module:
+```tsx
+// components/HomeNew/HomeHero.tsx
+import styles from '@/styles/pages/HomeNew.module.scss'
+```
+
+Components use a **dual class pattern** — module-scoped selectors mixed with global utility classes:
+```tsx
+<section className={`${styles.hero} hero`}>
+  <div className={`${styles.container} container`}>
+    <h1 className="heading heading-1">Title</h1>
+    <p className="para">Body text</p>
+    <a className="btn btn-primary">CTA</a>
+  </div>
+</section>
+```
+
+Global utility classes (`.heading`, `.para`, `.btn`, `.container`) are defined in `styles/base/` and `styles/global.scss`. Module-scoped classes (`styles.hero`, `styles.container`) are defined in the page module.
+
+---
+
+## Data Flow — Sanity CMS
+
+Content is fetched from **Sanity CMS** using GROQ. The data flow is:
+
+```
+Sanity Studio (CMS editors)
+  → Sanity CDN (projectId: 6e7plt23, dataset: production)
+    → sanity/sanity-utils.ts (GROQ fetch functions)
+      → Server component (page.tsx or PageComponent.tsx)
+        → Section components (props passed down)
+          → PortableText (rich text rendering)
+          → urlFor(image) (image URL generation)
+```
+
+### Fetching Content
+
+All GROQ queries live in `sanity/sanity-utils.ts`. Each function uses `createClient().fetch(groq`...`)`:
+
+```ts
+// sanity/sanity-utils.ts
+export async function getHomePageData() {
+  return client.fetch(groq`*[_type=="homePage"][0]{
+    hero,
+    sections,
+    // ...
+  }`)
+}
+```
+
+Consume in a server component:
+```tsx
+// components/HomeNew/HomePage.tsx  (server component, no 'use client')
+import { getHomePageData } from '@/sanity/sanity-utils'
+
+export default async function HomePage() {
+  const data = await getHomePageData()
+  return <HomeHero heroData={data.hero} />
+}
+```
+
+### Sanity Images
+
+Images from Sanity are rendered via `urlFor()` from `sanity/sanity-urlFor.ts`:
+
+```tsx
+import { urlFor } from '@/sanity/sanity-urlFor'
+import Image from 'next/image'
+
+// Inside a component:
+<Image
+  src={urlFor(sanityImageField).url()}
+  alt="description"
+  width={800}
+  height={600}
+/>
+```
+
+Static local images (SVGs, icons) are imported directly:
+```tsx
+import logo from '@/public/logo.svg'
+import Image from 'next/image'
+<Image src={logo} alt="SBP Logo" priority />
+```
+
+### Rich Text — PortableText
+
+All CMS rich text is rendered with `PortableText` from `@portabletext/react`:
+
+```tsx
+import { PortableText } from '@portabletext/react'
+
+<div className={`${styles.heroHeading} portableText`}>
+  <PortableText value={data.heroHeading} />
+</div>
+```
+
+The global `.portableText` class in `styles/base/_typography.scss` handles all rich text formatting.
+
+---
+
+## Skin Migration — Design Direction
+
+The current site uses a **dark navy theme**:
+- Backgrounds: `#121426`, `#1e203f`, `#0b0d18`
+- Text: `#fafafa` (light on dark)
+- Accent: gradient `linear-gradient(40deg, #339dff, #0ec1d3)`
+- Buttons: gradient border, rounded-full
+- Font: Helvetica Now Display
+
+The **target design language** (defined in `.github/instructions/design-system/`) is:
+- Backgrounds: `#ffffff`, `#f5f5f5` (light)
+- Text: `#1b1b1b` (dark on light)
+- Accent: `#339dff` — structural only (dividers, borders)
+- Buttons: `#1b1b1b` fill, square corners (`border-radius: 0`), uppercase, `13px`, `letter-spacing: 0.75px`
+- Font: Geist (replace Helvetica Now Display progressively)
+
+**Migration rule:** When updating a page's skin, update `styles/base/_variables.scss` tokens AND the relevant page module. Do not mix old and new design language on the same page surface. Update one page/section at a time.
+
+---
+
+## SCSS Variables Reference (Current)
+
+Defined in `styles/base/_variables.scss`:
+
+```scss
+// Gradient (current accent)
+$gradient-primary: linear-gradient(40deg, #339dff 0%, #0ec1d3 100%);
+
+// Color maps — accessed via color($color-dark, 500)
+$color-dark:    (50: #e9e9ec, 75: #a3a4b0, 100: #7d7e90, 200: #a3a4b0,
+                 300: #1e203f, 400: #15162c, 500: #121426, 600: #0b0d18,
+                 default: #1e203f)
+$color-primary: (default: #fafafa)
+$color-light:   (default: #fafafa)
+$color-white:   (default: #ffffff)
+$color-green:   (400: #CFFFBD, 500: #16D563, 600: hsl(144,81%,20%), default: #34ea7e)
+$color-red:     (300: #e13535, default: #f83939, 400: #C00707)
+
+// Font
+$font-primary: "Helvetica Now Display", sans-serif;
+
+// Radius
+$inner-radius: 0.625rem;
+$outer-radius: 1.25rem;
+```
+
+Usage via the `color()` helper function:
+```scss
+color: color($color-primary);          // → #fafafa
+background: color($color-dark, 500);   // → #121426
+```
+
+---
+
+## SCSS Mixins Reference
+
+Defined in `styles/utils/_mixins.scss`:
+
+```scss
+// Flex helpers
+@mixin flex-center      // display:flex; justify-content:center; align-items:center
+@mixin flex-between     // display:flex; justify-content:space-between; align-items:center
+@mixin flex-column      // display:flex; flex-direction:column
+@mixin flex-row         // display:flex; flex-direction:row
+
+// Grid
+@mixin grid-center      // display:grid; place-content:center
+
+// Responsive (mobile-first breakpoints)
+$breakpoints: (sm: 480px, md: 768px, lg: 976px, xl: 1440px)
+@mixin responsive($device) { @media (min-width: ...) { @content } }
+
+// Example usage
+.hero {
+  @include flex-column;
+  @include responsive(md) {
+    @include flex-row;
+  }
+}
+```
+
+---
+
+## Global Utility Classes Reference
+
+These are globally available — import `styles/imports.scss` to access in any module:
+
+**Buttons** (`styles/base/_cta.scss`):
+- `.btn` — base button (flex, padding, rounded-full)
+- `.btn-primary` — gradient fill + gradient border
+- `.btn-secondary` — transparent + blue border
+- `.btn-dark` — dark fill
+- `.btn-sm` — smaller height/padding
+- `.btn-rounded` — square aspect-ratio icon button
+
+**Typography** (`styles/base/_typography.scss`):
+- `.heading .heading-1` through `.heading-6` — heading scale (font-black, leading-[110%])
+- `.heading-gradient` — applies gradient to heading text
+- `.para` — body paragraph (leading-[150%], ~1.1rem)
+- `.para-small` — small body text
+- `.portableText` — wrapper for PortableText rendered content
+
+**Layout** (global):
+- `.container` — page-width container with horizontal padding
+
+---
 
 ## Styling Rules (Hard Enforcement)
 
 ```scss
 // ✅ Correct — Tailwind via @apply inside SCSS
 .hero {
-  @apply flex flex-col items-center;
-  padding: var(--space-24);
+  @apply relative overflow-hidden;
+  padding: color($color-dark, 500);
 }
+
+// ✅ Correct — module class + global class combined in JSX
+<section className={`${styles.hero} hero`}>
 
 // ❌ Wrong — inline Tailwind in JSX
 <div className="flex flex-col items-center p-24">
+
+// ❌ Wrong — hardcoded hex in SCSS
+.hero { background: #121426; }
+
+// ✅ Correct
+.hero { background: color($color-dark, 500); }
 ```
 
-- All class names are defined in `.module.scss` files or `globals.scss`.
-- All spacing, color, radius, shadow values come from design tokens (`var(--token-name)`).
+- All styles live in `styles/`. No colocated `Component.module.scss` files.
+- Page-scoped modules go in `styles/pages/`. Shared component modules in `styles/components/`.
+- Always `@import '../imports'` or `@import 'variables'` at the top of a module file to access mixins and variables.
 - Tailwind utility classes are allowed **only** inside `@apply` rules.
 - See [`rules/styling.md`](rules/styling.md) for the full rule set.
+
+---
 
 ## Design System (Hard Enforcement)
 
 - Design tokens live in [`instructions/design-system/tokens/`](instructions/design-system/tokens/).
 - Component patterns are documented in [`instructions/design-system/components/`](instructions/design-system/components/).
-- All new UI must trace to a documented token or request a new one explicitly.
+- All new UI in the skin migration must use the new design system tokens — not the legacy SCSS variables.
+- Do not mix legacy variables (`$color-dark`) with new tokens (`--color-brand`) on the same page surface.
 - See [`rules/design-system.md`](rules/design-system.md) for enforcement rules.
+
+---
 
 ## Delegation Protocol
 
 1. [`planner`](agents/planner.agent.md) reads the brief and produces a bounded task graph.
 2. [`frontend`](agents/frontend.agent.md) implements UI tasks once planner output exists.
-3. [`backend`](agents/backend.agent.md) implements data, forms, and API tasks — can run in parallel with `frontend` after planning.
+3. [`backend`](agents/backend.agent.md) implements Sanity queries, server actions, API routes, and form logic — can run in parallel with `frontend` after planning.
 4. [`content`](agents/content.agent.md) supplies production copy after information architecture is clear.
-5. [`reviewer`](agents/reviewer.agent.md) validates assembled output and either approves or returns findings with exact remediation steps.
 
 No specialist agent may re-plan the issue unless the issue is malformed or dependencies are impossible.
+
+---
 
 ## Handoff Format
 
@@ -123,6 +435,8 @@ Every task handoff must include:
 - **Deliverables**: exact files or outputs expected
 - **Validation**: checks to run
 - **Risks**: open assumptions or missing dependencies
+
+---
 
 ## Output Contracts
 
@@ -159,30 +473,20 @@ Every task handoff must include:
 - Remaining risks:
 ```
 
-### Reviewer
-
-```md
-## Review Decision
-Status: approved | changes-requested | blocked
-
-## Findings
-| Severity | Area | File | Issue | Required Action |
-| --- | --- | --- | --- | --- |
-
-## Verification
-- Acceptance criteria coverage:
-- Checks performed:
-- Residual risk:
-```
+---
 
 ## File and Naming Conventions
 
 - Route segments: `lowercase-kebab-case`
 - React components: `PascalCase.tsx`
-- SCSS modules: `ComponentName.module.scss`
+- Page SCSS modules: `styles/pages/PageName.module.scss`
+- Component SCSS modules: `styles/components/ComponentName.module.scss`
+- Sanity query functions: `get[Resource]Data()` in `sanity/sanity-utils.ts`
 - Utility modules: `lowercase-kebab-case.ts`
 - Server-only modules stay off the client bundle
 - Metadata is route-local — no global duplication
+
+---
 
 ## GitHub Workflow
 
@@ -234,6 +538,8 @@ Every git action requires explicit user request and confirmation — including w
 
 See [`rules/repo-hygiene.md`](rules/repo-hygiene.md) for the full Git workflow including branch preparation flow and failure handling.
 
+---
+
 ## Definition of Done
 
 All must be true:
@@ -243,12 +549,15 @@ All must be true:
 3. Styling uses SCSS + design system tokens — no inline Tailwind, no arbitrary values.
 4. Accessibility, performance, and SEO constraints are addressed.
 5. No placeholder copy, empty TODOs, or stub integrations remain unlabeled.
-6. Reviewer output is `approved` or has a bounded findings list with remediation steps.
+6. All changed pages are responsive and tested at mobile, tablet, and desktop breakpoints.
+
+---
 
 ## Escalation
 
 Escalate instead of guessing when:
 
+- Sanity schema field is missing or the query returns unexpected shape
 - API contract is missing
 - Issue requirements conflict
 - Credentials or secrets are required

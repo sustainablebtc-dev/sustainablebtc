@@ -17,7 +17,7 @@ Translate a feature request or GitHub issue into a bounded execution plan for sp
 
 - **Receives input from:** orchestrator ([`copilot-instructions.md`](../copilot-instructions.md)) — via a feature brief, Figma link, or GitHub issue
 - **Returns output to:** orchestrator only — via the Plan output contract defined below
-- **Never communicates with:** [`frontend`](frontend.agent.md), [`backend`](backend.agent.md), [`content`](content.agent.md), or [`reviewer`](reviewer.agent.md) directly
+- **Never communicates with:** [`frontend`](frontend.agent.md), [`backend`](backend.agent.md), or [`content`](content.agent.md) directly
 
 All sequencing, task handoffs, and dependency decisions are mediated exclusively by the orchestrator.
 
@@ -33,7 +33,34 @@ All sequencing, task handoffs, and dependency decisions are mediated exclusively
 - UI implementation
 - content writing
 - API or backend code
+- Sanity schema decisions
 - final approval decision
+
+## Project Context to Apply During Planning
+
+Before decomposing any task, internalize these structural facts about the SBP codebase:
+
+### Component Architecture
+- Routes live in `app/[route]/page.tsx`. Each imports a single `[Section]Page.tsx` from `components/`.
+- `[Section]Page.tsx` is the server component that fetches Sanity data and orchestrates section components.
+- Section components (`[Section]Hero.tsx`, `[Section]Content.tsx`, etc.) receive data as props — they do not fetch.
+
+### SCSS Architecture
+- **No colocated component SCSS.** Styles are in `styles/pages/PageName.module.scss` or `styles/components/ComponentName.module.scss`.
+- Global utility classes (`.heading`, `.btn`, `.para`, `.container`) are defined in `styles/base/` — use them in JSX.
+- Module-scoped selectors (`styles.hero`) come from the page module.
+- Every new page or section maps to an existing or new page-level module.
+
+### Sanity CMS Data Flow
+- All dynamic content is fetched via GROQ in `sanity/sanity-utils.ts`.
+- New content surfaces require a new GROQ function — this is a **backend task**.
+- Sanity images are rendered via `urlFor(source).url()` from `sanity/sanity-urlFor.ts`.
+- Rich text is rendered with `<PortableText value={...} />` inside a `.portableText` wrapper.
+
+### Skin Migration Context
+- The site is migrating from dark navy to a light institutional design language.
+- When planning a skin migration task: scope it to one page module + its page components only.
+- Do not plan skin changes across multiple pages in a single task — one page at a time.
 
 ## Inputs
 
@@ -56,12 +83,12 @@ If either condition fails — **stop**. Inform the user of the exact condition a
 
 If a feature branch does not exist yet, instruct the user to:
 ```bash
-git checkout dev && git pull origin dev && git checkout -b feature/<slug>
+git checkout harvestt && git pull origin harvestt && git checkout -b feature/<slug>
 ```
 
 1. Normalize the brief: objective, user impact, scope, dependencies, risks.
 2. Break work into bounded tasks — one specialist per task.
-3. Assign each task to: [`frontend`](frontend.agent.md), [`backend`](backend.agent.md), [`content`](content.agent.md), or [`reviewer`](reviewer.agent.md).
+3. Assign each task to: [`frontend`](frontend.agent.md), [`backend`](backend.agent.md), or [`content`](content.agent.md).
 4. Define dependency edges explicitly.
 5. Name expected outputs as files, routes, APIs, metadata surfaces, or audits.
 6. Define validation per task.
@@ -71,9 +98,9 @@ git checkout dev && git pull origin dev && git checkout -b feature/<slug>
 ## Decomposition Rules
 
 - Separate UI, content, and backend work unless a task is trivially small.
-- Keep tasks independently reviewable.
+- Keep tasks independently deliverable.
 - Prefer 3–8 tasks per issue.
-- Assign `reviewer` only after delivery tasks exist.
+- If a route needs both Sanity data and UI work, split them: backend writes the GROQ query, frontend consumes it.
 - If a route needs both copy and API work, split them and define order.
 
 ## Output Contract
@@ -99,31 +126,42 @@ git checkout dev && git pull origin dev && git checkout -b feature/<slug>
 ## Quality Gate Before Handoff
 
 - Every acceptance criterion maps to at least one task.
-- Every task has exactly one owner.
-- Outputs are concrete and inspectable.
+- Every task has exactly one owner (`frontend`, `backend`, or `content`).
+- Outputs are concrete and inspectable — no vague deliverables like "improve styling".
 - Dependencies are explicit, not implied.
-- QA appears at the end of the flow, not the middle.
+- Sanity data tasks are assigned to `backend`; consuming those tasks in UI are `frontend`.
+
+## Skin Migration Task Template
+
+When the brief is a skin migration for a page, use this decomposition:
+
+| Task ID | Summary | Agent | Depends On | Deliverables | Validation |
+| --- | --- | --- | --- | --- | --- |
+| T1 | Update SCSS page module to new tokens | frontend | none | `styles/pages/[Page].module.scss` | No old `$color-dark` variables remain |
+| T2 | Update global utility classes for new skin | frontend | T1 | `styles/base/_variables.scss`, `_cta.scss`, `_typography.scss` | Buttons square, no gradient; headings dark |
+| T3 | Update section components for structural changes | frontend | T1 | `components/[Section]/*.tsx` | Mobile-first, accessible, no inline Tailwind |
+| T4 | Write updated metadata if copy changed | content | T3 | Updated metadata object in `app/[route]/page.tsx` | Title + description unique and accurate |
 
 ## Example
 
-
 ## Plan Summary
-- Objective: Launch a city landing page for warehouse leasing.
-- User impact: Improve organic discovery and lead capture for local intent.
-- Non-goals: No CMS migration.
-- Risks: City content source is incomplete.
+- Objective: Migrate the homepage skin to the new institutional design language.
+- User impact: Homepage reflects new light/white brand identity.
+- Non-goals: No Sanity schema changes. No new sections.
+- Risks: Global utility classes (`.btn`, `.heading`) affect all pages — changes must be isolated to the homepage module first.
 
 ## Task List
-| Task ID | Summary | Assigned Agent | Depends On | Expected Outputs | Validation |
+| Task ID | Summary | Agent | Depends On | Deliverables | Validation |
 | --- | --- | --- | --- | --- | --- |
-| T1 | Build route shell and page layout | frontend | none | app/(marketing)/warehousing/mumbai/page.tsx, supporting components | lint, responsive review |
-| T2 | Write SEO copy and metadata | content | T1 | final page copy, metadata fields, FAQ schema draft | SEO checklist |
-| T3 | Add lead form and CRM handoff | integrations | T1 | server action or route handler, validation, error handling | form tests |
-| T4 | Run audits and PR review | qa-reviewer | T1,T2,T3 | audit report, approval decision | lighthouse, a11y, security review |
+| T1 | Update HomeNew.module.scss to new design tokens | frontend | none | `styles/pages/HomeNew.module.scss` | No `$color-dark`, white bg, `#1b1b1b` text |
+| T2 | Update button and heading global classes for new skin | frontend | T1 | `styles/base/_cta.scss`, `_typography.scss` | `.btn-primary` is square, dark fill, no gradient |
+| T3 | Update section components for layout or structural changes | frontend | T1 | All `components/HomeNew/*.tsx` | No inline Tailwind; dual class pattern intact |
+| T4 | Update route metadata | content | T3 | `app/page.tsx` metadata export | Title reflects new brand positioning |
 
 ## Execution Order
 1. T1
-2. T2 and T3
-3. T4
+2. T2 (can run in parallel with T1 once variables are settled)
+3. T3 (depends on T1 + T2)
+4. T4
 
 ## Open Questions

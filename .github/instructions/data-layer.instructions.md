@@ -1,83 +1,166 @@
 ---
-description: Apply when touching any TypeScript or TSX file, or any file inside the data/ directory. Enforces the single source of truth for structured content.
-applyTo: "**/*.tsx,**/*.ts,data/**"
+description: Apply when touching any TypeScript or TSX file, or any file inside the sanity/ directory. Enforces the Sanity CMS data flow and correct patterns for GROQ queries, image rendering, and rich text.
+applyTo: "**/*.tsx,**/*.ts,sanity/**"
 ---
 
 # Data Layer Instructions
 
 ## Rule
 
-All structured and repeatable content lives in `/data`. Components never hardcode content — they consume it from `/data`.
+All dynamic content is fetched from **Sanity CMS** via GROQ. Components never hardcode content that belongs in the CMS — they consume it from server component props.
 
-## Directory Structure
+---
+
+## Data Flow
 
 ```
-data/
-  types.ts                  ← All TypeScript interfaces (single source)
-  nav/
-    navbar.json             ← Navigation links, login, CTA
-  footer/
-    footer-links.json       ← Footer link groups (array of FooterLinkGroup)
-    social.json             ← Social media links (array of SocialLink)
-  site/
-    config.json             ← Site name, tagline, URL, default metadata
-  content/
-    faqs.md                 ← FAQ content (structured markdown, H2 per question)
+Sanity Studio (CMS editors)
+  → Sanity CDN (projectId: 6e7plt23, dataset: production)
+    → sanity/sanity-utils.ts  (GROQ query functions)
+      → Server component (page.tsx or [Section]Page.tsx)
+        → Section components (props passed down)
+          → PortableText (rich text rendering)
+          → urlFor(image) (image URL generation)
 ```
 
-## Format by Content Type
+---
 
-| Content Type | Format | Location |
-|---|---|---|
-| Navigation, footer, social | JSON | `data/nav/`, `data/footer/` |
-| Site config, default metadata | JSON | `data/site/` |
-| FAQs, long-form content, blog | Markdown | `data/content/` |
+## GROQ Query Functions — `sanity/sanity-utils.ts`
 
-**Never mix formats.** Config and structured UI data → JSON. Human-readable long-form → Markdown.
-
-## Importing JSON (TypeScript)
-
-`resolveJsonModule` is enabled — JSON files are imported as typed modules. Always assert the type at the import site:
+All data fetching lives in `sanity/sanity-utils.ts`. No GROQ queries go inside component files.
 
 ```ts
-import navbarData from '@/data/nav/navbar.json'
-import type { NavbarData } from '@/data/types'
+// sanity/sanity-utils.ts
+import { createClient, groq } from "next-sanity"
 
-const navbar = navbarData as NavbarData
-```
+const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
+  dataset:   process.env.NEXT_PUBLIC_SANITY_DATASET    || "",
+  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || "",
+  useCdn: true,
+})
 
-Or use a typed loader function:
-
-```ts
-// lib/data.ts
-import type { NavbarData } from '@/data/types'
-import navbarRaw from '@/data/nav/navbar.json'
-
-export const navbarData: NavbarData = navbarRaw
-```
-
-## Importing Markdown
-
-Use `fs` and `path` in a server component or server utility. Never import markdown files directly in client components.
-
-```ts
-// lib/content.ts  (server-only)
-import fs from 'fs'
-import path from 'path'
-
-export function getFaqsMarkdown(): string {
-  return fs.readFileSync(path.join(process.cwd(), 'data/content/faqs.md'), 'utf-8')
+export async function getHomePageData() {
+  return client.fetch(groq`*[_type == "homePage"][0]{
+    hero,
+    sections
+  }`)
 }
 ```
 
-Parse the markdown with a library such as `gray-matter` + `remark` when HTML output is needed.
+**Naming convention:** `get[Resource]Data()` — one function per document type or logical page data shape.
 
-## Adding New Data
+---
 
-1. Define the TypeScript interface in `data/types.ts` first.
-2. Create the JSON or Markdown file in the correct subdirectory.
-3. Add a typed import in the consuming component or utility.
-4. Do not duplicate the data anywhere in the codebase.
+## Consuming Sanity Data in Server Components
+
+Fetch in a server component, pass as props to section components:
+
+```tsx
+// components/HomeNew/HomePage.tsx  (server component)
+import { getHomePageData } from '@/sanity/sanity-utils'
+import HomeHero from './HomeHero'
+
+export default async function HomePage() {
+  const data = await getHomePageData()
+  return (
+    <>
+      <HomeHero heroData={data.hero} />
+    </>
+  )
+}
+```
+
+- **Never fetch in section components.** They receive data as props only.
+- **Never import `sanity-utils` in client components** (`'use client'` files).
+
+---
+
+## Sanity Images — `sanity/sanity-urlFor.ts`
+
+Resolve Sanity image assets via the URL builder:
+
+```tsx
+import { urlFor } from '@/sanity/sanity-urlFor'
+import Image from 'next/image'
+
+<Image
+  src={urlFor(data.image).url()}
+  alt="description"
+  width={800}
+  height={600}
+/>
+```
+
+- Always call `.url()` at the end of the `urlFor()` chain.
+- Always use `next/image` — never `<img>`.
+- Set `priority` on above-the-fold / hero images.
+
+---
+
+## Static Assets — `/public/`
+
+Static images (SVGs, icons, Lottie files) that are not managed in Sanity are imported directly:
+
+```tsx
+import logo from '@/public/logo.svg'
+import Image from 'next/image'
+
+<Image src={logo} alt="SBP Logo" priority />
+```
+
+Organized by route in `public/`: `public/home/`, `public/about/`, `public/miner/`, etc.
+
+---
+
+## Rich Text — PortableText
+
+Rich text fields from Sanity are block arrays. Render with `PortableText`:
+
+```tsx
+import { PortableText } from '@portabletext/react'
+
+<div className={`${styles.heroHeading} portableText`}>
+  <PortableText value={data.heroHeading} />
+</div>
+```
+
+- Always wrap in a `div` with the global `.portableText` class.
+- The `.portableText` class (in `styles/base/_typography.scss`) handles paragraph gaps, list styles, and inline formatting.
+- `<strong>` text in PortableText triggers the gradient text effect via `_typography.scss`.
+
+---
+
+## TypeScript Interfaces for Sanity Responses
+
+New Sanity document shapes get a corresponding TypeScript interface in `types/`:
+
+```ts
+// types/miners.ts
+export interface MinersPageData {
+  hero: {
+    heroHeading: any[]  // PortableText block array
+    heroDesc: any[]
+    heroCTA1: {
+      heroBtn1Visible: boolean
+      heroBtn1Slug: string
+      heroBtn1Text: string
+      heroBtn1Type: string
+      heroBtn1Icon: string
+    }
+  }
+}
+```
+
+---
+
+## What NOT to Do
+
+- Do not hardcode navigation links, footer links, or CTA text in component files.
+- Do not write GROQ queries inside page or section components.
+- Do not import `sanity-utils` inside client components.
+- Do not use `<img>` for Sanity images — always `next/image` + `urlFor`.
+- Do not store structured content in `/data` JSON files — Sanity CMS is the source of truth for all dynamic content.
 
 ### New JSON file checklist
 

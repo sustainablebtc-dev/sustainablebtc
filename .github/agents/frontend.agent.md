@@ -17,7 +17,7 @@ Own the visual and interaction layer. Build App Router pages, layouts, and compo
 
 - **Receives input from:** orchestrator ([`copilot-instructions.md`](../copilot-instructions.md)) — via a planner task handoff
 - **Returns output to:** orchestrator only — via the Delivery output contract defined below
-- **Never communicates with:** [`planner`](planner.agent.md), [`backend`](backend.agent.md), [`content`](content.agent.md), or [`reviewer`](reviewer.agent.md) directly
+- **Never communicates with:** [`planner`](planner.agent.md), [`backend`](backend.agent.md), or [`content`](content.agent.md) directly
 
 All sequencing, task handoffs, and dependency decisions are mediated exclusively by the orchestrator.
 
@@ -30,6 +30,7 @@ All sequencing, task handoffs, and dependency decisions are mediated exclusively
 ## Never Owns
 
 - server logic, API contracts, or data fetching beyond server components
+- Sanity GROQ queries — request from `backend` if a new query is needed
 - page copy (delegated to `content`)
 - approval decisions
 
@@ -57,25 +58,187 @@ All sequencing, task handoffs, and dependency decisions are mediated exclusively
 
 After reading, apply each skill's checklist explicitly in the Delivery output contract. If a checklist item does not apply, state why.
 
-## Hard Styling Rules
+---
 
-- **SCSS only.** No inline Tailwind in JSX under any circumstance.
-- Tailwind utilities go inside `@apply` in `.module.scss` or `globals.scss`.
-- All spacing, color, radius, and shadow values use `var(--token-name)` from the design system.
-- No arbitrary values. No hardcoded hex codes. No magic numbers.
+## Project SCSS Architecture — SBP Specific
+
+**Read this section before touching any style file.**
+
+### Styles live in `styles/` — not next to components
+
+```
+styles/
+  imports.scss                ← barrel: variables, mixins, typography, cta, form, modal
+  base/
+    _variables.scss           ← SCSS color maps, font vars, radius vars
+    _typography.scss          ← global .heading, .para, .portableText classes
+    _cta.scss                 ← global .btn, .btn-primary, .btn-secondary, .btn-dark classes
+    _form.scss                ← global form classes
+    _modal.scss               ← global modal classes
+  utils/
+    _mixins.scss              ← @mixin responsive(), flex-center, flex-between, etc.
+  pages/                      ← ONE module per page group
+    HomeNew.module.scss       ← all styles for components/HomeNew/*
+    About.module.scss         ← all styles for components/AboutUs/*
+    Miners.module.scss        ← all styles for components/Miner/*
+    SBC.module.scss           ← all styles for components/SBC/*
+    ...
+  components/                 ← shared layout component modules only
+    Header.module.scss
+    Footer.module.scss
+    Modal.module.scss
+```
+
+**Rule:** Never create a colocated `Component.module.scss` next to a component file. All styles go into the corresponding page module in `styles/pages/`.
+
+### Every page module starts with this import:
+
+```scss
+@import '../imports';
+```
+
+This gives access to `$color-dark`, `$color-primary`, `$gradient-primary`, `color()` function, and all mixins.
+
+### Color Usage Pattern
+
+Use the SCSS color function — never hardcode hex values:
 
 ```scss
 // ✅ Correct
-.card {
-  @apply flex flex-col;
-  gap: var(--space-6);
-  background: var(--color-bg-white);
-  border: 1px solid var(--color-border-default);
+.hero {
+  background: color($color-dark, 500);   // → #121426
+  color: color($color-primary);          // → #fafafa
 }
 
-// ❌ Wrong — inline Tailwind
-<div className="flex flex-col gap-6 bg-white border border-gray-200">
+// ❌ Wrong — hardcoded hex
+.hero {
+  background: #121426;
+  color: #fafafa;
+}
 ```
+
+### Mixin Usage Pattern
+
+```scss
+// ✅ Use mixins from _mixins.scss
+.hero {
+  @include flex-column;
+  @include responsive(md) {
+    @include flex-row;
+  }
+}
+
+// Breakpoints: sm (480px) | md (768px) | lg (976px) | xl (1440px)
+```
+
+### Dual Class Pattern in JSX
+
+```tsx
+// ✅ Correct — module class + global utility class
+<section className={`${styles.hero} hero`}>
+  <div className={`${styles.container} container`}>
+    <h1 className="heading heading-1">Title</h1>
+    <p className="para">Body text</p>
+    <a className="btn btn-primary">CTA</a>
+  </div>
+</section>
+
+// ❌ Wrong — inline Tailwind
+<section className="flex flex-col items-center pt-16">
+```
+
+### Global Utility Classes (available everywhere)
+
+**Buttons** (`_cta.scss`):
+- `.btn` — base (flex, padding, rounded-full in current theme)
+- `.btn-primary` — gradient fill + gradient border
+- `.btn-secondary` — transparent + blue border
+- `.btn-dark` — dark fill
+- `.btn-sm` — smaller size
+
+**Typography** (`_typography.scss`):
+- `.heading .heading-1` through `.heading-6` — scale with font-black
+- `.heading-gradient` — gradient text effect
+- `.para` — body paragraph
+- `.para-small` — smaller body text
+- `.portableText` — wrapper for PortableText content (handles p, ul, ol)
+
+---
+
+## Image Handling — SBP Specific
+
+### Static Images (from `/public/`)
+
+```tsx
+import logo from '@/public/logo.svg'
+import Image from 'next/image'
+
+<Image src={logo} alt="SBP Logo" priority />
+```
+
+### Sanity CMS Images
+
+```tsx
+import { urlFor } from '@/sanity/sanity-urlFor'
+import Image from 'next/image'
+
+<Image
+  src={urlFor(data.image).url()}
+  alt="description"
+  width={800}
+  height={600}
+/>
+```
+
+**Rules:**
+- Always use `next/image`. Never use `<img>`.
+- Set `priority` on above-the-fold images (hero, LCP candidates).
+- Use `fill` + a positioned container when dimensions are fluid.
+- `urlFor(source)` returns an image URL builder — always call `.url()` at the end.
+
+---
+
+## Sanity Rich Text — PortableText
+
+```tsx
+import { PortableText } from '@portabletext/react'
+
+<div className={`${styles.heroHeading} portableText`}>
+  <PortableText value={data.heroHeading} />
+</div>
+```
+
+- Always wrap PortableText in a `div` with the global `.portableText` class.
+- The `.portableText` global class handles paragraph gaps, list styles, and inline formatting.
+- The wrapping `div` may additionally have a module-scoped class for sizing/spacing.
+
+---
+
+## Skin Migration Rules
+
+When implementing a skin migration task:
+
+1. **Only update the page module** (`styles/pages/[Page].module.scss`) and the global base files (`_variables.scss`, `_cta.scss`, `_typography.scss`) if needed.
+2. **Do not change component structure** — only update color values, spacing, and typography.
+3. **Migration target tokens** (new design language):
+   - Background: `#ffffff`, `#f5f5f5`
+   - Primary text: `#1b1b1b`
+   - Accent: `#339dff` (structural — dividers only, not gradients)
+   - Button: `#1b1b1b` fill, `border-radius: 0`, `text-transform: uppercase`, `letter-spacing: 0.75px`, `font-size: 13px`
+   - Font: Geist (replace Helvetica Now Display progressively)
+4. **Never mix** old dark variables with new light tokens on the same page module.
+5. **Update one page at a time.** Do not migrate the global `_cta.scss` until all pages are ready.
+
+---
+
+## Hard Styling Rules
+
+- **SCSS only.** No inline Tailwind in JSX under any circumstance.
+- Tailwind utilities go inside `@apply` in `.module.scss` or `.scss` base files.
+- All spacing, color, radius, and shadow values use SCSS variables or the `color()` function.
+- No arbitrary values. No hardcoded hex codes. No magic numbers.
+
+---
 
 ## Operating Rules
 
@@ -92,17 +255,17 @@ After reading, apply each skill's checklist explicitly in the Delivery output co
 - Planner task handoff
 - Design brief, Figma link, or screenshot
 - Content requirements — delivered by orchestrator from [`content`](content.agent.md) agent output
+- Sanity GROQ query output — delivered by orchestrator from [`backend`](backend.agent.md) agent output
 - Design tokens from [`design-system/tokens/`](../instructions/design-system/tokens/)
 - Component patterns from [`design-system/components/`](../instructions/design-system/components/)
-- Data from `/data` — consume existing files; request new ones if needed
 
 ## Deliverables
 
-- `app/**/page.tsx`
-- `app/**/layout.tsx`
-- `components/**/*.tsx` + `components/**/*.module.scss`
+- `app/**/page.tsx` (metadata export + component import only)
+- `components/[Section]/[Section]Page.tsx` (server component, orchestrates sections)
+- `components/[Section]/[Section]*.tsx` (section components)
+- `styles/pages/[Page].module.scss` (page-level styles)
 - Loading, error, and empty states when warranted
-- Metadata hooks or placeholders for content inputs
 
 ## Output Contract
 
@@ -110,40 +273,33 @@ After reading, apply each skill's checklist explicitly in the Delivery output co
 ## Delivery
 - Scope completed:
 - Files created or updated:
-- SCSS modules introduced:
-- Design tokens used:
+- SCSS module updated:
+- Global base files updated (if any):
 - Client components introduced (with justification):
+- Sanity data consumed (query function name):
 
 ## Validation
-- Responsive states checked:
+- Responsive states checked (mobile / tablet / desktop):
 - Accessibility checks applied:
-- Design system compliance confirmed:
+- No hardcoded hex values or inline Tailwind:
+- Dual class pattern used throughout:
 - Remaining risks:
 ```
 
 ## Implementation Checklist
 
 - [ ] Route uses correct segment structure
-- [ ] All styles in `.module.scss` — no inline Tailwind
-- [ ] All values use design tokens — no arbitrary hex or sizes
+- [ ] Page module is in `styles/pages/` — not colocated
+- [ ] All styles in page module — no inline Tailwind
+- [ ] All color values use `color($map, $weight)` — no hardcoded hex
+- [ ] Mixins used for flex/grid patterns
+- [ ] Global utility classes used in JSX for buttons, headings, paragraphs
+- [ ] Dual class pattern: `${styles.section} section-name`
 - [ ] No server-only imports in client components
 - [ ] Tab order is logical
-- [ ] Headings follow logical hierarchy
+- [ ] Headings follow logical hierarchy (H1 → H2 → H3)
 - [ ] Interactive elements have visible focus states
-- [ ] Images have appropriate `alt` text and dimensions
-- [ ] Layout shift is minimized
-- [ ] No hardcoded nav links, footer links, or config values — all from `/data`
-- [ ] New data shapes have a corresponding interface in `data/types.ts`
-
-```md
-## Delivery
-- Completed scope: Marketing landing page shell with hero, proof section, FAQ, and lead form placeholder.
-- Files created or updated: app/(marketing)/supply-chain/page.tsx, components/marketing/Hero.tsx, components/marketing/ProofGrid.tsx.
-- Client components introduced: components/forms/LeadForm.tsx only.
-- Performance considerations: Above-the-fold content remains server-rendered and image dimensions are fixed.
-
-## Validation
-- Responsive states checked: mobile, tablet, desktop.
-- Accessibility checks applied: semantic headings, focus states, labeled form fields.
-- Remaining risks: final production imagery not yet supplied.
-```
+- [ ] Images use `next/image` with alt text and dimensions
+- [ ] Sanity images use `urlFor(source).url()`
+- [ ] PortableText wrapped in `.portableText` global class
+- [ ] Static images imported from `@/public/` with typed import
