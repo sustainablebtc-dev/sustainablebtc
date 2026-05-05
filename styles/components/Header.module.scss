@@ -1,7 +1,7 @@
 .headerTopBar {
-   background-color: color($color-green);
-   color: color($color-dark);
-   // @apply hidden md:block;
+   background-color: var(--color-bg-muted);
+   color: var(--color-text-primary);
+   border-bottom: 1px solid var(--color-border-default);
    @apply relative z-30 max-h-[44px];
 
    .container {
@@ -51,21 +51,20 @@
          height: 40px;
          padding-inline: 0.625rem;
          font-size: 0.8rem;
-         font-weight: 800;
+         font-weight: 700;
          line-height: 100%;
-         background: color($color-green, 500);
+         background: var(--color-bg-dark);
+         color: var(--color-bg-white);
          white-space: nowrap;
-         // @apply hidden;
-         box-shadow: 10px 0px 10px 0px rgba(0, 0, 0, 0.2);
-         border-top-right-radius: $inner-radius;
-         border-bottom-right-radius: $inner-radius;
+         box-shadow: none;
+         border-radius: 0;
       }
 
       @include responsive(md) {
          @apply flex-row gap-4 items-center;
 
          .globalLeaderHeading {
-            box-shadow: 10px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: none;
          }
       }
 
@@ -95,8 +94,8 @@
          height: 100%;
          background: linear-gradient(
             to left,
-            rgba(color($color-green), 1) 0%,
-            rgba(color($color-green), 0) 100%
+            rgba(245, 245, 245, 1) 0%,
+            rgba(245, 245, 245, 0) 100%
          );
       }
 
@@ -136,11 +135,10 @@
    .ticker {
       @apply flex items-center justify-end gap-x-6 gap-y-1 flex-wrap;
       @apply hidden md:flex;
-      background: rgba(250, 250, 250, 0.6);
+      background: transparent;
       height: 40px;
       padding-inline: 1rem;
-      border-top-left-radius: $inner-radius;
-      border-bottom-left-radius: $inner-radius;
+      border-radius: 0;
    }
 
    .sbc {
@@ -163,11 +161,11 @@
          font-weight: 600;
 
          &.positive {
-            color: color($color-green, 600);
+            color: var(--color-success);
          }
 
          &.negative {
-            color: color($color-red,400);
+            color: #c00707;
             
          }
       }
@@ -188,19 +186,29 @@
 
 .header {
    @apply absolute z-50 w-full;
-   @apply bg-transparent text-base;
+   @apply text-base;
+   background: var(--color-bg-muted);
+   border-bottom: 1px solid var(--color-border-default);
    @apply whitespace-nowrap;
    @apply transition-all duration-300 ease-in;
+   color: var(--color-text-primary);
 
    .container {
       @apply flex items-center gap-8;
-      @apply p-3 my-4 rounded-lg mx-4 max-w-none;
-      background: rgba($color: color($color-light), $alpha: 0.1);
-      backdrop-filter: blur(10px);
+      @apply p-3 mx-4 max-w-none;
+      background: var(--color-bg-muted);
+      border: none !important;
+      border-radius: 0;
+      backdrop-filter: none;
    }
 
    &.fixToTop {
       @apply fixed top-0;
+
+      .container {
+         box-shadow: 0 1px 0 var(--color-border-separator);
+         @apply my-0;
+      }
 
       .primaryNav {
          @apply gap-8;
@@ -232,11 +240,7 @@
          span {
             @apply absolute block w-full h-[2px];
             @apply transition-all duration-500 ease-in;
-            background: linear-gradient(
-               40deg,
-               color($color-light) 0%,
-               color($color-light) 100%
-            );
+            background: var(--color-brand);
 
             &:first-child {
                @apply top-2 -translate-y-1/2;
@@ -250,7 +254,7 @@
          }
 
          &:hover span {
-            background: linear-gradient(40deg, #339dff 0%, #0ec1d3 100%);
+            background: var(--color-accent);
          }
 
          &.open {
@@ -276,11 +280,13 @@
       transition: max-height 1s cubic-bezier(0.99, 0.2, 0.2, 0.99) 0s,
          padding 0.8s ease-in-out 0s, gap 0.5s ease-in-out 0s;
       @apply max-h-0;
-      background: color($color-dark, 400);
+      background: var(--color-bg-muted);
+      border-bottom: 1px solid var(--color-border-default);
 
       &.open {
          @apply max-h-[72vh] z-0 overflow-y-auto;
-         @apply py-8 rounded-md;
+         @apply py-8;
+         border-radius: 0;
          @apply justify-start;
          transition: padding 0.5s linear 0s,
             max-height 1s cubic-bezier(0.99, 0.2, 0.2, 0.99) 0.2s,
@@ -289,26 +295,30 @@
 
       li a {
          @apply py-4;
+         color: var(--color-text-primary);
+         text-decoration: none;
+         transition: opacity 0.15s ease;
       }
-      li:not(:has(a.btn)){
+      li:not(:has(a.btn)) {
          @apply py-1;
-         @include text-gradient(light);
+         color: var(--color-text-primary);
       }
       li .navModalLink,
       li .navDropdown label {
-         @include text-gradient(light);
+         color: var(--color-text-primary);
          cursor: pointer;
       }
 
-      li.active a {
-         @include gradient-text;
-         font-weight: 500;
+      li.active > a,
+      li.active .navDropdownLabel {
+         color: var(--color-brand);
+         font-weight: 600;
       }
 
-      li:not(:has(a.btn)):hover,
+      li:not(:has(a.btn)):hover > a,
       li .navDropdown:hover label,
       li .navModalLink:hover {
-         @include text-gradient(primary);
+         opacity: 0.6;
       }
 
       .secondaryInPrimary {
@@ -329,20 +339,22 @@
          .navDropdownMenu {
             @apply h-0 overflow-hidden;
             @apply flex-1 mt-0 py-0;
-            background: rgba(color($color-dark, 600), 0.8);
+            background: var(--color-bg-white);
+            border-top: 1px solid var(--color-border-default);
 
             li {
                @apply py-2 px-20 text-center;
+               color: var(--color-text-primary);
             }
             li a:hover {
-               @include text-gradient(primary);
+               opacity: 0.6;
             }
          }
 
          .navDropdownCheckbox:checked ~ .navDropdownMenu {
             @apply h-full mt-4  py-2;
-            @apply border-t-2;
-            border-color: #339dff;
+            @apply border-t-4;
+            border-color: var(--color-border-accent);
          }
 
          @include responsive(xl) {
@@ -354,11 +366,12 @@
             .navDropdownMenu {
                @apply w-fit h-full;
                @apply h-auto mt-0 py-2;
-               @apply absolute top-full left-[50%] -translate-x-1/2;
-               @apply border-t-2;
-               border-color: #339dff;
+               @apply absolute top-[125%] left-[25%] -translate-x-1/2;
+               @apply border-t-4;
+               border-color: var(--color-border-accent);
                opacity: 0;
                visibility: hidden;
+               box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 
                li {
                   @apply px-8;
@@ -369,7 +382,7 @@
                @apply w-fit h-full;
                @apply h-auto mt-0 py-2;
                @apply border-t-2;
-               border-color: #339dff;
+               border-color: var(--color-border-accent);
             }
 
             &:hover .navDropdownMenu {
@@ -398,21 +411,25 @@
 
          li:not(.containBtn) a {
             @apply py-1;
-            @include text-gradient(light);
+            color: var(--color-text-primary);
+            text-decoration: none;
+            transition: opacity 0.15s ease;
          }
 
          li:not(.containBtn).active a {
-            @include gradient-text;
-            font-weight: 500;
+            color: var(--color-brand);
+            font-weight: 600;
          }
 
          li:not(.containBtn) a:hover {
-            @include text-gradient(primary);
+            opacity: 0.6;
          }
 
-         .navDropdown{
-            .navDropdownMenu{
-               background: rgba(color($color-dark, 600), 0.8) !important;
+         .navDropdown {
+            .navDropdownMenu {
+               background: var(--color-bg-white) !important;
+               border: 1px solid var(--color-border-default) !important;
+               color: var(--color-text-primary);
             }
          }
       }
@@ -452,7 +469,9 @@
          @apply relative z-10;
          @apply flex-row gap-6;
          @apply py-0;
-         @apply h-auto bg-transparent;
+         @apply h-auto;
+         background: transparent;
+         border-bottom: none;
          @apply overflow-visible;
 
          &.open {

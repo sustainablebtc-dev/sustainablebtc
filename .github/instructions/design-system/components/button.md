@@ -76,11 +76,11 @@ Three button variants exist in the design system, extracted from repeated use ac
 **Tokens used:**
 | Property | Token | Value |
 |---|---|---|
-| Background | `bg-white` | `#ffffff` |
-| Border | `border-border-default` | `#e5e5e5` |
-| Text | `text-brand` | `#1b1b1b` |
+| Background | `bg-transparent` | transparent |
+| Border | `border-border-brand` | `#1b1b1b` |
+| Text | `text-text-primary` | `#1b1b1b` |
 | Icon | Arrow Right SVG | `14×14px` |
-| Hover border | `border-brand` | `#1b1b1b` |
+| Hover | fills to `bg-brand text-white` | `#1b1b1b` fill |
 
 ---
 
@@ -163,10 +163,10 @@ A compact variant used only in the navigation bar:
 
 | State | Primary | Secondary | Ghost |
 |---|---|---|---|
-| Default | `bg-brand text-white` | `bg-white border-border-default` | `border-b border-brand` |
-| Hover | `opacity-90` | `border-brand` | `opacity-70` |
-| Active | `opacity-80` | `bg-bg-muted` | `opacity-60` |
-| Disabled | `opacity-40 cursor-not-allowed` | `opacity-40 cursor-not-allowed` | `opacity-40 cursor-not-allowed` |
+| Default | `bg-brand text-white border-brand` | `bg-transparent text-primary border-brand` | `border-b border-brand` |
+| Hover | `opacity-80` | `bg-brand text-white` | `opacity-70` |
+| Active | `opacity-70` | `opacity-80` | `opacity-60` |
+| Disabled | `opacity-60 cursor-not-allowed` | `opacity-60 cursor-not-allowed` | `opacity-40 cursor-not-allowed` |
 | Focus visible | `outline-2 outline-offset-2 outline-brand` | same | same |
 
 ---

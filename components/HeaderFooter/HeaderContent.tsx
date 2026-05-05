@@ -16,7 +16,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 
 // Images
-import logo from "@/public/logo.svg";
+import logo from "@/public/sbp-logo-dark.svg";
 import sbcIcon from "@/public/sbc-icon.svg";
 import bitcoinIcon from "@/public/bitcoin-icon.svg";
 

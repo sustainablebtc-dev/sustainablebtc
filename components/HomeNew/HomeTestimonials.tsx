@@ -15,7 +15,7 @@ import { urlFor } from "@/sanity/sanity-urlFor";
 // Lib
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
-import { Autoplay, Navigation } from "swiper/modules";
+import { Autoplay, Navigation, Grid } from "swiper/modules";
 import { PortableText } from "@portabletext/react";
 
 // Image
@@ -26,10 +26,6 @@ export default function HomeTestimonials({
    testimonialData: any;
 }) {
    const swiperRef = useRef<SwiperCore | null>(null);
-   const duplicatedItems = [
-      ...testimonialData.testimonialItems,
-      ...testimonialData.testimonialItems,
-   ];
    const [activeIndex, setActiveIndex] = useState(0);
 
    useEffect(() => {
@@ -44,8 +40,8 @@ export default function HomeTestimonials({
       <section className={styles.testimonials}>
          <div className={`${styles.container} container`}>
             {testimonialData && (
-               <div className={styles.testimonialWrapper}>
-                  {/* Header */}
+               <>
+                  {/* Heading at top */}
                   <div className={styles.testimonialHeadingWrapper}>
                      <div
                         className={`${styles.testimonialHeading} portableText`}
@@ -54,22 +50,9 @@ export default function HomeTestimonials({
                            value={testimonialData.testimonialTitle}
                         />
                      </div>
-                     <div className={styles.btnWrapper}>
-                        <button
-                           className={`btn btn-secondary btn-rounded`}
-                           onClick={() => swiperRef.current?.slidePrev()}
-                        >
-                           <i className="bi bi-arrow-left"></i>
-                        </button>
-                        <button
-                           className={`btn btn-secondary btn-rounded`}
-                           onClick={() => swiperRef.current?.slideNext()}
-                        >
-                           <i className="bi bi-arrow-right"></i>
-                        </button>
-                     </div>
                   </div>
-                  {/* Sliding */}
+
+                  {/* Cards grid in middle */}
                   <div className={styles.testimonialSlider}>
                      <Swiper
                         autoplay={{
@@ -77,34 +60,47 @@ export default function HomeTestimonials({
                            disableOnInteraction: false,
                         }}
                         loop={true}
-                        spaceBetween={16}
-                        slidesPerView="auto"
-                        centeredSlides={false}
-                        navigation={{
-                           nextEl: ".swiper-button-next",
-                           prevEl: ".swiper-button-prev",
+                        spaceBetween={24}
+                        slidesPerView={1}
+                        slidesPerGroup={1}
+                        grid={{
+                           rows: 1,
+                           fill: 'row',
                         }}
+                        breakpoints={{
+                           768: {
+                              slidesPerView: 2,
+                              slidesPerGroup: 1,
+                              spaceBetween: 24,
+                           },
+                           976: {
+                              slidesPerView: 3,
+                              slidesPerGroup: 1,
+                              spaceBetween: 24,
+                           },
+                        }}
+                        watchSlidesProgress={true}
+                        observer={true}
+                        observeParents={true}
                         onSwiper={(swiper) => {
                            swiperRef.current = swiper;
                         }}
-                        modules={[Autoplay, Navigation]}
+                        modules={[Autoplay, Navigation, Grid]}
                      >
-                        {duplicatedItems.map((item: any, i: number) => (
+                        {testimonialData.testimonialItems.map((item: any, i: number) => (
                            <SwiperSlide
                               key={i}
-                              className={`${styles.testimonialSlide}
-                                          ${activeIndex === i ? styles.activeSlide : ''}`}
+                              className={styles.testimonialSlide}
                            >
                               <div className={styles.testimonialSlideInner}>
                                  {/* Image */}
-                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                  {item.testimonyImage && (
                                     <div className={styles.testimonialImageHeader}>
                                        <Image
                                           src={urlFor(item.testimonyImage)
                                              .width(400)
                                              .url()}
-                                          alt={item.testimonyImage.alt}
+                                          alt={item.testimonyImage.alt || item.testimonyName}
                                           className={
                                              styles.testimonialTestimonyImage
                                           }
@@ -112,23 +108,21 @@ export default function HomeTestimonials({
                                           height={400}
                                        />
 
-                                       {/* eslint-disable-next-line @next/next/no-img-element */}
+                                       {/* Company Logo */}
                                        {item.testimonyCompanyLogo && (
-                                          <>
-                                             <Image
-                                                src={urlFor(
-                                                   item.testimonyCompanyLogo
-                                                )
-                                                   .width(300)
-                                                   .url()}
-                                                alt={item.testimonyCompanyLogo.alt}
-                                                width={200}
-                                                height={100}
-                                                className={
-                                                   styles.testimonialTestimonyCompanyLogo
-                                                }
-                                             />
-                                          </>
+                                          <Image
+                                             src={urlFor(
+                                                item.testimonyCompanyLogo
+                                             )
+                                                .width(300)
+                                                .url()}
+                                             alt={item.testimonyCompanyLogo.alt || "Company Logo"}
+                                             width={200}
+                                             height={100}
+                                             className={
+                                                styles.testimonialTestimonyCompanyLogo
+                                             }
+                                          />
                                        )}
                                     </div>
                                  )}
@@ -143,10 +137,15 @@ export default function HomeTestimonials({
 
                                     <div>
                                        <h3
-                                          className={`${styles.testimonialTestimonyName}`}
+                                          className={styles.testimonialTestimonyName}
                                        >
                                           {item.testimonyName}
                                        </h3>
+                                       {item.testimonyDesignation && (
+                                          <p className={styles.testimonialTestimonyDesignation}>
+                                             {item.testimonyDesignation}
+                                          </p>
+                                       )}
                                     </div>
                                  </div>
                               </div>
@@ -154,7 +153,23 @@ export default function HomeTestimonials({
                         ))}
                      </Swiper>
                   </div>
-               </div>
+
+                  {/* Navigation arrows below */}
+                  <div className={styles.btnWrapper}>
+                     <button
+                        className={`btn btn-secondary btn-rounded btn-sm`}
+                        onClick={() => swiperRef.current?.slidePrev()}
+                     >
+                        <i className="bi bi-arrow-left"></i>
+                     </button>
+                     <button
+                        className={`btn btn-secondary btn-rounded btn-sm`}
+                        onClick={() => swiperRef.current?.slideNext()}
+                     >
+                        <i className="bi bi-arrow-right"></i>
+                     </button>
+                  </div>
+               </>
             )}
          </div>
       </section>

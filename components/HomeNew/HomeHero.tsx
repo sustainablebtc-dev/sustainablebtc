@@ -5,13 +5,8 @@ import styles from "@/styles/pages/HomeNew.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 
-// Sanity
-
 // Lib
 import { PortableText } from "@portabletext/react";
-
-// Images
-import imgSbcIcon from "@/public/home/sbc-icon.svg";
 
 // Component
 export default function HomeHero({ heroData }: { heroData: any }) {
@@ -23,9 +18,6 @@ export default function HomeHero({ heroData }: { heroData: any }) {
                <>
                   {/* descriptive */}
                   <div className={styles.heroDescription}>
-                     <div className={`${styles.heroIcon}`}>
-                        <Image src={imgSbcIcon} alt="SBP Token Icon" loading="lazy"/>
-                     </div>
                      <div className={`${styles.heroHeading} portableText`}>
                         <PortableText value={heroData.heroHeading} />
                      </div>
@@ -36,7 +28,7 @@ export default function HomeHero({ heroData }: { heroData: any }) {
                         {heroData.heroCTA1.heroBtn1Visible && (
                            <Link
                               href={heroData.heroCTA1.heroBtn1Slug}
-                              className={`btn btn-${heroData.heroCTA1.heroBtn1Type} ${styles.heroBtn}`}
+                              className={`btn btn-primary ${styles.heroBtn}`}
                            >
                               <span>{heroData.heroCTA1.heroBtn1Text}</span>
                               {heroData.heroCTA1.heroBtn1Icon !== "NA" ? (
@@ -53,7 +45,7 @@ export default function HomeHero({ heroData }: { heroData: any }) {
                         {heroData.heroCTA2.heroBtn2Visible && (
                            <Link
                               href={heroData.heroCTA2.heroBtn2Slug}
-                              className={`btn btn-${heroData.heroCTA2.heroBtn2Type} ${styles.heroBtn}`}
+                              className={`btn btn-secondary ${styles.heroBtn}`}
                            >
                               <span>{heroData.heroCTA2.heroBtn2Text}</span>
                               {heroData.heroCTA2.heroBtn2Icon !== "NA" ? (

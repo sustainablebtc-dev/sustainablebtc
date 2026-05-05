@@ -33,10 +33,19 @@
 
 ### Background Colors
 
+The site uses a three-tier light background hierarchy to create visual separation between layers without colour:
+
+| Tier | Token | Value | Used on |
+|---|---|---|---|
+| 1 — Page | `bg-white` | `#ffffff` | Default page body |
+| 2 — Navbar | `bg-muted` | `#f5f5f5` | Navbar, mobile nav panel |
+| 3 — Accent sections | `bg-subtle` | `#f8f8f8` | Countdown / banner strips that sit between sections |
+
 | Token Name | HEX | HSL | Usage |
 |---|---|---|---|
 | `bg-white` | `#ffffff` | `hsl(0, 0%, 100%)` | Default page background |
-| `bg-muted` | `#f5f5f5` | `hsl(0, 0%, 96%)` | Section backgrounds, tag chips |
+| `bg-muted` | `#f5f5f5` | `hsl(0, 0%, 96%)` | Navbar background, mobile nav panel |
+| `bg-subtle` | `#f8f8f8` | `hsl(0, 0%, 97%)` | Accent section strips (countdown, banners) — sits between navbar and page |
 | `bg-warm` | `#fff6f0` | `hsl(21, 100%, 97%)` | Stats bar — warm highlight strip |
 | `bg-dark` | `#1b1b1b` | `hsl(0, 0%, 11%)` | Footer background, primary buttons |
 
@@ -74,7 +83,8 @@ Add to `app/globals.scss` or a `:root` block:
 
   /* Backgrounds */
   --color-bg-white:     #ffffff;
-  --color-bg-muted:     #f5f5f5;
+  --color-bg-muted:     #f5f5f5;  /* navbar */
+  --color-bg-subtle:    #f8f8f8;  /* accent strips (countdown, banners) */
   --color-bg-warm:      #fff6f0;
   --color-bg-dark:      #1b1b1b;
 
@@ -109,7 +119,8 @@ colors: {
 
   bg: {
     white:  '#ffffff',
-    muted:  '#f5f5f5',
+    muted:  '#f5f5f5',  // navbar
+    subtle: '#f8f8f8',  // accent section strips
     warm:   '#fff6f0',
     dark:   '#1b1b1b',
   },

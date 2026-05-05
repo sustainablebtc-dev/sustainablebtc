@@ -1,39 +1,19 @@
 .hero {
    @apply relative; //position
    @apply pt-16 overflow-hidden; //box
+   padding-block: 6rem; // 96px — design system standard
+   background: var(--color-bg-white);
 
    .container {
       @apply relative; //position
-      @apply flex items-center justify-center rounded-md; //layout
-      @apply mt-8 px-8 min-h-[81vh]; //box
+      @apply flex items-center justify-center; //layout
+      @apply px-8; //box
+      min-height: 50vh;
    }
 
-   // Video background
+   // Video background — hidden in new design, kept for backward compat
    .videoHeroBg {
-      @apply absolute top-0 left-0 right-0 bottom-0;
-      @apply object-cover;
-      @apply rounded-md;
-
-      video {
-         @apply rounded-md object-cover w-full h-full;
-      }
-
-      // Overlay
-      &::before {
-         content: "";
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         @apply rounded-md;
-         background: rgb(30, 32, 63);
-         background: radial-gradient(
-            circle,
-            rgba(30, 32, 63, 0.3) 0%,
-            rgba(30, 32, 63, 1) 95%
-         );
-      }
+      @apply hidden;
    }
 
    // Content
@@ -45,68 +25,55 @@
 
       // sbc icon
       .heroIcon {
-         scale: 0.8;
-         translate: 0 10%;
          @apply block m-auto relative z-20;
 
          img {
             @apply relative z-20;
+            width: 72px;
+            height: 72px;
          }
 
+         // remove rotating svg bg
          &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            translate: -35% -35%;
-            background: url("../../public/home/sbc-icon-bg.svg");
-            width: 338px;
-            height: 342px;
-            z-index: 0;
-            animation: rotation 8s infinite linear;
-         }
-
-         @keyframes rotation {
-            from {
-               transform: translate(0%, 1%) rotate(0deg);
-            }
-
-            50% {
-               transform: translate(0%, -2%) rotate(180deg);
-            }
-
-            to {
-               transform: translate(0%, 1%) rotate(359deg);
-            }
+            content: none;
          }
       }
 
       // heading
       .heroHeading {
-         @apply max-w-[1000px]; //box
+         @apply max-w-[900px]; //box
 
          h1 {
-            @apply font-black text-3xl leading-[110%]; //font
+            font-size: 2.25rem;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            color: var(--color-text-dark);
          }
 
          b,
          strong {
-            @apply font-black block;
-            @include text-gradient(primaryReverse);
+            font-weight: 700;
+            color: var(--color-brand);
+            @apply block;
+            // remove gradient
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+            background-clip: unset;
          }
       }
 
       // paragraph
       .heroPara {
-         @apply max-w-[800px]; //box
+         @apply max-w-[680px]; //box
 
          p {
-            @apply text-base; //font
-            text-decoration: underline;
-            text-decoration-color: #339dff;
-            text-underline-offset: 0.5rem;
-            line-height: 200%;
-            padding-inline: 2rem
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--color-text-body);
+            text-decoration: none;
+            padding-inline: 0;
          }
       }
 
@@ -118,21 +85,22 @@
    }
 
    // #region Responsive
-   // Responsive for Tablet
    @include responsive(md) {
       .container {
          @apply pt-0;
       }
 
       .heroDescription {
-         .heroIcon {
-            scale: 1;
-            translate: 0 5%;
+         .heroIcon img {
+            width: 88px;
+            height: 88px;
          }
 
          .heroHeading {
             h1 {
-               @apply text-4xl leading-[120%]; //font
+               font-size: 3rem;
+               font-weight: 900;
+               line-height: 1.2;
             }
 
             b,
@@ -143,24 +111,24 @@
       }
    }
 
-   // Responsive for Desktop
    @include responsive(lg) {
-      @apply pt-0; //box
-
       .container {
-         @apply mt-24 mx-auto;
+         @apply mt-20 mx-auto;
       }
 
       .heroDescription {
-         .heroIcon {
-            scale: 1.2;
+         .heroIcon img {
+            width: 100px;
+            height: 100px;
          }
 
          .heroHeading {
             @apply mt-4;
 
             h1 {
-               @apply text-5xl leading-[120%]; //font
+               font-size: 4rem;
+               font-weight: 900;
+               line-height: 1.2;
             }
 
             b,
@@ -171,7 +139,7 @@
 
          .heroPara {
             p {
-               @apply text-lg;
+               font-size: 1.125rem;
             }
          }
       }
@@ -184,22 +152,24 @@
 }
 
 .countdown {
-   margin: 0 0 !important; // removing the margins
-   background: color($color-green);
+   margin-block: 0 !important; // removing the margins
    padding-block: 1rem;
+   background: var(--color-bg-subtle);
    min-height: initial;
 
    .countdownWrapper {
       @apply flex flex-col flex-wrap items-center justify-center gap-y-1 gap-6;
    }
 
-   .countdownHeading *,
+   .countdownHeading * {
+      color: var(--color-text-body);
+   }
    .countdownSubHeading * {
-      color: color($color-dark);
+      color: var(--color-text-secondary);
    }
    .countdownHeading {
       h6 {
-         font-weight: 900 !important;
+         font-weight: 700 !important;
       }
    }
    .countdownHeading .icon {
@@ -217,15 +187,17 @@
          @apply flex flex-col items-center justify-center gap-1;
 
          * {
-            color: color($color-dark);
+            color: var(--color-text-body);
          }
 
          &:nth-child(odd) {
             @apply w-10;
 
             .countdownClockBlockHeading {
-               background: color($color-white);
-               @apply w-10 h-10 rounded-lg;
+               background: var(--color-bg-white);
+               border: 1px solid var(--color-border-default);
+               border-radius: 0;
+               @apply w-10 h-10;
                @apply grid place-content-center;
             }
          }
@@ -239,12 +211,18 @@
 
          .countdownClockBlockPara {
             @apply h-4;
+            color: var(--color-text-muted) !important;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
          }
 
          &.gradientText {
             .countdownClockBlockHeading {
-               background: color($color-dark);
-               color: color($color-white);
+               background: var(--color-bg-white);
+               color: var(--color-text-primary);
+               border-color: var(--color-border-brand);
+               border-width: 1.5px;
             }
          }
       }
@@ -259,10 +237,21 @@
          }
 
          input {
-            @apply rounded-full h-[48px] py-0;
-            border-color: color($color-dark);
-            background: color($color-white);
-            color: color($color-dark);
+            border-radius: 0;
+            height: 48px;
+            padding-block: 0;
+            border-color: var(--color-border-default);
+            background: var(--color-bg-white);
+            color: var(--color-text-primary);
+
+            &::placeholder {
+               color: var(--color-text-muted);
+            }
+
+            &:focus {
+               border-color: var(--color-border-brand);
+               outline: none;
+            }
          }
       }
    }
@@ -286,7 +275,8 @@
                @apply w-12;
 
                .countdownClockBlockHeading {
-                  background: color($color-white);
+                  background: var(--color-bg-white);
+                  border-radius: 0;
                   @apply w-12 h-12;
                }
             }
@@ -299,8 +289,10 @@
 
             &.gradientText {
                .countdownClockBlockHeading {
-                  background: color($color-dark);
-                  color: color($color-white);
+                  background: var(--color-bg-white);
+                  color: var(--color-text-primary);
+                  border-color: var(--color-border-brand);
+                  border-width: 1.5px;
                }
             }
          }
@@ -333,13 +325,13 @@
 }
 
 .miners {
-   margin-block: 80px !important;
    min-height: initial !important;
 
    // Heading
    .heroClientHeading {
       @apply block px-16 mb-8; //box
       @apply text-center font-bold text-base leading-[110%]; //font
+      color: var(--color-brand);
    }
 
    // Images
@@ -348,7 +340,7 @@
       @apply h-auto;
 
       img {
-         filter: brightness(0) invert(1);
+         filter: brightness(0);
          opacity: 0.8;
          max-height: 40px;
          width: auto;
@@ -365,7 +357,6 @@
 
    // Responsive for Desktop
    @include responsive(lg) {
-      margin-block: 100px !important;
    }
 
    @include responsive(xl) {
@@ -377,7 +368,6 @@
 .about {
    @apply overflow-hidden; //box
    min-height: initial !important;
-   margin-block: 5rem !important;
 
    .container {
       @apply mx-auto px-4;
@@ -389,7 +379,29 @@
 
    .image {
       @apply aspect-video cursor-pointer;
-      @apply w-full mx-auto rounded-3xl;
+      @apply w-full mx-auto;
+      border-radius: 0;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--color-border-default);
+
+      // Vignette overlay — makes the embed feel set into the page
+      &::after {
+         content: '';
+         position: absolute;
+         inset: 0;
+         pointer-events: none;
+         z-index: 1;
+         background:
+            linear-gradient(to right, rgba(255,255,255,0.12) 0%, transparent 10%, transparent 90%, rgba(255,255,255,0.12) 100%),
+            linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, transparent 22%, transparent 72%, rgba(0,0,0,0.18) 100%);
+         box-shadow: inset 0 0 0 1px rgba(0,0,0,0.07);
+      }
+
+      iframe {
+         border-radius: 0;
+         display: block;
+      }
    }
 
    .content {
@@ -404,10 +416,16 @@
    .heading {
       h4 {
          @apply text-xl font-normal leading-[140%]; //font
+         color: var(--color-text-primary);
 
          strong {
             @apply block; //box
             @apply text-3xl font-black; //font
+            // Override legacy gradient from global .heading strong rule
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: var(--color-text-primary);
+            color: var(--color-text-primary);
          }
       }
    }
@@ -420,7 +438,6 @@
    // Responsive for Desktop
    @include responsive(lg) {
       @apply overflow-hidden; //box
-      margin-block: 100px !important;
 
       .wrapper {
          @apply grid grid-cols-2 gap-8 items-start;
@@ -458,8 +475,10 @@
 }
 
 .scheduleCall {
-   background: $gradient-primary;
-   padding-block: 4rem;
+   background: var(--color-bg-white);
+   border-top: 1px solid var(--color-border-default);
+   border-bottom: 1px solid var(--color-border-default);
+   padding-block: 6rem; // 96px — design system standard
    min-height: initial;
    margin-bottom: 0 !important;
    position: relative;
@@ -469,30 +488,32 @@
       @apply flex flex-col justify-between items-center gap-8;
       @apply text-center;
       @apply max-w-[1200px];
+      position: relative;
+      z-index: 1;
+   }
+
+   // Override global .heading color (legacy was white/light)
+   .scheduleCallHeading {
+      h5, h5 * {
+         color: var(--color-text-primary);
+      }
    }
 
    .scheduleCallCTA {
       white-space: nowrap;
-
-      button,
-      a {
-         background: color($color-dark);
-         border-color: color($color-light);
-
-         &:hover {
-            background: color($color-dark, 600);
-         }
-      }
    }
 
    .scheduleCallBg {
       @apply absolute top-1/2 left-1/2 -translate-y-1/2;
-      @apply h-[400px] aspect-square opacity-50;
+      @apply h-[400px] aspect-square;
+      opacity: 0.1;
+      filter: invert(1);
+      z-index: 0;
    }
 
    @include responsive(lg) {
       .container {
-         @apply flex-row  gap-12;
+         @apply flex-row gap-12;
          @apply text-left mx-auto;
       }
    }
@@ -500,127 +521,179 @@
 
 .testimonials {
    @apply relative; //position
+   margin-block: 6rem; // 96px — design system standard
+   background: var(--color-bg-white);
+   min-height: initial !important;
+   margin-block: 0 !important;
 
-   .testimonialWrapper {
-      @apply flex flex-col gap-12; //layout
+   .container {
+      @apply max-w-[1300px] mx-auto px-4;
+      @apply flex flex-col gap-12;
+   }
 
-      .testimonialHeadingWrapper {
-         @apply flex flex-col gap-4; //layout
+   // Heading at top
+   .testimonialHeadingWrapper {
+      @apply flex flex-col items-center gap-4; //layout
+      @apply text-center;
 
-         .btnWrapper {
-            @apply flex gap-2 items-center; //layout
+      .testimonialHeading {
+         h3 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            color: var(--color-text-dark);
          }
+      }
 
-         .testimonialHeading {
-            @include text-gradient(primaryReverse);
-            @apply leading-[110%];
-         }
+      .btnWrapper {
+         @apply hidden; // Hide old button wrapper
       }
    }
 
+   // Cards wrapper
+   .testimonialWrapper {
+      @apply w-full;
+   }
+
    .testimonialSlider {
-      width: fit-content;
-      width: 100%;
+      @apply w-full;
+      overflow: hidden;
+
+      // Force equal heights within swiper
+      .swiper-wrapper {
+         align-items: stretch;
+      }
    }
 
    .swiper-slide {
-      max-width: 300px !important;
+      height: auto;
+      width: 100% !important;
+      box-sizing: border-box;
+      display: flex;
    }
 
+   // Card styling — light background, square corners, no blue
    .testimonialSlide {
-      @apply h-full rounded-lg; //box
-      max-width: 400px !important;
+      @apply h-full w-full;
+      display: flex;
+      flex-direction: column;
+      background: var(--color-bg-white);
+      border: 1px solid var(--color-border-default);
+      border-radius: 0;
+      transition: all 0.3s ease;
 
-      background: linear-gradient(
-         39deg,
-         rgba(51, 157, 255, 0.1) 0%,
-         rgba(14, 193, 211, 0.1) 100%
-      );
+      &:hover {
+         border-color: var(--color-border-brand);
+         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      }
 
       .testimonialSlideInner {
          @apply p-8;
          @apply flex flex-col gap-6; //layout
+         @apply h-full; // Fill parent height
+         flex: 1;
 
          .testimonialTestimonyCompanyLogo {
             @apply h-7 my-2;
-            filter: brightness(0) invert(1);
+            filter: grayscale(100%) brightness(0);
             width: auto;
          }
       }
 
       .testimonialImageHeader {
-         @apply flex flex-row gap-8;
+         @apply flex flex-row gap-4 items-center;
       }
 
       .testimonialTestimonyImage {
-         @apply rounded-full w-24 aspect-square;
+         @apply rounded-full w-16 aspect-square;
+         border: 2px solid var(--color-border-default);
       }
 
       .testimonialTestimony {
          @apply not-italic font-normal;
-         font-size: 1.1rem;
+         font-size: 1rem;
+         line-height: 1.6;
+         color: var(--color-text-body);
+         flex: 1; // Expand to fill available space
       }
 
       .testimonialTestimonyName {
          @apply font-bold text-base;
-         @apply mt-4 mb-2;
-         @include gradient-text;
+         @apply mt-4 mb-1;
+         color: var(--color-text-dark);
+      }
+
+      .testimonialTestimonyDesignation {
+         font-size: 0.9rem;
+         color: var(--color-text-secondary);
       }
 
       hr {
          width: 3rem;
          margin-block: 1rem;
+         border-color: var(--color-border-default);
+      }
+   }
+
+   // Navigation arrows - below cards
+   .btnWrapper {
+      @apply flex gap-4 items-center justify-center;
+
+      button {
+         @apply w-10 h-10;
+         @apply flex items-center justify-center;
+         @apply cursor-pointer;
+         background: var(--color-bg-white);
+         border: 1px solid var(--color-border-default);
+         border-radius: 0;
+         color: var(--color-text-primary);
+         transition: all 0.2s ease;
+         padding: 0.5rem;
+
+         &:hover {
+            background: var(--color-bg-dark);
+            color: var(--color-bg-white);
+            border-color: var(--color-border-brand);
+         }
+
+         &:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+         }
+
+         i {
+            font-size: 1rem;
+         }
       }
    }
 
    // #region Responsive
-   // Responsive for Tablet
+   // Responsive for Tablet - 2 cards
    @include responsive(md) {
-   }
-
-   // Responsive for Desktop
-   @include responsive(lg) {
-      &::after {
-         content: "";
-         position: absolute;
-         width: 50vw;
-         height: 100%;
-         top: 0;
-         right: 0;
-         pointer-events: none;
-         background: linear-gradient(
-            to right,
-            rgba(#1e203f, 0) 0%,
-            rgba(#1e203f, 1) 95%
-         );
-         z-index: 20;
-      }
-
-      .testimonialWrapper {
-         @apply flex-row gap-24; //layout
-
-         .testimonialHeadingWrapper {
-            @apply flex gap-8 py-8; //layout
-
-            .btnWrapper {
-               @apply gap-4; //layout
-            }
+      .testimonialHeadingWrapper {
+         .testimonialHeading h3 {
+            font-size: 3rem;
          }
       }
 
       .testimonialSlide {
-         max-width: 450px !important;
-
-         &.activeSlide {
-            background: linear-gradient(
-               39deg,
-               rgba(51, 157, 255, 0.3) 0%,
-               rgba(14, 193, 211, 0.3) 100%
-            );
+         .testimonialTestimony {
+            font-size: 1.1rem;
          }
 
+         .testimonialTestimonyImage {
+            @apply w-20;
+         }
+      }
+   }
+
+   // Responsive for Desktop - 3 cards
+   @include responsive(lg) {
+   
+
+      .testimonialSlide {
          .testimonialTestimony {
-            @apply text-lg not-italic;
+            font-size: 1.125rem;
          }
       }
    }
@@ -634,6 +707,7 @@
 .sbc {
    @apply relative; //position
    @apply text-center; //font
+   padding-block: 6rem; // 96px — design system standard
 
    // background styling
    .sbcBg {
@@ -785,12 +859,8 @@
 
 .trust {
    @apply min-h-fit overflow-hidden; //box
-   padding-block: 4rem !important;
-   background: linear-gradient(
-      39deg,
-      rgba(51, 157, 255, 0.1) 0%,
-      rgba(14, 193, 211, 0.1) 100%
-   );
+   padding-block: 6rem; // 96px — design system standard
+   background: var(--color-bg-subtle);
    margin-block: 0 !important;
 
    .wrapper {
@@ -890,13 +960,21 @@
    .trustHeading {
       @apply leading-[100%];
 
+      h4, h4 * {
+         color: var(--color-text-dark) !important;
+         -webkit-text-fill-color: var(--color-text-dark) !important;
+      }
+
       h4 {
          @apply text-3xl;
       }
 
       strong {
          font-weight: 900;
-         @include text-gradient(primary);
+         background: none;
+         -webkit-background-clip: unset;
+         -webkit-text-fill-color: var(--color-text-dark) !important;
+         color: var(--color-text-dark) !important;
       }
    }
 
@@ -944,6 +1022,8 @@
 }
 
 .homeFaq {
+   padding-block: 6rem; // 96px — design system standard
+
    .container {
       @apply grid gap-8;
    }
@@ -981,6 +1061,7 @@
 .downloadwhitepaper {
    @apply overflow-hidden;
    min-height: fit-content;
+   padding-block: 6rem; // 96px — design system standard
 
    .container {
       background: linear-gradient(40deg, #339dff 0%, #0ec1d3 100%);

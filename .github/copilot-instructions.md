@@ -287,37 +287,69 @@ The **target design language** (defined in `.github/instructions/design-system/`
 
 ---
 
-## SCSS Variables Reference (Current)
+## Design Token System (Active)
 
-Defined in `styles/base/_variables.scss`:
+The site has migrated from legacy SCSS color maps to CSS custom properties. **CSS custom properties are the source of truth for all new and migrated code.**
+
+### Background Hierarchy
+
+Three tiers create visual separation between layers without contrast:
+
+| Tier | Token | Value | Applied to |
+|---|---|---|---|
+| 1 — Page | `--color-bg-white` | `#ffffff` | `body`, default page background |
+| 2 — Navbar | `--color-bg-muted` | `#f5f5f5` | Navbar, mobile nav panel |
+| 3 — Accent strips | `--color-bg-subtle` | `#f8f8f8` | Countdown, announcement banners |
+
+### Full `:root` Token Block
+
+Defined in `styles/global.scss`:
 
 ```scss
-// Gradient (current accent)
-$gradient-primary: linear-gradient(40deg, #339dff 0%, #0ec1d3 100%);
+:root {
+  /* Brand */
+  --color-brand:            #1b1b1b;
+  --color-accent:           #339dff;
 
-// Color maps — accessed via color($color-dark, 500)
-$color-dark:    (50: #e9e9ec, 75: #a3a4b0, 100: #7d7e90, 200: #a3a4b0,
-                 300: #1e203f, 400: #15162c, 500: #121426, 600: #0b0d18,
-                 default: #1e203f)
+  /* Semantic */
+  --color-success:          #289e4b;
+  --color-success-bg:       rgba(40, 158, 75, 0.10);
+
+  /* Text */
+  --color-text-primary:     #1b1b1b;
+  --color-text-dark:        #000000;
+  --color-text-body:        #3a3a3a;
+  --color-text-secondary:   #555555;
+  --color-text-muted:       #a3a3a3;
+
+  /* Backgrounds */
+  --color-bg-white:         #ffffff;  /* page */
+  --color-bg-muted:         #f5f5f5;  /* navbar */
+  --color-bg-subtle:        #f8f8f8;  /* accent strips */
+  --color-bg-warm:          #fff6f0;
+  --color-bg-dark:          #1b1b1b;
+
+  /* Borders */
+  --color-border-default:   #e5e5e5;
+  --color-border-brand:     #1b1b1b;
+  --color-border-accent:    #339dff;
+  --color-border-separator: #a3a3a3;
+}
+```
+
+### Legacy SCSS Variables (Unmigrated sections only)
+
+The legacy `color()` function and SCSS maps still exist in `styles/base/_variables.scss` and are used in unmigrated page sections. Do **not** use them in new or migrated code.
+
+```scss
+// Legacy — do not use for new code
+$color-dark:    (500: #121426, default: #1e203f, ...)
 $color-primary: (default: #fafafa)
-$color-light:   (default: #fafafa)
-$color-white:   (default: #ffffff)
-$color-green:   (400: #CFFFBD, 500: #16D563, 600: hsl(144,81%,20%), default: #34ea7e)
-$color-red:     (300: #e13535, default: #f83939, 400: #C00707)
-
-// Font
-$font-primary: "Helvetica Now Display", sans-serif;
-
-// Radius
-$inner-radius: 0.625rem;
-$outer-radius: 1.25rem;
+$color-green:   (default: #34ea7e)
+$gradient-primary: linear-gradient(40deg, #339dff 0%, #0ec1d3 100%)
 ```
 
-Usage via the `color()` helper function:
-```scss
-color: color($color-primary);          // → #fafafa
-background: color($color-dark, 500);   // → #121426
-```
+**Migration rule:** When touching a section, replace all `color($color-*)` calls and `$gradient-primary` with the CSS custom property equivalents. Never mix both systems on the same page surface.
 
 ---
 
@@ -355,12 +387,12 @@ $breakpoints: (sm: 480px, md: 768px, lg: 976px, xl: 1440px)
 These are globally available — import `styles/imports.scss` to access in any module:
 
 **Buttons** (`styles/base/_cta.scss`):
-- `.btn` — base button (flex, padding, rounded-full)
-- `.btn-primary` — gradient fill + gradient border
-- `.btn-secondary` — transparent + blue border
-- `.btn-dark` — dark fill
-- `.btn-sm` — smaller height/padding
-- `.btn-rounded` — square aspect-ratio icon button
+- `.btn` — base button: square corners (`border-radius: 0`), `13px`, `font-weight: 500`, uppercase, `letter-spacing: 0.75px`, `padding: 10px 24px`
+- `.btn-primary` — `var(--color-bg-dark)` fill (#1b1b1b), white text, dark border; `opacity: 0.8` on hover
+- `.btn-secondary` — transparent bg, `var(--color-border-brand)` border, dark text; fills to dark on hover
+- `.btn-dark` — same as primary (alias)
+- `.btn-sm` — compact height (`2.5rem`), smaller padding and font
+- `.btn-rounded` — square aspect-ratio icon button, `border-radius: 0`
 
 **Typography** (`styles/base/_typography.scss`):
 - `.heading .heading-1` through `.heading-6` — heading scale (font-black, leading-[110%])
